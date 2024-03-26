@@ -1,0 +1,141 @@
+
+@import url(post.css);
+@import url(calendar.css);
+@import url(classes.css);
+
+:root{
+    --main-blue: #0064D0;
+    --thin-border: solid 1px #ccc;
+    --left-right-margin: 0px 5px 0px 5px;
+    
+}
+
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--main-blue);
+    --bs-btn-border-color: var(--main-blue);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #0b5ed7;
+    --bs-btn-hover-border-color: #0a58ca;
+    --bs-btn-focus-shadow-rgb: 49,132,253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #0a58ca;
+    --bs-btn-active-border-color: #0a53be;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #0d6efd;
+    --bs-btn-disabled-border-color: #0d6efd;
+}
+
+.btn-secondary{
+    --bs-btn-color: #000;
+    --bs-btn-bg: rgba(0,0,0,0);
+    --bs-btn-border-color: rgba(0,0,0,0);
+    --bs-btn-hover-color: #000;
+    --bs-btn-hover-bg: #ccc;
+    --bs-btn-hover-border-color: #ccc;
+    --bs-btn-focus-shadow-rgb: 49,132,253;
+    --bs-btn-active-color: #000;
+    --bs-btn-active-bg: #ccc;
+    --bs-btn-active-border-color: #ccc;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #000;
+    --bs-btn-disabled-bg: #aaa;
+    --bs-btn-disabled-border-color: #aaa;
+}
+
+.form-control:disabled {
+    background-color: #fff;
+    opacity: 1;
+}
+
+.body{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x:hidden;
+    overflow-y:hidden;
+}
+
+/* HEADER */
+.header{
+    background-color: var(--main-blue);
+    height: 100px;
+    right: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+/* MAIN */
+/* Ponerle media */
+.main{
+    height: 100vh;
+    width: 100%;
+    overflow-y:hidden;
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.main::-webkit-scrollbar {
+    display: none;
+}
+
+.main .row{
+    height: 100%;
+}
+
+.main *{
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+
+@media  (max-width: 1200px) {
+    .body{
+        overflow-y:auto;
+    }
+
+    .main{
+        overflow-y: auto;
+    }
+
+    .post-section{
+        overflow-y: auto;
+    }
+}
+
+/* CLASS SECTION */
+
+.class-section{
+    
+    height: 100%;
+}
+
+/* POST SECTION */
+.post-section{
+    overflow:hidden;
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.post-section::-webkit-scrollbar {
+    display: none;
+}
+
+/* CALENDAR SECTION */
+
+.calendar-section{
+    
+    height: 100%;
+}
+
+/* FOOTER */
+.footer{
+    background-color: var(--main-blue);
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
