@@ -67,8 +67,8 @@ export class Login {
                     //     document.getElementById('datos').innerHTML +=texto;
                     // }
                     console.log(datos);
-                    localStorage.setItem('token', datos["email"]);
-                    localStorage.setItem('role', datos["rol"]);
+                    localStorage.setItem('email', datos["email"]);
+                    localStorage.setItem('rol', datos["rol"]);
                     localStorage.setItem('lastCodAula', datos["lastCodAula"])
                     console.log("Completado");
                     enviarRuta('/');

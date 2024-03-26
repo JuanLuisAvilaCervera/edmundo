@@ -1,13 +1,14 @@
 //ELEGIR ENTRE ALUMNO Y PROFESOR
 import { enviarRuta } from "../../router.js";
 
-export class ChooseClass {
+export class ChooseRole {
     //ROL DEL USUARIO
     // 0 = NO ASIGNADO
     // 1 = PROFESOR
     // 2 = ALUMNO
     // 3 = ADMINISTRADOR
     rol=0;
+    email = localStorage.getItem('email');
 
     chooseRoleHTML = `<h1> ¿ERES PROFESOR O ESTUDIANTE? </h1>
     <button id="rolProfesor"> PROFESOR</button>
@@ -19,7 +20,7 @@ export class ChooseClass {
 
     crearChooseRole() {
 
-        document.getElementById('body').innerHTML = this.chooseClassHTML;
+        document.getElementById('body').innerHTML = this.chooseRoleHTML;
 
         document.getElementById('rolProfesor').addEventListener('click', () =>{
             this.rol = 1;
@@ -32,7 +33,7 @@ export class ChooseClass {
     }
 
     crea_query_string() {
-        var obj = {"rol":this.rol};
+        var obj = {"rol":this.rol, "email":this.email};
         var cadena = JSON.stringify(obj);
         return cadena;
     }
@@ -53,6 +54,7 @@ export class ChooseClass {
                     //     
                     //     document.getElementById('datos').innerHTML +=texto;
                     // }
+                    localStorage.setItem("rol", this.rol);
                     console.log(datos);
                     console.log("Completado");
                 }

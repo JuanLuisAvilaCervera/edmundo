@@ -9,17 +9,24 @@ var indexHTML = "";
 var body = document.getElementById('body');
 
 export function enviarRuta(ruta) {
-    var token = localStorage.getItem('token');
+    var token = localStorage.getItem('email');
     if (token != "" && token != null && token != undefined) {
         switch (ruta) {
             case "/":
-                //COMPROBAR CLASE
-                let classCode = localStorage.getItem('classCode');
-                if(classCode != "" && classCode != undefined && classCode != null){
-                    let home = new Home();
+                //COMPROBAR ROL
+                let rol = localStorage.getItem('rol');
+                if(rol != 0){
+                    //COMPROBAR CLASE
+                    let classCode = localStorage.getItem('classCode');
+                    if(classCode != "" && classCode != undefined && classCode != null){
+                        let home = new Home();
+                    }else{
+                        enviarRuta('/chooseClass');
+                    }
                 }else{
-                    enviarRuta('/chooseClass');
+                    enviarRuta('/chooseRole');
                 }
+                
                 break;
             case "/chooseClass":
                 let chooseClass = new ChooseClass();

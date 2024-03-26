@@ -1,16 +1,19 @@
 <?php
 require_once 'ConexionDB.php';
 
+//SELECT
 function select($tabla,$columna = '*'){
     $conexion = ConexionDB::getConexion(BBDD);
     $sql = "SELECT ".$columna.' FROM '.$tabla;
     $consulta = $conexion -> query($sql);
     return $consulta;
 }
+//SELECT (SQL COMPLETO)
 function selectsql($sql){
     $conexion = ConexionDB::getConexion(BBDD);
     return $conexion -> query($sql);
 }
+//UPDATE
 function update($tabla, $condicion,  $arraycampos){
     $conexion = ConexionDB::getConexion(BBDD);
     $sql = "UPDATE ".$tabla." SET ";
@@ -21,7 +24,7 @@ function update($tabla, $condicion,  $arraycampos){
     $sql.= " WHERE ".$condicion;
     return $conexion ->query($sql);
 }
-
+//INSERT
 function insert($tabla,$campos){
     $conexion = ConexionDB::getConexion(BBDD);
     $sql = "INSERT INTO ".$tabla." VALUES (";
