@@ -15,16 +15,35 @@ export function enviarRuta(ruta) {
             case "/":
                 //COMPROBAR ROL
                 let rol = localStorage.getItem('rol');
-                if(rol != 0){
-                    //COMPROBAR CLASE
-                    let classCode = localStorage.getItem('classCode');
-                    if(classCode != "" && classCode != undefined && classCode != null){
-                        let home = new Home();
-                    }else{
-                        enviarRuta('/chooseClass');
-                    }
-                }else{
-                    enviarRuta('/chooseRole');
+                let classCode = localStorage.getItem('lastCodeAula');
+                console.log("ROL: " + rol);
+                switch(rol){
+                    //PROFESOR
+                    case "1":
+                        //COMPROBAR CLASE
+                        
+                        if(classCode != "" && classCode != undefined && classCode != null){
+                            let home = new Home();
+                        }else{
+                            //enviarRuta('/crearAula');
+                        }
+                        break;
+                    //ALUMNO
+                    case "2":
+                        //COMPROBAR CLASE
+                        if(classCode != "" && classCode != undefined && classCode != null){
+                            let home = new Home();
+                        }else{
+                            enviarRuta('/chooseClass');
+                        }
+                        break;
+                    //ADMIN
+                    case "3":
+                        break;
+                    //ROL NO ASIGNADO
+                    default:
+                        enviarRuta('/chooseRole');
+                        break;
                 }
                 
                 break;

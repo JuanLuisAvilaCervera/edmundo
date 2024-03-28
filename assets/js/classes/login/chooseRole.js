@@ -49,14 +49,11 @@ export class ChooseRole {
                     console.log("Fallo");
                 }else{
                     //ENVIAR DATOS POR PANTALLA
-                    // for(var atributo in datos){
-                    //     let texto = atributo +"->" +datos[atributo]+"<br>";
-                    //     
-                    //     document.getElementById('datos').innerHTML +=texto;
-                    // }
-                    localStorage.setItem("rol", this.rol);
-                    console.log(datos);
+                    // 
+                    //console.log(datos);
+                    localStorage.setItem("rol", datos["rol"]);
                     console.log("Completado");
+                    enviarRuta('/');
                 }
 
             }

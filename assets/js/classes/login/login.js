@@ -44,9 +44,6 @@ export class Login {
             this.error(1); // ERROR: FALTAN DATOS
         } else {
             this.BBDDcall();
-            
-            enviarRuta('/');
-
         }
     }
 
