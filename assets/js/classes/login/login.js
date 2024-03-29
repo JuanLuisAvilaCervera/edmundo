@@ -44,9 +44,6 @@ export class Login {
             this.error(1); // ERROR: FALTAN DATOS
         } else {
             this.BBDDcall();
-            
-            enviarRuta('/');
-
         }
     }
 
@@ -77,7 +74,7 @@ export class Login {
             }
         };
         //PAGINA ENVIO PHP
-        xmlhttp.open('POST','assets/php/login.php');
+        xmlhttp.open('POST','assets/php/Login/login.php');
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string();
         xmlhttp.send(cadena);

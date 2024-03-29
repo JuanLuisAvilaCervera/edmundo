@@ -2,7 +2,8 @@ import { Home } from "./classes/home/home.js";
 import { Login } from "./classes/login/login.js";
 import { Register } from "./classes/login/register.js";
 import { CorrectReg } from "./classes/login/correctReg.js";
-import { ChooseClass } from "./classes/login/chooseClass.js";
+import { ChooseClass } from "./classes/login/alumno/chooseClass.js";
+import { CreateClass } from "./classes/login/profesor/createClass.js";
 import { ChooseRole } from "./classes/login/chooseRole.js";
 
 var indexHTML = "";
@@ -15,21 +16,43 @@ export function enviarRuta(ruta) {
             case "/":
                 //COMPROBAR ROL
                 let rol = localStorage.getItem('rol');
-                if(rol != 0){
-                    //COMPROBAR CLASE
-                    let classCode = localStorage.getItem('classCode');
-                    if(classCode != "" && classCode != undefined && classCode != null){
-                        let home = new Home();
-                    }else{
-                        enviarRuta('/chooseClass');
-                    }
-                }else{
-                    enviarRuta('/chooseRole');
+                let classCode = localStorage.getItem('lastCodAula');
+                console.log("ROL: " + rol);
+                switch(rol){
+                    //PROFESOR
+                    case "1":
+                        //COMPROBAR CLASE
+                        
+                        if(classCode != "" && classCode != undefined && classCode != null){
+                            let home = new Home();
+                        }else{
+                            enviarRuta('/crearAula');
+                        }
+                        break;
+                    //ALUMNO
+                    case "2":
+                        //COMPROBAR CLASE
+                        if(classCode != "" && classCode != undefined && classCode != null){
+                            let home = new Home();
+                        }else{
+                            enviarRuta('/chooseClass');
+                        }
+                        break;
+                    //ADMIN
+                    case "3":
+                        break;
+                    //ROL NO ASIGNADO
+                    default:
+                        enviarRuta('/chooseRole');
+                        break;
                 }
                 
                 break;
             case "/chooseClass":
                 let chooseClass = new ChooseClass();
+                break;
+            case "/crearAula":
+                let createClass = new CreateClass();
                 break;
             case "/chooseRole":
                 let chooseRole = new ChooseRole();
