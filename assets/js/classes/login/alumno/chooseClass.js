@@ -22,13 +22,16 @@ export class ChooseClass {
         })
         document.getElementById('enviarCode').addEventListener('click', () => {
             this.classCode = document.getElementById('classCode').value;
-            if(classCode != "" && classCode.length == 6){
+            console.log(this.classCode);
+            if(this.classCode.length == 6){
                 
                 //COMPROBAR EN BASE DE DATOS
                 this.BBDDcall();
                 // localStorage.setItem('classCode', classCode);
                 
             }else{
+                console.log("error: classcode empty or length > or < to 6");
+                console.log(this.classCode.length);
                 //ERROR
             }
         });
@@ -50,7 +53,7 @@ export class ChooseClass {
     }
 
     crea_query_string() {
-        var obj = {"codAula": this.classCode};
+        var obj = {"codAula": this.classCode , "email": localStorage.getItem("email")};
         var cadena = JSON.stringify(obj);
         return cadena;
     }
@@ -74,7 +77,7 @@ export class ChooseClass {
             }
         };
         //PAGINA ENVIO PHP
-        xmlhttp.open('POST','assets/php/classCode.php');
+        xmlhttp.open('POST','assets/php/joinAula/classCode.php');
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string();
         xmlhttp.send(cadena);

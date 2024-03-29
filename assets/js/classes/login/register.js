@@ -94,7 +94,7 @@ export class Register {
             }
         };
         //PAGINA ENVIO PHP
-        xmlhttp.open('POST','assets/php/register.php');
+        xmlhttp.open('POST','assets/php/Login/register.php');
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string();
         xmlhttp.send(cadena);

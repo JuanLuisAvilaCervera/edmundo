@@ -2,7 +2,8 @@ import { Home } from "./classes/home/home.js";
 import { Login } from "./classes/login/login.js";
 import { Register } from "./classes/login/register.js";
 import { CorrectReg } from "./classes/login/correctReg.js";
-import { ChooseClass } from "./classes/login/chooseClass.js";
+import { ChooseClass } from "./classes/login/alumno/chooseClass.js";
+import { CreateClass } from "./classes/login/profesor/createClass.js";
 import { ChooseRole } from "./classes/login/chooseRole.js";
 
 var indexHTML = "";
@@ -15,7 +16,7 @@ export function enviarRuta(ruta) {
             case "/":
                 //COMPROBAR ROL
                 let rol = localStorage.getItem('rol');
-                let classCode = localStorage.getItem('lastCodeAula');
+                let classCode = localStorage.getItem('lastCodAula');
                 console.log("ROL: " + rol);
                 switch(rol){
                     //PROFESOR
@@ -25,7 +26,7 @@ export function enviarRuta(ruta) {
                         if(classCode != "" && classCode != undefined && classCode != null){
                             let home = new Home();
                         }else{
-                            //enviarRuta('/crearAula');
+                            enviarRuta('/crearAula');
                         }
                         break;
                     //ALUMNO
@@ -49,6 +50,9 @@ export function enviarRuta(ruta) {
                 break;
             case "/chooseClass":
                 let chooseClass = new ChooseClass();
+                break;
+            case "/crearAula":
+                let createClass = new CreateClass();
                 break;
             case "/chooseRole":
                 let chooseRole = new ChooseRole();

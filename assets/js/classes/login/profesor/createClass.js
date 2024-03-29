@@ -1,7 +1,7 @@
 //ELEGIR CLASE AL REGISTRARSE COMO ALUMNO
 import { enviarRuta } from "../../../router.js";
 
-export class CreateCalss {
+export class CreateClass {
     
     aulaName = "";
 
@@ -29,7 +29,7 @@ export class CreateCalss {
     }
 
     crea_query_string() {
-        var obj = {"aulaName": this.aulaName};
+        var obj = {"aulaName": this.aulaName, "email":localStorage.getItem("email")};
         var cadena = JSON.stringify(obj);
         return cadena;
     }
@@ -46,14 +46,15 @@ export class CreateCalss {
                 }else{
                     console.log(datos);
                     console.log("Completado");
-                    localStorage.setItem("lastCodAula", datos["code"]);
+                    console.log(datos["codAula"]);
+                    localStorage.setItem("lastCodAula", datos["codAula"]);
                     enviarRuta('/');
                 }
 
             }
         };
         //PAGINA ENVIO PHP
-        xmlhttp.open('POST','assets/php/createAula.php');
+        xmlhttp.open('POST','assets/php/joinAula/createAula.php');
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string();
         xmlhttp.send(cadena);
