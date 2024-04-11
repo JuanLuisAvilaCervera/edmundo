@@ -1,3 +1,4 @@
+import { enviarRuta } from "../../router.js";
 
 //ATTACHED PREVIEW TO FILES
 {/*
@@ -34,16 +35,18 @@ export class Post {
         </textarea>
     </div>
 </div>`;
+    textareaPost = "";
+
 
     constructor() {
         var postListDiv = document.getElementById('post-list');
         var textPost = document.getElementById('text-post');
 
         document.getElementById('send-post').addEventListener('click', () => {
-            var textareaPost = document.getElementById('text-post');
+            this.textareaPost = textPost.value;
             var newPost = this.postHTML;
-            if (textareaPost.value != "") {
-                newPost = newPost.replace('[CONTENIDO]' , textareaPost.value);
+            if (textareaPost != "") {
+                newPost = newPost.replace('[CONTENIDO]' , textareaPost);
 
                 // LLAMADA A BASE DE DATOS, 
                 this.BBDDcallSendPost();
@@ -68,7 +71,8 @@ export class Post {
     }
 
     crea_query_string() {
-        var obj = {"codAula": this.classCode , "email": localStorage.getItem("email")};
+        // var obj = {"codAula": this.classCode , "email": localStorage.getItem("email")};
+        var obj = {"text":this.textPost.value, "email": localStorage.getItem("email")}
         var cadena = JSON.stringify(obj);
         return cadena;
     }
@@ -80,19 +84,18 @@ export class Post {
                 console.log(this.responseText);
                 var datos = JSON.parse(this.responseText);
                 if (datos == "") {
-                    //document.getElementById('datos').innerHTML = "La contraseña o el usuario introducidos son incorrectos";
                     console.log("Fallo");
                 }else{
                     console.log(datos);
                     console.log("Completado");
-                    localStorage.setItem("lastCodAula", this.classCode);
-                    enviarRuta('/');
+                    //REFRESCAR PÁGINA
+                    enviarRuta("/");
                 }
 
             }
         };
         //PAGINA ENVIO PHP
-        xmlhttp.open('POST','assets/php/posts/classCode.php');
+        xmlhttp.open('POST','assets/php/posts/sendPosts.php');
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string();
         xmlhttp.send(cadena);
