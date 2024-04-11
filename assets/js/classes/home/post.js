@@ -1,4 +1,4 @@
-import { enviarRuta } from "../../router";
+import { enviarRuta } from "../../router.js";
 
 //ATTACHED PREVIEW TO FILES
 {/*
