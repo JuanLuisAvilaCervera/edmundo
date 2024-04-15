@@ -3,7 +3,6 @@ require_once "../BBDD/m_consultas.php";
 require_once "../BBDD/getIDs.php";
 function joinAula($email, $codAula){
     $datos = array();
-    $fi = $consulta->fetch(PDO::FETCH_ASSOC);
     $idUsuario = getUserID($email);
     $idAula = getAulaID($codAula);
     if( $idUsuario != "" && $idAula != "" ){

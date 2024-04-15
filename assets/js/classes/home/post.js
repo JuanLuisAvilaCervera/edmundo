@@ -36,17 +36,19 @@ export class Post {
     </div>
 </div>`;
     textareaPost = "";
+    
+    textPost = "";
 
 
     constructor() {
-        var postListDiv = document.getElementById('post-list');
-        var textPost = document.getElementById('text-post');
+        // var postListDiv = document.getElementById('post-list');
+        this.textPost = document.getElementById('text-post');
 
         document.getElementById('send-post').addEventListener('click', () => {
-            this.textareaPost = textPost.value;
+            this.textareaPost = this.textPost.value;
             var newPost = this.postHTML;
-            if (textareaPost != "") {
-                newPost = newPost.replace('[CONTENIDO]' , textareaPost);
+            if (this.textareaPost != "") {
+                newPost = newPost.replace('[CONTENIDO]' , this.textareaPost);
 
                 // LLAMADA A BASE DE DATOS, 
                 this.BBDDcallSendPost();
@@ -57,14 +59,16 @@ export class Post {
                 // this.postList.forEach( post =>{
                 //     postListDiv.innerHTML += post;
                 // });
+                this.textareaPost= "";
+                this.textPost.value = "";
             }
-            textareaPost.value = "";
+            
         })
 
-        textPost.addEventListener('input' , () =>{
-            document.getElementById('current').innerHTML = textPost.value.length;
-            if(textPost.value.length >= 300){
-                textPost.value = textPost.value.substr(0,299);
+        this.textPost.addEventListener('input' , () =>{
+            document.getElementById('current').innerHTML = this.textPost.value.length;
+            if(this.textPost.value.length >= 300){
+                this.textPost.value = this.textPost.value.substr(0,299);
                 document.getElementById('current').innerHTML = 300;
             }
         })
@@ -72,7 +76,7 @@ export class Post {
 
     crea_query_string() {
         // var obj = {"codAula": this.classCode , "email": localStorage.getItem("email")};
-        var obj = {"text":this.textPost.value, "email": localStorage.getItem("email")}
+        var obj = {"text":this.textareaPost.value, "email": localStorage.getItem("email")}
         var cadena = JSON.stringify(obj);
         return cadena;
     }
