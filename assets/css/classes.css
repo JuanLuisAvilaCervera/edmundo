@@ -1,21 +1,21 @@
 
-.class-list{
+.aula-list{
     border-radius: 10px;
     border: solid black 1px;
 }
 
-.class-active{
+.aula-active{
     padding: 5px;
 }
 
 
-.class-image{
+.aula-image{
     width: 50px;
     height: 50px;
     border: 1px solid black;
 }
 
-.class-student-icon{
+.aula-student-icon{
     width: 40px;
     height: 40px;
     border-radius: 20px;
