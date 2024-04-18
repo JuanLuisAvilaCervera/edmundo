@@ -32,13 +32,24 @@ export class Aulas{
 
         //Variable STRING donde añadiremos todos los datos
         var aulaSectionHTML = "";
-
-
-
-        //TODO: Llamada a BBDD, traer todas las clases del usuario
-        //TODO: Identificar currentAula, replace currentAulaHTML con sus datos, añadir a aulaListHTML
-        //TODO: Añadir joinAulaHTML a aulaListHTML
-        //TODO: ordenar alfabéticamente, foreach replace en aulaHTML y añadir a aulaListHTML (excepto currentAula)
+        aulaList = [];
+        datos = BBDDcall();
+        datos.forEach(aula => {
+            if(aula['codAula' == localStorage.getItem("currentCodAula")]){
+                //TODO: TRAER DATOS DEL PROFESOR CREADOR DE LA CLASE
+                aulaSectionHTML += this.currentAulaHTML.replace('[AULA-NAME]',aula['name'])
+                                                        .replace('[AULA-PROFESOR]', aula['idCreator'])
+                                                        .replace('[CODAULA]', aula['codAula]']);
+            }else{
+                aulaList.push(aulaHTML.replace('[ID]', aula['idAula'])
+                                        .replace('[AULA-NAME]', aula['name'])
+                                        .replace('[AULA-PROFESOR]', aula['idCreator']));
+            }
+        });
+        aulaSectionHTML+= this.joinAulaHTML;
+        aulaList.forEach(aula =>{
+            aulaSectionHTML+= aula;
+        });
         
         document.getElementById('aula-section').innerHTML = aulaSectionHTML;
     }
@@ -63,8 +74,8 @@ export class Aulas{
                 }else{
                     console.log(datos);
                     console.log("Completado");
-                    //REFRESCAR PÁGINA
-                    enviarRuta("/");
+                    // DEVOLVER LOS DATOS DE LAS CLASES
+                    return datos;
                 }
 
             }
