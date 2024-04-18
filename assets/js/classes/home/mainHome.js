@@ -1,13 +1,13 @@
 
 import { Post } from "./post.js"
 import { Calendar } from "./calendar.js";
-import { Classes } from "./classes.js";
+import { Aulas } from "./aulas.js";
 
 export class MainHome{
     mainHTML = `<!-- MAIN -->
         <div class="row">
             <!-- CLASES -->
-            <div id="class-section" class="class-section col-xl-3">
+            <div id="aula-section" class="aula-section col-xl-3">
 
             </div>
             <!-- POSTS -->
@@ -39,7 +39,7 @@ export class MainHome{
     
     constructor(){
         document.getElementById('main').innerHTML = this.mainHTML;
-        var classes = new Classes();
+        var aulas = new Aulas();
         var post = new Post();
         var calendar = new Calendar();
     }
