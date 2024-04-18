@@ -12,7 +12,7 @@ function getUserID($email){
 }
 
 function getAulaID($codAula){
-    $consulta = select("aula where codAula = '".$codAula."'")
+    $consulta = select("aula where codAula = '".$codAula."'");
     
     if($fi = $consulta -> fetch(PDO::FETCH_ASSOC)){
         return $fi["idAula"];
