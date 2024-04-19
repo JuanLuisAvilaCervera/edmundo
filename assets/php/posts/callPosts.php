@@ -9,7 +9,7 @@ $datos = array();
 $idAula = getAulaID($codAula);
 if( $idAula != "" ){
     $consulta = selectsql("SELECT * FROM post WHERE idAula = ".$idAula);
-    if($fi = $consulta->fetch(PDO::FETCH_ASSOC)){
+    if($fi = $consulta->fetchAll(PDO::FETCH_ASSOC)){
         echo json_encode($fi);
     }else{
         echo json_encode("");

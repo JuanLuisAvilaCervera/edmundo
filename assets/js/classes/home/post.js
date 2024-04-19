@@ -25,7 +25,6 @@ import { enviarRuta } from "../../router.js";
 
 
 export class Post {
-    postList = document.getElementById('post-list');
 
     postHTML = 
     `<div class="post" id="[ID]">
@@ -42,7 +41,6 @@ export class Post {
 
     constructor() {
 
-        this.postList = document.getElementById('post-list');
 
         //INICIO DE LA PÁGINA, LISTAR POSTS
 
@@ -52,9 +50,7 @@ export class Post {
 
         document.getElementById('send-post').addEventListener('click', () => {
             this.textareaPost = this.textPost.value;
-            console.log(this.textareaPost);
             if (this.textareaPost != "") {
-                
 
                 // LLAMADA A BASE DE DATOS, 
                 this.BBDDcallSendPost();
@@ -83,7 +79,7 @@ export class Post {
     crea_query_string_send() {
         // var obj = {"codAula": this.classCode , "email": localStorage.getItem("email")};
         var obj = {
-            "text":this.textareaPost.value,
+            "text":this.textareaPost,
             "email": localStorage.getItem("email"),
             "codAula": localStorage.getItem("lastCodAula")
         }
@@ -135,12 +131,11 @@ export class Post {
                 }else{
                     console.log(datos);
                     console.log("completado");
-                    console.log(this.postList);
-                    this.postList.innerHTML = "";
+                    var postList = document.getElementById('post-list');
                     datos.forEach(post => {
                         var newPost = this.postHTML;
                         newPost = newPost.replace('[CONTENIDO]' , this.textareaPost);
-                        this.postList.innerHTML += newPost;
+                        postList.innerHTML += newPost;
                     });
                 }
 

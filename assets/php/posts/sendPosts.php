@@ -5,20 +5,21 @@ $json = file_get_contents('php://input');
 $obj = json_decode($json,true);
 $codAula = $obj['codAula'];
 $email = $obj['email'];
+$text = $obj['text'];
 
 $datos = array();
 $idUsuario = getUserID($email);
 $idAula = getAulaID($codAula);
+
 if( $idUsuario != "" && $idAula != "" && $text != ""){
     // //Añadir datos del insert al array $datos
-    array_push($datos, $idUsuario, $idAula, $text, "");
+    array_push($datos, 0, $idUsuario, $idAula, $text, "");
     // //INSERTAR NUEVO POST
-        insert("post", $datos);
+    $consulta = insert("post", $datos);
     // //DEVOLVEMOS LOS DATOS TRAS HACER LAS LLAMADAS A BBDD
-    //R: COMO COMPROBAR EXACTAMENTE QUE EL MENSAJE ENVIADO ES CORRECTO
-    $consulta = selectsql("SELECT * FROM post WHERE idAula = ".$idAula." AND idUsuario = ".$idUsuario." AND texto = ".$text);
-    if($fi = $consulta->fetch(PDO::FETCH_ASSOC)){
-        echo json_encode($fi);
+    // $consulta = selectsql("SELECT * FROM post WHERE idAula = ".$idAula." AND idUsuario = ".$idUsuario." AND texto = ".$text);
+    if($consulta == 1){
+        echo json_encode("Completado");
     }else{
         echo json_encode("");
     }
