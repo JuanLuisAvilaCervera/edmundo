@@ -30,28 +30,8 @@ export class Aulas{
 
     constructor(){
 
-        //Variable STRING donde añadiremos todos los datos
-        var aulaSectionHTML = "";
-        aulaList = [];
-        datos = BBDDcall();
-        datos.forEach(aula => {
-            if(aula['codAula' == localStorage.getItem("currentCodAula")]){
-                //TODO: TRAER DATOS DEL PROFESOR CREADOR DE LA CLASE
-                aulaSectionHTML += this.currentAulaHTML.replace('[AULA-NAME]',aula['name'])
-                                                        .replace('[AULA-PROFESOR]', aula['idCreator'])
-                                                        .replace('[CODAULA]', aula['codAula]']);
-            }else{
-                aulaList.push(aulaHTML.replace('[ID]', aula['idAula'])
-                                        .replace('[AULA-NAME]', aula['name'])
-                                        .replace('[AULA-PROFESOR]', aula['idCreator']));
-            }
-        });
-        aulaSectionHTML+= this.joinAulaHTML;
-        aulaList.forEach(aula =>{
-            aulaSectionHTML+= aula;
-        });
+        this.BBDDcall();
         
-        document.getElementById('aula-section').innerHTML = aulaSectionHTML;
     }
 
 
@@ -74,8 +54,27 @@ export class Aulas{
                 }else{
                     console.log(datos);
                     console.log("Completado");
-                    // DEVOLVER LOS DATOS DE LAS CLASES
-                    return datos;
+                    // datos.forEach(aula => {
+                    //     var aulaSectionHTML = "";
+                    //     var aulaList = [];
+                    //     if(aula['codAula' == localStorage.getItem("currentCodAula")]){
+                    //         //TODO: TRAER DATOS DEL PROFESOR CREADOR DE LA CLASE
+                    //         aulaSectionHTML += this.currentAulaHTML.replace('[AULA-NAME]',aula['name'])
+                    //                                                 .replace('[AULA-PROFESOR]', aula['idCreator'])
+                    //                                                 .replace('[CODAULA]', aula['codAula]']);
+                    //     }else{
+                    //         aulaList.push(aulaHTML.replace('[ID]', aula['idAula'])
+                    //                                 .replace('[AULA-NAME]', aula['name'])
+                    //                                 .replace('[AULA-PROFESOR]', aula['idCreator']));
+                    //     }
+                    // });
+                    // aulaSectionHTML+= this.joinAulaHTML;
+                    // aulaList.forEach(aula =>{
+                    //     aulaSectionHTML+= aula;
+                    // });
+
+                    
+                    // document.getElementById('aula-section').innerHTML = aulaSectionHTML;
                 }
 
             }

@@ -27,8 +27,8 @@ import { enviarRuta } from "../../router.js";
 export class Post {
     postList = document.getElementById('post-list');
 
-    postHTML = `
-<div class="post" id="[ID]">
+    postHTML = 
+    `<div class="post" id="[ID]">
     <div class="main-post">
         <textarea class="form-control text-post" disabled>
             <div>
@@ -42,15 +42,17 @@ export class Post {
 
     constructor() {
 
+        this.postList = document.getElementById('post-list');
+
         //INICIO DE LA PÁGINA, LISTAR POSTS
 
-        listarPosts();
+        this.listarPosts();
 
         this.textPost = document.getElementById('text-post');
 
         document.getElementById('send-post').addEventListener('click', () => {
             this.textareaPost = this.textPost.value;
-            var newPost = this.postHTML;
+            console.log(this.textareaPost);
             if (this.textareaPost != "") {
                 
 
@@ -58,11 +60,6 @@ export class Post {
                 this.BBDDcallSendPost();
 
 
-                // this.postList.push(newPost);
-                // postListDiv.innerHTML = "";
-                // this.postList.forEach( post =>{
-                //     postListDiv.innerHTML += post;
-                // });
                 this.textareaPost= "";
                 this.textPost.value = "";
             }
@@ -76,6 +73,10 @@ export class Post {
                 document.getElementById('current').innerHTML = 300;
             }
         })
+    }
+
+    listarPosts(){
+        this.BBDDcallListPosts();
     }
 
 
@@ -102,8 +103,8 @@ export class Post {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange=function() {
             if(this.readyState==4 && this.status==200) {
-                console.log(this.responseText);
                 var datos = JSON.parse(this.responseText);
+                
                 if (datos == "") {
                     console.log("Fallo");
                 }else{
@@ -132,11 +133,14 @@ export class Post {
                     console.log("Fallo");
 
                 }else{
-                    this.postList.value = "";
+                    console.log(datos);
+                    console.log("completado");
+                    console.log(this.postList);
+                    this.postList.innerHTML = "";
                     datos.forEach(post => {
                         var newPost = this.postHTML;
                         newPost = newPost.replace('[CONTENIDO]' , this.textareaPost);
-                        this.postList.value += newPsot;
+                        this.postList.innerHTML += newPost;
                     });
                 }
 

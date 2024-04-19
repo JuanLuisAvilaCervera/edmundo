@@ -22,7 +22,7 @@ function update($tabla, $condicion,  $arraycampos){
     }
     $sql = substr($sql,0, strlen($sql)-2);
     $sql.= " WHERE ".$condicion;
-    return $conexion ->query($sql);
+    return $conexion ->exec($sql);
 }
 //INSERT
 function insert($tabla,$campos){
@@ -37,7 +37,7 @@ function insert($tabla,$campos){
     }
     $sql = substr($sql,0,strlen($sql)-1);
     $sql .=")";
-    return $conexion->query($sql);
+    return $conexion->exec($sql);
 }
 
 ?>
