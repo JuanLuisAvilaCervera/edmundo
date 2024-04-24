@@ -30,7 +30,7 @@ export class Post {
     `<div class="post" id="[ID]">
     <div class="main-post">
         <textarea class="form-control text-post" disabled>
-            <div>
+            [CONTENIDO]
         </textarea>
     </div>
 </div>`;
@@ -120,6 +120,15 @@ export class Post {
     }
 
     BBDDcallListPosts(){
+        var postHTML = 
+        `<div class="post" id="[ID]">
+        <div class="main-post">
+            <textarea class="form-control text-post" disabled>
+                [CONTENIDO]
+            </textarea>
+        </div>
+    </div>`;
+
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange=function() {
             if(this.readyState==4 && this.status==200) {
@@ -133,8 +142,9 @@ export class Post {
                     console.log("completado");
                     var postList = document.getElementById('post-list');
                     datos.forEach(post => {
-                        var newPost = this.postHTML;
-                        newPost = newPost.replace('[CONTENIDO]' , this.textareaPost);
+                        var newPost = postHTML;
+                        newPost = newPost.replace('[CONTENIDO]' , post['texto'])
+                                        .replace('[ID]', post['idPost']);
                         postList.innerHTML += newPost;
                     });
                 }
