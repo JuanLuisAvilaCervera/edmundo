@@ -33,7 +33,7 @@ export class Aulas{
                     var aulaListHTML = `<div class="container aula-list" id="aula-list">
                     [LISTA-AULAS]
                     </div>`;
-                    currentAulaHTML = `<div class="aula-active" id="aula-active">
+                    var currentAulaHTML = `<div class="aula-active" id="aula-active">
                         <div class="aula-image"></div>
                         <div class="container">
                             <div class="row">
@@ -77,12 +77,13 @@ export class Aulas{
                             });
                             
                     }else{
-                        aulaSectionHTML += this.currentAulaHTML.replace('[AULA-NAME]',datos['name'])
+                        var newAula = currentAulaHTML.replace('[AULA-NAME]',datos['nombre'])
                                                                 .replace('[AULA-PROFESOR]', datos['idCreator'])
-                                                                .replace('[CODAULA]', datos['codAula]']);
+                                                                .replace('[CODAULA]', datos['codAula']);
+                        aulaSectionHTML += aulaListHTML.replace('[LISTA-AULAS]', newAula);
                     }
 
-                    aulaSectionHTML+= this.joinAulaHTML;
+                    aulaSectionHTML+= joinAulaHTML;
                      
                     // aulaList.forEach(aula =>{
                     //     aulaSectionHTML+= aula;
