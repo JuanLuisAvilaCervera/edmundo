@@ -35,7 +35,7 @@ export class Aulas{
 
                     var aulaListHTML =
                     `<div class="container aula-list" id="aula-list">
-                    [LISTA-AULAS]
+                        [LISTA-AULAS]
                     </div>`;
                     var currentAulaHTML =
                     `<div class="aula-active" id="aula-active">
@@ -57,6 +57,11 @@ export class Aulas{
                         </div>
                     </div>`;
 
+                    var createAulaHTML = 
+                    `<div class="create-aula-div" id="create-aula">
+                            <button id="create-aula">Crear Clase</button>
+                    </div>`;
+
                     var aulaHTML =
                     `<div class="aula-inactive" id="[ID]">
                         <div>
@@ -69,6 +74,7 @@ export class Aulas{
                     var aulaList = [];
                     if(datos.length > 1){
                         datos.forEach(aula => {
+                            //CURRENT AULA
                                 if(aula['codAula'] == localStorage.getItem("lastCodAula")){
                                     //TODO: TRAER DATOS DEL PROFESOR CREADOR DE LA CLASE
                                     var currentAula = currentAulaHTML.replace('[AULA-NAME]',aula['nombre'])
@@ -76,6 +82,7 @@ export class Aulas{
                                                                 .replace('[CODAULA]', aula['codAula']);
                                     aulaSectionHTML += aulaListHTML.replace('[LISTA-AULAS]', currentAula);
                                 }else{
+                                    //OTRAS AULAS
                                     aulaList.push(aulaHTML.replaceAll('[ID]', aula['codAula'])
                                                             .replace('[AULA-NAME]', aula['nombre'])
                                                             .replace('[AULA-PROFESOR]', aula['idCreator']));
@@ -83,50 +90,62 @@ export class Aulas{
                             });
                             
                     }else{
+                        //EN EL CASO DE SOLO TRAER UNA CLASE (POSIBLES FALLOS DEBIDO A FETCHALL)
                         var newAula = currentAulaHTML.replace('[AULA-NAME]',datos['nombre'])
                                                                 .replace('[AULA-PROFESOR]', datos['idCreator'])
                                                                 .replace('[CODAULA]', datos['codAula']);
                         aulaSectionHTML += aulaListHTML.replace('[LISTA-AULAS]', newAula);
                     }
 
-                    aulaSectionHTML+= joinAulaHTML;
-                     
+                    var rol = localStorage.getItem("rol");
+                    console.log(rol);
+                    switch(rol){
+                        case "1":
+                            aulaSectionHTML+= createAulaHTML;
+                            break;
+                        case "2":
+                            aulaSectionHTML+= joinAulaHTML;
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                     //AÑADIR EL RESTO DE AULAS
                     aulaList.forEach(aula =>{
                         aulaSectionHTML+= aula;
                     });
                     
+                    //AÑADIR HTML A LA PÁGINA
                     document.getElementById('aula-section').innerHTML = aulaSectionHTML;
 
-                    document.getElementById('classCode').addEventListener('input', () =>{
-                        thisClass.comprobar();
-                    })
+                    //BOTON PARA UNIRSE A UNA CLASE NUEVA O CREAR CLASE NUEVA
+                    if(document.getElementById('classCode') != undefined && document.getElementById('enviarCode') != undefined){
+                        document.getElementById('classCode').addEventListener('input', () =>{
+                            thisClass.comprobar();
+                        })
+    
+                        document.getElementById('enviarCode').addEventListener('click', () => {
+                            thisClass.classCode = document.getElementById('classCode').value;
+                            console.log(thisClass.classCode);
+                            if(thisClass.classCode.length == 6){
+                                //COMPROBAR EN BASE DE DATOS
+                                thisClass.BBDDcall_joinClass();
+                                localStorage.setItem('lastCodAula', thisClass.classCode);
+                                enviarRuta("/");
+                                
+                            }else{
+                                console.log("error: classcode empty or length > or < to 6");
+                                console.log(thisClass.classCode.length);
+                                //ERROR
+                            }
+                        });
+                    }else if(document.getElementById('create-aula') != undefined){
+                        document.getElementById('create-aula').addEventListener("click", ()=>{
+                            enviarRuta("/crearAula");
+                        })
+                    }
 
-                    document.getElementById('enviarCode').addEventListener('click', () => {
-                        thisClass.classCode = document.getElementById('classCode').value;
-                        console.log(thisClass.classCode);
-                        if(thisClass.classCode.length == 6){
-                            //COMPROBAR EN BASE DE DATOS
-                            thisClass.BBDDcall_joinClass();
-                            localStorage.setItem('lastCodAula', thisClass.classCode);
-                            enviarRuta("/");
-                            
-                        }else{
-                            console.log("error: classcode empty or length > or < to 6");
-                            console.log(thisClass.classCode.length);
-                            //ERROR
-                        }
-                    });
-                    // let aulaArray = document.getElementsByClassName("aula-inactive");
-
-                    // aulaArray.forEach(function(elem) {
-
-
-
-                    //     elem.addEventListener("click", function() {
-
-                    //         localStorage.setItem('lastCodAula', thisClass.classCode);
-                    //     });
-                    // });
+                    //PARA CAMBIAR DE CLASE AL CLICAR EN LA LISTA
                     $(".aula-inactive").each(function () {
                         $(this).on("click", function(event){
                             thisClass.updateCurrentClass($(this).attr("id"));
