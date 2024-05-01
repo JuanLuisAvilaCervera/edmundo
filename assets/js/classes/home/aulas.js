@@ -128,9 +128,8 @@ export class Aulas{
                     //     });
                     // });
                     $(".aula-inactive").each(function () {
-                        //ID DEL AULA = CODAULA
-                        $(this).on("click", function(){
-                            thisClass.updateCurrentClass($(this).id);
+                        $(this).on("click", function(event){
+                            thisClass.updateCurrentClass($(this).attr("id"));
                         })
                     });
                 }
@@ -196,6 +195,7 @@ export class Aulas{
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange=function() {
             if(this.readyState==4 && this.status==200) {
+                console.log(this.responseText);
                 var datos = JSON.parse(this.responseText);
                 
                 if (datos == "") {
@@ -203,6 +203,8 @@ export class Aulas{
                 }else{
                     console.log(datos);
                     console.log("Completado");
+
+                    localStorage.setItem('lastCodAula', newCodAula );
                     //REFRESCAR PÁGINA
                     enviarRuta("/");
                 }
@@ -212,7 +214,8 @@ export class Aulas{
         //PAGINA ENVIO PHP
         xmlhttp.open('POST','assets/php/aulas/updateAula.php');
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
-        let cadena = JSON.stringify({"codAula":newCodAula , "email":localStorage.getItem("email")});
+        var obj = {"codAula": newCodAula, "email": localStorage.getItem("email")};
+        var cadena = JSON.stringify(obj);
         xmlhttp.send(cadena);
     }
 }

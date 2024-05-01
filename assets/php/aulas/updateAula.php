@@ -6,9 +6,8 @@ $obj = json_decode($json,true);
 $codAula = $obj['codAula'];
 $email = $obj['email'];
 $campos = array('lastCodAula'=>$codAula);
-$consulta = update("usuario", "email = '". $email."'", $campos);
-if($fi = $consulta->exec(PDO::FETCH_ASSOC)){
-    echo json_encode($fi);
+if($consulta = update("usuario", "email = '". $email."'", $campos)){
+    echo json_encode($consulta);
 }else{
     echo json_encode("");
 }
