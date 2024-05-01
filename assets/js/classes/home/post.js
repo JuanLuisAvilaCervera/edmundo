@@ -26,14 +26,6 @@ import { enviarRuta } from "../../router.js";
 
 export class Post {
 
-    postHTML = 
-    `<div class="post" id="[ID]">
-    <div class="main-post">
-        <textarea class="form-control text-post" disabled>
-            [CONTENIDO]
-        </textarea>
-    </div>
-</div>`;
     textareaPost = "";
     
     textPost = "";
@@ -44,7 +36,7 @@ export class Post {
 
         //INICIO DE LA PÁGINA, LISTAR POSTS
 
-        this.listarPosts();
+        this.BBDDcallListPosts();
 
         this.textPost = document.getElementById('text-post');
 
@@ -69,10 +61,6 @@ export class Post {
                 document.getElementById('current').innerHTML = 300;
             }
         })
-    }
-
-    listarPosts(){
-        this.BBDDcallListPosts();
     }
 
 
