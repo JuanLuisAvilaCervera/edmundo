@@ -16,8 +16,7 @@ export function enviarRuta(ruta) {
             case "/":
                 //COMPROBAR ROL
                 let rol = localStorage.getItem('rol');
-                let classCode = localStorage.getItem('lastCodAula');
-                console.log("ROL: " + rol);
+                var classCode = localStorage.getItem('lastCodAula');
                 switch(rol){
                     //PROFESOR
                     case "1":
@@ -33,7 +32,7 @@ export function enviarRuta(ruta) {
                     case "2":
                         //COMPROBAR CLASE
                         if(classCode != "" && classCode != undefined && classCode != null){
-                            let home = new Home();
+                            var home = new Home();
                         }else{
                             enviarRuta('/chooseClass');
                         }
@@ -49,13 +48,22 @@ export function enviarRuta(ruta) {
                 
                 break;
             case "/chooseClass":
-                let chooseClass = new ChooseClass();
+                var chooseClass = new ChooseClass();
                 break;
             case "/crearAula":
-                let createClass = new CreateClass();
+                var createClass = new CreateClass();
                 break;
             case "/chooseRole":
-                let chooseRole = new ChooseRole();
+                var chooseRole = new ChooseRole();
+                break;
+            case "/avisos":
+                var classCode = localStorage.getItem('lastCodAula');
+                if(classCode != "" && classCode != undefined && classCode != null){
+                    window.location.href = "http://www.edmundo.com/edmundo/html/avisos.html";
+                    
+                }else{
+                    enviarRuta('/');
+                }
                 break;
             default:
                 //PAGINA DE ERROR
