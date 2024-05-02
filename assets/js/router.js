@@ -14,6 +14,11 @@ export function enviarRuta(ruta) {
     if (token != "" && token != null && token != undefined) {
         switch (ruta) {
             case "/":
+                
+                //COMPROBAR QUE NO ESTAMOS EN LA PÁGINA, EVITA UN BUCLE
+                if(window.location.href !=  "http://www.edmundo.com/edmundo/index.html"){
+                    window.location.href = "http://www.edmundo.com/edmundo/index.html";
+                }
                 //COMPROBAR ROL
                 let rol = localStorage.getItem('rol');
                 var classCode = localStorage.getItem('lastCodAula');

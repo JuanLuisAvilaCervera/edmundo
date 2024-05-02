@@ -11,8 +11,8 @@ export class Header {
         <!--  MENU -->
         <div class="col-6 d-flex flex-row align-items-center">
             <div class="row">
+                <div class="col-2"><button id="home">Home</button></div>
                 <div class="col-2"><button id="avisos">Avisos y Tareas</button></div>
-                <div class="col-2">SAMPLE SECTION</div>
                 <div class="col-2">SAMPLE SECTION</div>
                 <div class="col-2">SAMPLE SECTION</div>
                 <div class="col-2">SAMPLE SECTION</div>
@@ -35,5 +35,8 @@ export class Header {
         $("#avisos").on("click", function(){
             enviarRuta("/avisos");
         });
+        $("#home").on("click", function(){
+            enviarRuta("/");
+        })
     }
 }

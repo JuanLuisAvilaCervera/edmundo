@@ -38,7 +38,7 @@ export class Aulas{
                         [LISTA-AULAS]
                     </div>`;
                     var currentAulaHTML =
-                    `<div class="aula-active" id="aula-active">
+                    `<div class="aula-active" id="[CODAULA]">
                         <div class="aula-image"></div>
                         <div class="container">
                             <div class="row">
@@ -79,7 +79,7 @@ export class Aulas{
                                     //TODO: TRAER DATOS DEL PROFESOR CREADOR DE LA CLASE
                                     var currentAula = currentAulaHTML.replace('[AULA-NAME]',aula['nombre'])
                                                                 .replace('[AULA-PROFESOR]', aula['idCreator'])
-                                                                .replace('[CODAULA]', aula['codAula']);
+                                                                .replaceAll('[CODAULA]', aula['codAula']);
                                     aulaSectionHTML += aulaListHTML.replace('[LISTA-AULAS]', currentAula);
                                 }else{
                                     //OTRAS AULAS
@@ -151,12 +151,15 @@ export class Aulas{
                             thisClass.updateCurrentClass($(this).attr("id"));
                         })
                     });
+                    $(".aula-active").on("click", function(event){
+                        thisClass.updateCurrentClass($(this).attr("id"));
+                    })
                 }
 
             }
         };
         //PAGINA ENVIO PHP
-        xmlhttp.open('POST','assets/php/aulas/listAulas.php');
+        xmlhttp.open('POST','http://www.edmundo.com/edmundo/assets/php/aulas/listAulas.php');
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string_listAulas();
         xmlhttp.send(cadena);
@@ -212,29 +215,33 @@ export class Aulas{
 
     updateCurrentClass( newCodAula){
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange=function() {
-            if(this.readyState==4 && this.status==200) {
-                console.log(this.responseText);
-                var datos = JSON.parse(this.responseText);
-                
-                if (datos == "") {
-                    console.log("Fallo");
-                }else{
-                    console.log(datos);
-                    console.log("Completado");
-
-                    localStorage.setItem('lastCodAula', newCodAula );
-                    //REFRESCAR PÁGINA
-                    enviarRuta("/");
+        if(newCodAula != localStorage.getItem("lastCodAula")){
+            xmlhttp.onreadystatechange=function() {
+                if(this.readyState==4 && this.status==200) {
+                    console.log(this.responseText);
+                    var datos = JSON.parse(this.responseText);
+                    
+                    if (datos == "") {
+                    }else{
+                        console.log(datos);
+                        console.log("Completado");
+    
+                        localStorage.setItem('lastCodAula', newCodAula );
+                        //REFRESCAR PÁGINA
+                        enviarRuta("/");
+                    }
+    
                 }
-
-            }
-        };
-        //PAGINA ENVIO PHP
-        xmlhttp.open('POST','assets/php/aulas/updateAula.php');
-        xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
-        var obj = {"codAula": newCodAula, "email": localStorage.getItem("email")};
-        var cadena = JSON.stringify(obj);
-        xmlhttp.send(cadena);
+            };
+            //PAGINA ENVIO PHP
+            xmlhttp.open('POST','assets/php/aulas/updateAula.php');
+            xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
+            var obj = {"codAula": newCodAula, "email": localStorage.getItem("email")};
+            var cadena = JSON.stringify(obj);
+            xmlhttp.send(cadena);
+        }else{
+            enviarRuta("/");
+        }
+        
     }
 }

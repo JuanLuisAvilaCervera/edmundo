@@ -1,6 +1,7 @@
 import { enviarRuta } from "../../router.js";
 import { Footer } from "../mainstructure/footer.js";
 import { Header } from "../mainstructure/header.js";
+import { MainAvisos } from "./mainAvisos.js";
 
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -11,4 +12,5 @@ import { Header } from "../mainstructure/header.js";
 
         var header = new Header();
         var footer = new Footer();
+        var avisos = new MainAvisos();
     })
