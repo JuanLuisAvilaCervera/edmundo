@@ -1,4 +1,5 @@
 import { Aulas } from "../home/aulas.js";
+import { newAviso } from "./newAviso.js";
 
 export class MainAvisos{
     mainHTML = `<!-- MAIN -->
@@ -8,7 +9,10 @@ export class MainAvisos{
 
             </div>
             <!-- AVISOS -->
-            <div class="post-section col-xl-9">
+            <div class="avisos-section col-xl-6">
+               
+            </div>
+            <div class="anadir-aviso-section col-xl-3" id="anadir-aviso-section">
                
             </div>
         </div>`;
@@ -16,5 +20,6 @@ export class MainAvisos{
     constructor(){
         document.getElementById('main').innerHTML = this.mainHTML;
         let aulas = new Aulas();
+        let newaviso = new newAviso();
     }
 }
