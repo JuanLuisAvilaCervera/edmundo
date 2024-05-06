@@ -21,12 +21,10 @@ export class Calendar {
 <header class="calendar-header">
     <p class="calendar-current-date"></p>
     <div class="calendar-navigation">
-        <span id="calendar-prev"
-              class="material-symbols-rounded">
+        <span id="calendar-prev" class="material-symbols-rounded">
             chevron_left
         </span>
-        <span id="calendar-next"
-              class="material-symbols-rounded">
+        <span id="calendar-next" class="material-symbols-rounded">
             chevron_right
         </span>
     </div>

@@ -29,7 +29,7 @@ export class Header {
         document.getElementById('header').innerHTML = this.headerHTML;
         document.getElementById('logOff').addEventListener('click', () =>{
             localStorage.clear();
-            window.location.reload();
+            window.location.replace("http://www.edmundo.com/edmundo/index.html");
         })
 
         $("#avisos").on("click", function(){

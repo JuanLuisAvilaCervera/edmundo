@@ -13,13 +13,15 @@ export class MainAvisos{
                
             </div>
             <div class="anadir-aviso-section col-xl-3" id="anadir-aviso-section">
-               
+               <!-- AÑADIR CALENDARIO PARA RÁPIDAMENTE VER LOS DÍAS LIBRES -->
             </div>
         </div>`;
     
     constructor(){
         document.getElementById('main').innerHTML = this.mainHTML;
         let aulas = new Aulas();
-        let newaviso = new newAviso();
+        if(localStorage.getItem("rol") == "1"){
+            let newaviso = new newAviso();
+        }
     }
 }
