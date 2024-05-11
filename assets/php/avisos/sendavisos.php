@@ -4,7 +4,7 @@ require_once "../BBDD/getIDs.php";
 $json = file_get_contents('php://input');
 $obj = json_decode($json,true);
 $codAula = $obj['codAula'];
-$title = $obj['title'];
+$title = $obj['titulo'];
 $text = $obj['text'];
 $tarea = $obj['tarea'];
 $fecha = $obj['fecha'];
@@ -12,8 +12,8 @@ $fecha = $obj['fecha'];
 $datos = array();
 $idAula = getAulaID($codAula);
 
-if( $idUsuario != "" && $idAula != "" && $text != ""){
-    // //Añadir datos del insert al array $datos
+if( $idAula != "" && $title != "" && $fecha != "" ){
+
     //idAviso, idAula, titulo, texto, tarea, fecha
     array_push($datos, 0, $idAula, $title, $text, $tarea, $fecha);
     // //INSERTAR NUEVO POST

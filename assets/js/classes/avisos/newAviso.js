@@ -24,6 +24,7 @@ export class newAviso{
             <div id="datepick">
             <label>Selecciona fecha: </label>
             <input type="text" id="datepicker"/>
+           <input type="text" id="hourpicker"/>
             </div>
         </div>
         </div>
@@ -40,8 +41,11 @@ export class newAviso{
         document.getElementById("anadir-aviso-section").innerHTML = this.newAvisoButtonHTML;
 
         $(function(){
-            $('#datepicker').datepicker();
+            $('#datepicker').datepicker({dateFormat: "dd-mm-yy"});
         });
+        $(function(){
+            $('#hourpicker').clockTimePicker({});
+        })
 
         let thisClass = this;
         
@@ -53,18 +57,41 @@ export class newAviso{
 
     }
 
+    comprobar_fecha(fecha){
+        console.log(fecha);
+
+        var dia = fecha.substring(0,2);
+        console.log(dia);
+        var mes = fecha.substring(3,5);
+        console.log(mes)
+        var anno = fecha.substring(6,10);
+        console.log(anno);
+
+        var chosendate = new Date(mes + "-"+ dia + "-" + anno);
+
+        console.log(chosendate);
+        if(chosendate == "Invalid Date"){
+            console.log("hello");
+            return false;
+        }else{
+            //COMPROBAR QUE ES UNA FECHA POSTERIOR A LA HORA ACTUAL
+            //
+            //
+            return true;
+        }
+    }
+
     sendAvisos(){
         var titulo = $("#titulo").val();
         var fecha = $("#datepicker").val();
-        var texto = $("#texto").val();
-        var tarea = $("#tarea").is(":checked");
+        var hora = $("#hourpicker").val();
 
-        if(titulo != "" && fecha != ""){
-            this.BBDDcall();
-            // console.log("Titulo"+titulo);
-            // console.log("Texto "+texto);
-            // console.log("Tarea "+tarea);
-            // console.log("Fecha "+fecha);
+        if(titulo != "" && fecha != "" && hora != ""){
+            if(this.comprobar_fecha(fecha)){
+                this.BBDDcall(); 
+            }else{
+                alert("La fecha no es válida, es la fecha actual o anterior a esta");
+            }
         }else{
             //AÑADIR AVISO DE ERROR
             alert("Hay datos obligatorios sin rellenar");
@@ -75,21 +102,36 @@ export class newAviso{
 
     crea_query_string() {
         // var obj = {"codAula": this.classCode , "email": localStorage.getItem("email")};
+        var titulo = $("#titulo").val();
+        var fecha = $("#datepicker").val();
+        var texto = $("#texto").val();
+        var tarea = $("#tarea").is(":checked");
+        var hora = $("#hourpicker").val();
+
+        var dia = fecha.substring(0,2);
+        var mes = fecha.substring(3,5);
+        var anno = fecha.substring(6,10);
+
+        //DATETIME EN MYSQL TIENE "YYYY-MM-DD" COMO FORMATO
+        var chosendate = anno + "-"+ mes + "-" + dia;
+
+        //CONVERTIR STRINGFECHA Y STRINGHORA EN FECHA
+        var fulldate = chosendate + " " + hora + ":00";
+        console.log(fulldate);
+
         var obj = {
-            "text":this.textareaPost,
-            "email": localStorage.getItem("email"),
-            "codAula": localStorage.getItem("lastCodAula")
+            "text":texto,
+            "codAula": localStorage.getItem("lastCodAula"),
+            "titulo":titulo,
+            "tarea":tarea,
+            "fecha":fulldate,
+            "hora":hora
         }
         var cadena = JSON.stringify(obj);
         return cadena;
     }
 
     BBDDcall(){
-
-        var titulo = $("#titulo").val();
-        var fecha = $("#datepicker").val();
-        var texto = $("#texto").val();
-        var tarea = $("#tarea").is(":checked");
 
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange=function() {
@@ -108,7 +150,7 @@ export class newAviso{
             }
         };
         //PAGINA ENVIO PHP
-        xmlhttp.open('POST','assets/php/avisos/sendavisos.php');
+        xmlhttp.open('POST','../assets/php/avisos/sendavisos.php');
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string();
         xmlhttp.send(cadena);
