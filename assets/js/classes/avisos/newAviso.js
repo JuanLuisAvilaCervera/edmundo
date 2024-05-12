@@ -17,20 +17,28 @@ export class newAviso{
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+        <div> 
+            <label for="elegirAula">Elegir aula</label>
+            <select id="elegirAula">
+                <!-- OPCIONES DE AULA -->
+                <option disabled selected value> -- select an option -- </option>
+
+            </select>
+        </div>
         <div> <label for="titulo">Título</label><input type="text" id="titulo"></div>
         <div><textarea id="texto"></textarea></div>
         <div><label for="tarea">¿Permitir entrega de archivos como tareas?</label><input type="checkbox" id="tarea"></div>
         <div>
             <div id="datepick">
-            <label>Selecciona fecha: </label>
-            <input type="text" id="datepicker"/>
-           <input type="text" id="hourpicker"/>
+                <label>Selecciona fecha: </label>
+                <input type="text" id="datepicker"/>
+            <input type="text" id="hourpicker"/>
             </div>
         </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" id="sendAviso">Confirmar</button>
+            <button type="button" class="btn btn-primary" id="sendAviso">Crear Aviso</button>
         </div>
         </div>
     </div>
@@ -38,7 +46,9 @@ export class newAviso{
     `;
 
     constructor(){
-        document.getElementById("anadir-aviso-section").innerHTML = this.newAvisoButtonHTML;
+        document.getElementById("nuevoAvisoDiv").innerHTML = this.newAvisoButtonHTML;
+
+        this.BBDDcallAulas();
 
         $(function(){
             $('#datepicker').datepicker({dateFormat: "dd-mm-yy"});
@@ -85,8 +95,10 @@ export class newAviso{
         var titulo = $("#titulo").val();
         var fecha = $("#datepicker").val();
         var hora = $("#hourpicker").val();
+        var idAula =$("#elegirAula").children(":selected").attr("id");
+        console.log(idAula);
 
-        if(titulo != "" && fecha != "" && hora != ""){
+        if(titulo != "" && fecha != "" && hora != "" && idAula != undefined){
             if(this.comprobar_fecha(fecha)){
                 this.BBDDcall(); 
             }else{
@@ -107,6 +119,7 @@ export class newAviso{
         var texto = $("#texto").val();
         var tarea = $("#tarea").is(":checked");
         var hora = $("#hourpicker").val();
+        var idAula =$("#elegirAula").children(":selected").attr("id");
 
         var dia = fecha.substring(0,2);
         var mes = fecha.substring(3,5);
@@ -121,7 +134,7 @@ export class newAviso{
 
         var obj = {
             "text":texto,
-            "codAula": localStorage.getItem("lastCodAula"),
+            "idAula": idAula,
             "titulo":titulo,
             "tarea":tarea,
             "fecha":fulldate,
@@ -154,5 +167,50 @@ export class newAviso{
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string();
         xmlhttp.send(cadena);
+    }
+
+    BBDDcallAulas(){
+        //AÑADIR TIEMPO RESTANTE
+        var optionHTML = 
+        `<option id=[IDAULA]>[NOMBRE]</option>`;
+    
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if(this.readyState==4 && this.status==200) {
+                var datos = JSON.parse(this.responseText);
+                if (datos == "") {
+                    console.log("Fallo");
+
+                }else{
+                    console.log(datos);
+                    //AÑADIR OPTIONS A SELECT
+
+                    var aulaSelect = document.getElementById('elegirAula');
+                    datos.forEach(aula => {
+                        var optionAula = optionHTML;
+                        optionAula = optionAula
+                                        .replace('[NOMBRE]' , aula['nombre'])
+                                        .replace('[IDAULA]' , aula['idAula']);
+                        aulaSelect.innerHTML += optionAula;
+                    });
+
+
+                }
+
+            }
+        };
+        //PAGINA ENVIO PHP
+        xmlhttp.open('POST','../assets/php/avisos/callaulas.php');
+        xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
+        let cadena = this.crea_query_string_aula();
+        xmlhttp.send(cadena);
+    }
+
+    crea_query_string_aula(){
+        var obj = {
+            "email": localStorage.getItem("email")
+        }
+        var cadena = JSON.stringify(obj);
+        return cadena;
     }
 }

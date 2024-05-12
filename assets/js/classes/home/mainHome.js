@@ -12,7 +12,6 @@ export class MainHome{
             </div>
             <!-- POSTS -->
             <div class="post-section col-xl-6">
-                <!-- PLANTILLA POST + COMENTARIO-->
                 <div class="post-selection">
                     <div class="post-selection-buttons">
                         <button class="btn btn-secondary">Más Recientes</button>

@@ -98,7 +98,6 @@ export class Aulas{
                     }
 
                     var rol = localStorage.getItem("rol");
-                    console.log(rol);
                     switch(rol){
                         case "1":
                             aulaSectionHTML+= createAulaHTML;

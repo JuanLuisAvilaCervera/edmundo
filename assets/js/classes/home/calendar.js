@@ -69,6 +69,7 @@ export class Calendar {
         this.prenexIcons = document.querySelectorAll(".calendar-navigation span");
 
         this.generate();
+        
 
         // Attach a click event listener to each icon
         this.prenexIcons.forEach(icon => {
@@ -108,6 +109,7 @@ export class Calendar {
 
     }
     generate() {
+        
 
         // Get the first day of the month
         let dayone = new Date(this.year, this.month, 1).getDay();
@@ -152,7 +154,23 @@ export class Calendar {
                 && this.year === new Date().getFullYear()
                 ? "active"
                 : "";
-            lit += `<li class="${isToday}">${i}</li>`;
+
+
+            //Comprobamos si los meses y dias son menores a 10 y le ponemos un 0 delante para que coincida el formato
+            var dayComplete;
+            var monthComplete;
+                if(i < 10){
+                    dayComplete = "0"+i;
+                }else{
+                    dayComplete = i;
+                }
+
+                if(this.month < 10){
+                    monthComplete = "0"+(this.month+1);
+                }else{
+                    monthComplete = this.month;
+                }
+            lit += `<li class="${isToday} ${this.year}-${monthComplete}-${dayComplete}">${i}</li>`;
         }
 
         // Loop to add the first dates of the next month
@@ -167,8 +185,52 @@ export class Calendar {
         // update the HTML of the dates element 
         // with the generated calendar
         this.day.innerHTML = lit;
+
+        
+
+        this.markAvisos();
     }
 
+    //FUNCION COLOREAR DIAS CON AVISOS
+
+    markAvisos(){
+        this.BBDDcall();
+    }
+
+    BBDDcall(){
+    
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if(this.readyState==4 && this.status==200) {
+                var datos = JSON.parse(this.responseText);
+                if (datos == "") {
+                    console.log("Fallo");
+
+                }else{
+                    // LISTAR DIAS EN LOS QUE HAY AVISOS
+                    datos.forEach( aviso =>{
+                        
+                        var fechaYMD = aviso['fecha'].substr(0,10);
+                        $("."+fechaYMD).addClass("aviso");
+                    })
+                }
+
+            }
+        };
+        //PAGINA ENVIO PHP
+        xmlhttp.open('POST','/edmundo/assets/php/avisos/callavisos.php');
+        xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
+        let cadena = this.crea_query_string();
+        xmlhttp.send(cadena);
+    }
+
+    crea_query_string(){
+        var obj = {
+            "email": localStorage.getItem("email")
+        }
+        var cadena = JSON.stringify(obj);
+        return cadena;
+    }
 
 }
 
