@@ -4,8 +4,14 @@ import { enviarRuta } from "../../router.js";
 export class Register {
     correo = "";
     password = "";
+    nombre = "";
+    apellidos = "";
 
     registerHTML = `<h1> Register </h1>
+    <label for="nombre">Nombre</label>
+    <input id="nombre" name="nombre" type="text">
+    <label for="apellidos">Apellidos</label>
+    <input id="apellidos" name="apellidos" type="text">
     <label for="correo">Correo</label>
     <input id="correo" name="correo" type="email">
     <label for="contrasena">Contraseña</label>
@@ -36,8 +42,10 @@ export class Register {
         this.correo = document.getElementById('correo').value || "";
         this.password = document.getElementById('password').value || "";
         this.repPassword = document.getElementById('repeatPassword').value|| "";
+        this.nombre = document.getElementById("nombre").value || "";
+        this.apellidos = document.getElementById("apellidos").value || "";
 
-        if (this.correo == "" || this.password == "") {
+        if (this.correo == "" || this.password == "" || this.nombre == "" || this.apellidos == "") {
             this.error(1); // ERROR (1): FALTAN DATOS
         } else {
             if(this.password != this.repPassword ){
@@ -66,7 +74,7 @@ export class Register {
     }
     //CREAR STRING DE DATOS
     crea_query_string() {
-        var obj = {"email":this.correo,"password":this.password};
+        var obj = {"email":this.correo,"password":this.password, "nombre":this.nombre, "apellidos":this.apellidos};
         var cadena = JSON.stringify(obj);
         return cadena;
     }
@@ -94,7 +102,7 @@ export class Register {
             }
         };
         //PAGINA ENVIO PHP
-        xmlhttp.open('POST','assets/php/Login/register.php');
+        xmlhttp.open('POST','../assets/php/login/register.php');
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string();
         xmlhttp.send(cadena);

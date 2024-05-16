@@ -27,7 +27,8 @@ export class newAviso{
         </div>
         <div> <label for="titulo">Título</label><input type="text" id="titulo"></div>
         <div><textarea id="texto"></textarea></div>
-        <div><label for="tarea">¿Permitir entrega de archivos como tareas?</label><input type="checkbox" id="tarea"></div>
+        <div><label for="tarea">Marcar como tarea (permitir entrega de archivos)</label><input type="checkbox" id="tarea"></div>
+        <div id="atrasada"style="display:none"><label for="tarea">¿Permitir entrega posterior a la fecha de la tarea?</label><input type="checkbox" id="atrasadaCheck"></div>
         <div>
             <div id="datepick">
                 <label>Selecciona fecha: </label>
@@ -58,35 +59,31 @@ export class newAviso{
         })
 
         let thisClass = this;
-        
+        $("#tarea").change(function() {
+            if(this.checked) {
+                $("#atrasada").show();
+            }else{
+                $("#atrasada").hide();
+                $("#atrasadaCheck").prop("checked", false);
+            }
+        });
         $("#sendAviso").on("click", function(){
-            
             thisClass.sendAvisos();
-
         });
 
     }
 
     comprobar_fecha(fecha){
-        console.log(fecha);
 
         var dia = fecha.substring(0,2);
-        console.log(dia);
         var mes = fecha.substring(3,5);
-        console.log(mes)
         var anno = fecha.substring(6,10);
-        console.log(anno);
 
         var chosendate = new Date(mes + "-"+ dia + "-" + anno);
 
-        console.log(chosendate);
         if(chosendate == "Invalid Date"){
-            console.log("hello");
             return false;
         }else{
-            //COMPROBAR QUE ES UNA FECHA POSTERIOR A LA HORA ACTUAL
-            //
-            //
             return true;
         }
     }
@@ -96,7 +93,6 @@ export class newAviso{
         var fecha = $("#datepicker").val();
         var hora = $("#hourpicker").val();
         var idAula =$("#elegirAula").children(":selected").attr("id");
-        console.log(idAula);
 
         if(titulo != "" && fecha != "" && hora != "" && idAula != undefined){
             if(this.comprobar_fecha(fecha)){
@@ -118,6 +114,7 @@ export class newAviso{
         var fecha = $("#datepicker").val();
         var texto = $("#texto").val();
         var tarea = $("#tarea").is(":checked");
+        var atrasada = $("#atrasadaCheck").is(":checked");
         var hora = $("#hourpicker").val();
         var idAula =$("#elegirAula").children(":selected").attr("id");
 
@@ -130,7 +127,6 @@ export class newAviso{
 
         //CONVERTIR STRINGFECHA Y STRINGHORA EN FECHA
         var fulldate = chosendate + " " + hora + ":00";
-        console.log(fulldate);
 
         var obj = {
             "text":texto,
@@ -138,7 +134,8 @@ export class newAviso{
             "titulo":titulo,
             "tarea":tarea,
             "fecha":fulldate,
-            "hora":hora
+            "hora":hora,
+            "atrasada":atrasada
         }
         var cadena = JSON.stringify(obj);
         return cadena;

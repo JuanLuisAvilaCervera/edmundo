@@ -116,9 +116,9 @@ header .calendar-current-date {
     background: #e4e1e1;
 }
 
-.calendar-dates li.aviso:not(.active):not(.inactive):hover::before {
+.calendar-dates li.fechaAviso:not(.active):not(.inactive):hover::before {
     background: #dd0000;
 }
-.calendar-dates li.aviso:not(.active):not(.inactive)::before {
+.calendar-dates li.fechaAviso:not(.active):not(.inactive)::before {
     background: #ff0000;
 }

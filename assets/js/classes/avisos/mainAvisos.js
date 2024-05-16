@@ -31,6 +31,37 @@ export class MainAvisos{
             </div>
 
             <div class="calendar-section col-xl-3" id="calendar-section"></div>
+        </div>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="avisoModal" tabindex="-1" aria-labelledby="avisoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="avisoModalLabel">
+                            <!-- TITULO DEL AVISO -->
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="texto">
+                            <!-- CONTENIDO DEL AVISO -->
+                        </div>
+                        <div id="fecha">
+                            <!-- FECHA DEL EVENTO / ENTREGA DE LA TAREA -->
+                        </div>
+                        <div id="botonEntrega">
+                            <!-- BOTON DE ENTREGA (SOLO MOSTRAR SI ES TAREA) -->
+                            <button id="selFile">Seleccionar Archivo</button>
+                            <button id="entregar">Entregar</button>
+                        </div>
+                        <div id="noEntrega"></div>
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
         </div>`;
     
     constructor(){

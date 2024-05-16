@@ -2,11 +2,14 @@
 require_once "../BBDD/m_consultas.php";
 $json = file_get_contents('php://input');
 $obj = json_decode($json,true);
+
+$nombre = $obj['nombre'];
+$apellidos = $obj['apellidos'];
 $email = $obj['email'];
 $password = $obj['password'];
 $hashed_password = password_hash($password,PASSWORD_DEFAULT);
 $campos = array();
-array_push( $campos,0, "", "" , $email,  $hashed_password,0, "");
+array_push( $campos,0, $nombre, $apellidos , $email,  $hashed_password,0, "",0,"");
 insert("usuario", $campos);
 $consulta = selectsql("SELECT * FROM USUARIO WHERE email = '".$email."'");
  if($fi = $consulta->fetch(PDO::FETCH_ASSOC)){
@@ -14,6 +17,4 @@ $consulta = selectsql("SELECT * FROM USUARIO WHERE email = '".$email."'");
  }else{
        echo json_encode("");
  }
-//  echo json_encode($consulta);
-// echo $consulta;
 ?>

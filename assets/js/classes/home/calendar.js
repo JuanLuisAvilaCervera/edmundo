@@ -211,7 +211,7 @@ export class Calendar {
                     datos.forEach( aviso =>{
                         
                         var fechaYMD = aviso['fecha'].substr(0,10);
-                        $("."+fechaYMD).addClass("aviso");
+                        $("."+fechaYMD).addClass("fechaAviso");
                     })
                 }
 

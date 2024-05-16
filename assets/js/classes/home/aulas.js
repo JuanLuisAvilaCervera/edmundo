@@ -117,7 +117,7 @@ export class Aulas{
                     //AÑADIR HTML A LA PÁGINA
                     document.getElementById('aula-section').innerHTML = aulaSectionHTML;
 
-                    //BOTON PARA UNIRSE A UNA CLASE NUEVA O CREAR CLASE NUEVA
+                    // BOTON PARA UNIRSE A UNA CLASE NUEVA O CREAR CLASE NUEVA
                     if(document.getElementById('classCode') != undefined && document.getElementById('enviarCode') != undefined){
                         document.getElementById('classCode').addEventListener('input', () =>{
                             thisClass.comprobar();
@@ -145,12 +145,12 @@ export class Aulas{
                     }
 
                     //PARA CAMBIAR DE CLASE AL CLICAR EN LA LISTA
-                    $(".aula-inactive").each(function () {
-                        $(this).on("click", function(event){
-                            thisClass.updateCurrentClass($(this).attr("id"));
-                        })
-                    });
+                    
                     $(".aula-active").on("click", function(event){
+                        thisClass.updateCurrentClass($(this).attr("id"));
+                    })
+
+                    $(".aula-inactive").on("click", function(event){
                         thisClass.updateCurrentClass($(this).attr("id"));
                     })
                 }
@@ -233,7 +233,7 @@ export class Aulas{
                 }
             };
             //PAGINA ENVIO PHP
-            xmlhttp.open('POST','assets/php/aulas/updateAula.php');
+            xmlhttp.open('POST','http://www.edmundo.com/edmundo/assets/php/aulas/updateAula.php');
             xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
             var obj = {"codAula": newCodAula, "email": localStorage.getItem("email")};
             var cadena = JSON.stringify(obj);

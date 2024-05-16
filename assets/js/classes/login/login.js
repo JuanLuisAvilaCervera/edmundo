@@ -5,21 +5,24 @@ export class Login {
     correo = "";
     password = "";
 
-    loginHTML = `<h1> LOGIN </h1>
-    <label for="correo">Correo</label>
-    <input id="correo" name="correo" type="email">
-    <label for="contrasena">Contraseña</label>
-    <input id="password" name="password" type="password">
-    <button id="enviarLogin">Enviar</button>
-    <button id="registrarse">Registrarse</button>`;
+    loginHTML = `<div class="row"><h1> LOGIN </h1></div>
+    <div class="row"><label for="correo">Correo</label>
+    <input id="correo" name="correo" type="email"></div>
+    <div class="row"><label for="contrasena">Contraseña</label>
+    <input id="password" name="password" type="password"></div>
+    <div class="row"><button id="enviarLogin">Enviar</button>
+    <button id="registrarse">Registrarse</button></div>`;
 
     constructor() {
         this.createLogin();
     }
 
     createLogin() {
-
-        document.getElementById('body').innerHTML = this.loginHTML;
+        //AÑADIR ELEMENTO AL COMIENZO DEL DIV
+        let sp1 = document.createElement("div");
+        sp1.classList.add("container");
+        sp1.innerHTML = this.loginHTML;
+        document.getElementById('body').insertBefore(sp1, document.getElementById('body').firstChild);
 
         document.getElementById('registrarse').addEventListener('click', () => {
             enviarRuta('/register');
@@ -27,6 +30,7 @@ export class Login {
         document.getElementById('enviarLogin').addEventListener('click', () => {
             this.enviarLogin();
         });
+        
     }
 
     crea_query_string() {
@@ -74,7 +78,7 @@ export class Login {
             }
         };
         //PAGINA ENVIO PHP
-        xmlhttp.open('POST','assets/php/Login/login.php');
+        xmlhttp.open('POST','../assets/php/login/login.php');
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string();
         xmlhttp.send(cadena);

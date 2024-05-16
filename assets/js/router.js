@@ -21,6 +21,7 @@ export function enviarRuta(ruta) {
                 }
                 //COMPROBAR ROL
                 let rol = localStorage.getItem('rol');
+                let solicitud = localStorage.getItem('solicitud');
                 var classCode = localStorage.getItem('lastCodAula');
                 switch(rol){
                     //PROFESOR
@@ -37,13 +38,27 @@ export function enviarRuta(ruta) {
                     case "2":
                         //COMPROBAR CLASE
                         if(classCode != "" && classCode != undefined && classCode != null){
-                            var home = new Home();
+                            switch(solicitud){
+                                case "1":
+                                    //CREAR CLASE SOLICITUD
+                                    var waitSolicitud = new waitSolicitud();
+                                    break;
+                                case "2":
+                                    var home = new Home();
+                                    break;
+                                default:
+                                    //CREAR CLASE SOLICITUD
+                                    var solicitud = new Solicitud();
+                                    break;
+                            }
                         }else{
                             enviarRuta('/chooseClass');
                         }
                         break;
                     //ADMIN
                     case "3":
+                        //AÑADIR CONTRASEÑA PARA CONTROLAR EL ACCESO
+                        window.location.href = "http://www.edmundo.com/edmundo/html/admin.html";
                         break;
                     //ROL NO ASIGNADO
                     default:
@@ -77,7 +92,7 @@ export function enviarRuta(ruta) {
     } else {
         switch (ruta) {
             case "/":
-                let login = new Login();
+                window.location.href = "http://www.edmundo.com/edmundo/html/login.php";
                 break;
             case "/register":
                 let register = new Register();

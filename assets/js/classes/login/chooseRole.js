@@ -59,7 +59,7 @@ export class ChooseRole {
             }
         };
         //PAGINA ENVIO PHP
-        xmlhttp.open('POST','assets/php/Login/chooseRole.php');
+        xmlhttp.open('POST','assets/php/login/chooseRole.php');
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string();
         xmlhttp.send(cadena);
