@@ -71,6 +71,7 @@ export class Login {
                     localStorage.setItem('email', datos["email"]);
                     localStorage.setItem('rol', datos["rol"]);
                     localStorage.setItem('lastCodAula', datos["lastCodAula"])
+                    localStorage.setItem('solicitud', datos['solicitud']);
                     console.log("Completado");
                     enviarRuta('/');
                 }

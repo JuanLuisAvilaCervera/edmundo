@@ -5,13 +5,15 @@ import { CorrectReg } from "./classes/login/correctReg.js";
 import { ChooseClass } from "./classes/login/alumno/chooseClass.js";
 import { CreateClass } from "./classes/login/profesor/createClass.js";
 import { ChooseRole } from "./classes/login/chooseRole.js";
+import { WaitSolicitud } from "./classes/login/profesor/waitSolicitud.js";
+import { solicitud } from "./classes/login/profesor/solicitud.js";
 
 var indexHTML = "";
 var body = document.getElementById('body');
 
 export function enviarRuta(ruta) {
-    var token = localStorage.getItem('email');
-    if (token != "" && token != null && token != undefined) {
+    var email = localStorage.getItem('email');
+    if (email != "" && email != null && email != undefined) {
         switch (ruta) {
             case "/":
                 
@@ -21,36 +23,38 @@ export function enviarRuta(ruta) {
                 }
                 //COMPROBAR ROL
                 let rol = localStorage.getItem('rol');
-                let solicitud = localStorage.getItem('solicitud');
+                let getSolicitud = localStorage.getItem('solicitud');
                 var classCode = localStorage.getItem('lastCodAula');
                 switch(rol){
                     //PROFESOR
                     case "1":
-                        //COMPROBAR CLASE
                         
-                        if(classCode != "" && classCode != undefined && classCode != null){
-                            let home = new Home();
-                        }else{
-                            enviarRuta('/crearAula');
+                        
+                        switch(getSolicitud){
+                            case "1":
+                                //CREAR CLASE SOLICITUD
+                                var waitsolicitud = new WaitSolicitud();
+                                break;
+                            case "2":
+                                //COMPROBAR CLASE
+                                if(classCode != "" && classCode != undefined && classCode != null){
+                                    var home = new Home();
+                                }else{
+                                enviarRuta('/crearAula');
+                                }
+                                break;
+                            default:
+                                //CREAR CLASE SOLICITUD
+                                localStorage.setItem('solicitud', "1");
+                                solicitud();
+                                break;
                         }
                         break;
                     //ALUMNO
                     case "2":
                         //COMPROBAR CLASE
                         if(classCode != "" && classCode != undefined && classCode != null){
-                            switch(solicitud){
-                                case "1":
-                                    //CREAR CLASE SOLICITUD
-                                    var waitSolicitud = new waitSolicitud();
-                                    break;
-                                case "2":
-                                    var home = new Home();
-                                    break;
-                                default:
-                                    //CREAR CLASE SOLICITUD
-                                    var solicitud = new Solicitud();
-                                    break;
-                            }
+                            var home = new Home();
                         }else{
                             enviarRuta('/chooseClass');
                         }

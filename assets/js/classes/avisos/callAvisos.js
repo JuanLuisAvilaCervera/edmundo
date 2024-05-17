@@ -215,8 +215,9 @@ export class callAvisos{
                         var titulo = $(this).find(".titulo").html();
                         var texto = $(this).find(".texto").html();
                         var fecha = $(this).find(".fecha").html();
+                        var fechafinal = fecha.substr(7,4)+"/"+fecha.substr(4,2)+"/"+fecha.substr(1,2)+" "+fecha.substr(11)+":00";
                         if($(this).find(".tarea").hasClass("istarea-true")){
-                            if($(this).find(".tarea").hasClass("isatrasada-true") || (new Date() - new Date(fecha) < 0)){
+                            if($(this).find(".tarea").hasClass("isatrasada-true") || (new Date() - new Date(fechafinal)) < 0){
                                 $('#avisoModal').find("#botonEntrega").show();
                             }else{
                                 $('#avisoModal').find("#botonEntrega").hide();

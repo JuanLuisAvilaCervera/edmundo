@@ -29,8 +29,28 @@ export class Header {
         document.getElementById('header').innerHTML = this.headerHTML;
         document.getElementById('logOff').addEventListener('click', () =>{
             localStorage.clear();
-            window.location.replace("http://www.edmundo.com/edmundo/index.html");
-        })
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange=function() {
+                if(this.readyState==4 && this.status==200) {
+                    console.log(this.responseText);
+                    var datos = JSON.parse(this.responseText);
+                    if (datos == "") {
+                        //document.getElementById('datos').innerHTML = "La contraseña o el usuario introducidos son incorrectos";
+                        console.log("Fallo");
+                    }else{
+                        
+                        console.log(datos);
+                        console.log("Completado");
+                        localStorage.clear();
+                        window.location.replace("http://www.edmundo.com/edmundo/index.html");
+                    }
+                }
+            };
+            //PAGINA ENVIO PHP
+            xmlhttp.open('POST','http://www.edmundo.com/edmundo/assets/php/login/destroySession.php');
+            xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
+            xmlhttp.send();
+    })
 
         $("#avisos").on("click", function(){
             enviarRuta("/avisos");

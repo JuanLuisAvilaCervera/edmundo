@@ -5,7 +5,7 @@ function getUserID($email){
     $consulta = select("usuario where email = '".$email."'");
     
     if($fi = $consulta -> fetch(PDO::FETCH_ASSOC)){
-        return $fi["id_user"];
+        return $fi["idUsuario"];
     }else{
         return "";
     }

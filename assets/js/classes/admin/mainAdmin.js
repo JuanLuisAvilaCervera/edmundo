@@ -26,13 +26,35 @@ export class MainAdmin{
         </div>
     </div>`;
 
-        constructor(){
-            document.getElementById('main').innerHTML = this.pestanasHTML;
-
-            this.BBDDcall();
-        }
+    constructor(){
+        document.getElementById('main').innerHTML = this.pestanasHTML;
+        this.BBDDcall();
+    }
     
+    aceptarSolicitud(idUsuario){
+        var obj = {
+            "idUsuario": idUsuario
+        }
+        var cadena = JSON.stringify(obj);
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if(this.readyState==4 && this.status==200) {
+                var datos = JSON.parse(this.responseText);
+                if (datos == "") {
+                    console.log("Fallo");
+                }else{
+                    console.log("Completado");
+                    window.location.reload();
+                }
+            }
+        }
+        xmlhttp.open('POST','../assets/php/admin/aceptarSolicitud.php');
+        xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
+        xmlhttp.send(cadena);
+    }
+
     BBDDcall(){
+        const thisClass = this;
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange=function() {
             if(this.readyState==4 && this.status==200) {
@@ -76,19 +98,24 @@ export class MainAdmin{
                         var alumnosArray = [];
                         var profesoresArray = [];
                     
-                     datos.forEach(tarea => {
+                     datos.forEach(usuario => {
                         var usuarioHTML = "";
-                        if(tarea['rol'] == "1"){
-                            usuarioHTML = profesoresHTML.replace("[NOMBRE]", tarea['name'])
-                                                        .replace("[APELLIDOS]", tarea['surname'])
-                                                        .replace("[IDUSUARIO]", tarea['idUsuario'])
-                                                        .replace("[EMAIL]", tarea['email']);
+                        if(usuario['rol'] == "1"){
+                            usuarioHTML = profesoresHTML.replace("[NOMBRE]", usuario['name'])
+                                                        .replace("[APELLIDOS]", usuario['surname'])
+                                                        .replace("[IDUSUARIO]", usuario['idUsuario'])
+                                                        .replace("[EMAIL]", usuario['email']);
+                            if(usuario['solicitud'] == "1"){
+                                usuarioHTML = usuarioHTML.replace("[SOLICITUD]", '<button class="solicitud">Aceptar Solicitud</button>');
+                            }else{
+                                usuarioHTML = usuarioHTML.replace("[SOLICITUD]", '');
+                            }
                             profesoresArray.push(usuarioHTML);
-                        }else if(tarea['rol'] == "2"){
-                            usuarioHTML = alumnosHTML.replace("[NOMBRE]", tarea['name'])
-                                                        .replace("[APELLIDOS]", tarea['surname'])
-                                                        .replace("[IDUSUARIO]", tarea['idUsuario'])
-                                                        .replace("[EMAIL]", tarea['email']);
+                        }else if(usuario['rol'] == "2"){
+                            usuarioHTML = alumnosHTML.replace("[NOMBRE]", usuario['name'])
+                                                        .replace("[APELLIDOS]", usuario['surname'])
+                                                        .replace("[IDUSUARIO]", usuario['idUsuario'])
+                                                        .replace("[EMAIL]", usuario['email']);
                             alumnosArray.push(usuarioHTML);
                         }
                     });
@@ -101,10 +128,10 @@ export class MainAdmin{
                         })
 
                        
-                        $("#eliminar").on("click", function(){
-                            alert("hola");
+                        $(".solicitud").on("click", function(event){
+                            var id = $(this).parent().parent().attr("id");
+                            thisClass.aceptarSolicitud(id);
                         })
-                        //<button id="profesor">Aceptar solicitud de profesor</button>
                 }
             }
         }

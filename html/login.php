@@ -22,12 +22,14 @@
     <link rel="stylesheet" href="../assets/css/datepicker.css">
 
     
+    
 </head>
 <body id="body" class="body">
     <!-- CONTENIDO DE LA PÁGINA -->
     <div id="registroGoogle">
     <?php
 require_once "../vendor/autoload.php";
+require_once "../assets/php/BBDD/m_consultas.php";
 
 //Iniciar conf.
 $clienteID = '57706156024-qjb9jctu619eavgmidvat70i3dkfd736.apps.googleusercontent.com';
@@ -54,7 +56,6 @@ if (isset($_REQUEST['code'])) {
 
     //Pillar desde Google los datos necesarios
 	$token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-    print_r($token);
 	$client->setAccessToken($token['access_token']);
 	//conseguir info del perfil (es mediante objetos, -> para acceder a los atributos/métodos/etc...)
 	$google_oauth = new Google_Service_OAuth2($client);
@@ -65,6 +66,22 @@ if (isset($_REQUEST['code'])) {
 	$apellidos = $google_account_info->familyName;
 	$foto = $google_account_info->picture;
 
+    $consulta = select("usuario where email = '".$email."'");
+    if($fi = $consulta->fetch(PDO::FETCH_ASSOC)){
+            //Añadir a localStorage
+        
+    }else{
+        $campos = array();
+        array_push( $campos,0, $nombre, $apellidos , $email,  "",0, "",0,"");
+        insert("usuario", $campos);
+        $consulta = selectsql("SELECT * FROM USUARIO WHERE email = '".$email."'");
+        if($fi = $consulta->fetch(PDO::FETCH_ASSOC)){
+              
+        }
+    
+    }
+
+
     //Mostrar info. del usuario loggeado
 	// echo "Logueado" . "<br>";
 	// echo "Correo: " . $email . "<br>";
@@ -73,12 +90,13 @@ if (isset($_REQUEST['code'])) {
 	// echo "Apellidos: " . $apellidos . "<br>";
 	// echo "<img src='" . $foto . "' alt='Foto'>";
 
-    //Guardar en sesión los datos que nos ha dado la API OAuth 2.0 de Google
+
+    // //Guardar en sesión los datos que nos ha dado la API OAuth 2.0 de Google
 	$_SESSION['usuario'] = $email;
 	$_SESSION['token'] = $token['access_token'];
 	$_SESSION['token2'] = $client->getRefreshToken();
 }else{
-    echo "<a href='".$client->createAuthUrl()."'>LOGIN IN GOOGLE</a> ";
+    echo "<a href='".$client->createAuthUrl()."' id='botonLogin'>LOGIN IN GOOGLE</a> ";
     // header( "Location: $client->createAuthUrl()" );
 }
 

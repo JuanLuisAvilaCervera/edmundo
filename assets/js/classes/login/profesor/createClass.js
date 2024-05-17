@@ -46,8 +46,7 @@ export class CreateClass {
                 }else{
                     console.log(datos);
                     console.log("Completado");
-                    console.log(datos["codAula"]);
-                    localStorage.setItem("lastCodAula", datos["codAula"]);
+                    localStorage.setItem("lastCodAula", datos['codAula']);
                     enviarRuta('/');
                 }
 

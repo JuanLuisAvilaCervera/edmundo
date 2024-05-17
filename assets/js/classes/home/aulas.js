@@ -72,9 +72,9 @@ export class Aulas{
 
                     var aulaSectionHTML = "";
                     var aulaList = [];
-                    if(datos.length > 1){
                         datos.forEach(aula => {
                             //CURRENT AULA
+                            console.log(aula['codAula']);
                                 if(aula['codAula'] == localStorage.getItem("lastCodAula")){
                                     //TODO: TRAER DATOS DEL PROFESOR CREADOR DE LA CLASE
                                     var currentAula = currentAulaHTML.replace('[AULA-NAME]',aula['nombre'])
@@ -89,13 +89,7 @@ export class Aulas{
                                 }
                             });
                             
-                    }else{
-                        //EN EL CASO DE SOLO TRAER UNA CLASE (POSIBLES FALLOS DEBIDO A FETCHALL)
-                        var newAula = currentAulaHTML.replace('[AULA-NAME]',datos['nombre'])
-                                                                .replace('[AULA-PROFESOR]', datos['idCreator'])
-                                                                .replace('[CODAULA]', datos['codAula']);
-                        aulaSectionHTML += aulaListHTML.replace('[LISTA-AULAS]', newAula);
-                    }
+                    
 
                     var rol = localStorage.getItem("rol");
                     switch(rol){

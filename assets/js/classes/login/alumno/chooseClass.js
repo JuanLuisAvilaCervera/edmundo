@@ -59,6 +59,7 @@ export class ChooseClass {
     }
 
     BBDDcall(){
+        var thisClass = this;
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange=function() {
             if(this.readyState==4 && this.status==200) {
@@ -70,7 +71,7 @@ export class ChooseClass {
                 }else{
                     console.log(datos);
                     console.log("Completado");
-                    localStorage.setItem("lastCodAula", this.classCode);
+                    localStorage.setItem("lastCodAula", thisClass.classCode);
                     enviarRuta('/');
                 }
 

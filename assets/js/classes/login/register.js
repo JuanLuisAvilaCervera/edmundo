@@ -89,12 +89,7 @@ export class Register {
                     //document.getElementById('datos').innerHTML = "La contraseña o el usuario introducidos son incorrectos";
                     console.log("Fallo");
                 }else{
-                    //ENVIAR DATOS POR PANTALLA
-                    // for(var atributo in datos){
-                    //     let texto = atributo +"->" +datos[atributo]+"<br>";
-                    //     
-                    //     document.getElementById('datos').innerHTML +=texto;
-                    // }
+                    
                     console.log(datos);
                     console.log("Completado");
                 }
