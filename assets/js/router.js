@@ -62,7 +62,8 @@ export function enviarRuta(ruta) {
                     //ADMIN
                     case "3":
                         //AÑADIR CONTRASEÑA PARA CONTROLAR EL ACCESO
-                        window.location.href = "http://www.edmundo.com/edmundo/html/admin.html";
+                        window.location.href = "http://www.edmundo.com/edmundo/avisos.html";
+                       
                         break;
                     //ROL NO ASIGNADO
                     default:
@@ -83,8 +84,8 @@ export function enviarRuta(ruta) {
             case "/avisos":
                 var classCode = localStorage.getItem('lastCodAula');
                 if(classCode != "" && classCode != undefined && classCode != null){
-                    window.location.href = "http://www.edmundo.com/edmundo/html/avisos.html";
-                    
+                    if(window.location.href !=  "http://www.edmundo.com/edmundo/avisos.html")
+                    window.location.href = "http://www.edmundo.com/edmundo/avisos.html";
                 }else{
                     enviarRuta('/');
                 }
@@ -111,6 +112,7 @@ export function enviarRuta(ruta) {
                 break;
             default:
                 //PAGINA DE ERROR
+                enviarRuta('/');
                 break;
         }
 

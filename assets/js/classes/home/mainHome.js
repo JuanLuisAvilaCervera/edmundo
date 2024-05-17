@@ -26,7 +26,7 @@ export class MainHome{
                         <span id="current">0</span>
                         <span id="maximum">/ 300</span>
                     </div>
-                    <button name="send" id="send-post" class="btn btn-primary">Confirmar</button>
+                    <button name="send" id="send-post" class="btn btn-primary">Enviar</button>
                 </div>
                 <div id="post-list" class="post-list">
                     <!-- LISTA DE POSTS-->

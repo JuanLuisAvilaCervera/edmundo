@@ -14,6 +14,7 @@ export class Login {
     <button id="registrarse">Registrarse</button></div>`;
 
     constructor() {
+        //COMPROBAR QUE NO ESTÁ REGISTRADO
         this.createLogin();
     }
 

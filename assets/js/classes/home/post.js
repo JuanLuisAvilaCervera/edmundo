@@ -111,9 +111,11 @@ export class Post {
         var postHTML = 
         `<div class="post" id="[ID]">
         <div class="main-post">
-            <textarea class="form-control text-post" disabled>
-                [CONTENIDO]
-            </textarea>
+            <div class="form-control text-post" disabled>
+                <span class="nombre">[NOMBRE]</span>
+                <span class="contenido">[CONTENIDO]</span>
+                <span class="fecha">[FECHA]</span>
+            </div>
         </div>
     </div>`;
 
@@ -132,7 +134,9 @@ export class Post {
                     datos.forEach(post => {
                         var newPost = postHTML;
                         newPost = newPost.replace('[CONTENIDO]' , post['texto'])
-                                        .replace('[ID]', post['idPost']);
+                                        .replace('[ID]', post['idPost'])
+                                        .replace('[NOMBRE]', post['name'])
+                                        .replace('[FECHA]', post['fecha'].substr(0,16));
                         postList.innerHTML += newPost;
                     });
                 }

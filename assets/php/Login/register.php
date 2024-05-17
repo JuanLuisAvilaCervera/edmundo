@@ -8,7 +8,8 @@ $apellidos = $obj['apellidos'];
 $email = $obj['email'];
 $password = $obj['password'];
 $hashed_password = password_hash($password,PASSWORD_DEFAULT);
-$campos = array();
+if(!$consulta = selectsql("SELECT * FROM USUARIO WHERE email = '".$email."'")){
+      $campos = array();
 array_push( $campos,0, $nombre, $apellidos , $email,  $hashed_password,0, "",0,"");
 insert("usuario", $campos);
 $consulta = selectsql("SELECT * FROM USUARIO WHERE email = '".$email."'");
@@ -17,4 +18,8 @@ $consulta = selectsql("SELECT * FROM USUARIO WHERE email = '".$email."'");
  }else{
        echo json_encode("");
  }
+}else{
+      echo json_encode("");
+}
+
 ?>

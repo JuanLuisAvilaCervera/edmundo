@@ -34,9 +34,10 @@ if( $idAula != "" && $title != "" && $fecha != "" ){
                 insert("tareasentregadas", $datosEntregadas);
                 $cont++;
             }
+            echo json_encode($datosEntregadas);
         }
         
-        echo json_encode($datosEntregadas);
+        echo json_encode("Completado");
     }else{
         echo json_encode("");
     }

@@ -10,10 +10,12 @@ $text = $obj['text'];
 $datos = array();
 $idUsuario = getUserID($email);
 $idAula = getAulaID($codAula);
+$zonaHoraria = new DateTimeZone("Europe/Madrid");
+$fecha = date("Y/m/d h:i:00");
 
 if( $idUsuario != "" && $idAula != "" && $text != ""){
     // //Añadir datos del insert al array $datos
-    array_push($datos, 0, $idUsuario, $idAula, $text, "");
+    array_push($datos, 0, $idUsuario, $idAula, $text, $fecha);
     // //INSERTAR NUEVO POST
     $consulta = insert("post", $datos);
     // //DEVOLVEMOS LOS DATOS TRAS HACER LAS LLAMADAS A BBDD

@@ -102,6 +102,6 @@ if (isset($_REQUEST['code'])) {
 
 ?></div>
 <!-- JS -->
-<script src="../assets/js/classes/login/crearLogin.js" type="module"></script>
+<script src="http://www.edmundo.com/edmundo/assets/js/classes/login/crearLogin.js" type="module"></script>
 </body>
 </html>

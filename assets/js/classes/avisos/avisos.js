@@ -5,6 +5,7 @@ import { MainAvisos } from "./mainAvisos.js";
 
 
     document.addEventListener('DOMContentLoaded', () => {
+        enviarRuta("/avisos");
         var body = document.getElementById('body');
         body.innerHTML = `<div class="header" id="header"></div>
         <div class="main" id="main"></div>
