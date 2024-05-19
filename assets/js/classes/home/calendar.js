@@ -17,6 +17,24 @@ export class Calendar {
 
     prenexIcons;
 
+    modalHTML = `<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
     calendarHTML = `<div class="calendar-container">
 <header class="calendar-header">
     <p class="calendar-current-date"></p>
@@ -170,7 +188,7 @@ export class Calendar {
                 }else{
                     monthComplete = this.month;
                 }
-            lit += `<li class="${isToday} ${this.year}-${monthComplete}-${dayComplete}">${i}</li>`;
+            lit += `<li class="${isToday} " id="${this.year}-${monthComplete}-${dayComplete}">${i}</li>`;
         }
 
         // Loop to add the first dates of the next month
@@ -186,9 +204,15 @@ export class Calendar {
         // with the generated calendar
         this.day.innerHTML = lit;
 
-        
-
         this.markAvisos();
+
+        $(".calendar-dates li").on("click", function(){
+            if($(this).attr("id") != "undefined"){
+                localStorage.setItem("fecha", ($(this).attr("id")));
+            }
+        })
+
+        
     }
 
     //FUNCION COLOREAR DIAS CON AVISOS
@@ -211,7 +235,7 @@ export class Calendar {
                     datos.forEach( aviso =>{
                         
                         var fechaYMD = aviso['fecha'].substr(0,10);
-                        $("."+fechaYMD).addClass("fechaAviso");
+                        $("#"+fechaYMD).addClass("fechaAviso");
                     })
                 }
 

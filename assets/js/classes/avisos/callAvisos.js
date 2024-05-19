@@ -14,6 +14,10 @@ export class callAvisos{
         $("#verAntiguos").change(function() {
             thisClass.mostrarAvisos();
         });
+
+        $("#verTareas").change(function() {
+            thisClass.mostrarAvisos();
+        });
         
 
         
@@ -33,6 +37,7 @@ export class callAvisos{
         }
         
         this.checkOld();
+        this.checkTareas();
 
     }
 
@@ -43,6 +48,12 @@ export class callAvisos{
                 $(".expired").parent().hide();
         }
         
+    }
+    checkTareas(){
+        var ischecked = $("#verTareas").is(":checked");
+        if(ischecked){
+            $(".istarea-false").parent().hide();
+        }
     }
 
 
@@ -140,7 +151,7 @@ export class callAvisos{
         `<div class="aviso form-control" id="[ID]-[IDAULA]" style="display:[DISPLAY];">
             <span class="titulo">[TITULO]</span><span class="fecha"> [FECHA]</span> <span class='[SPANCLASS] '>[SPANTEXTO]</span>
             <div class="tarea istarea-[ISTAREA] isatrasada-[ISATRASADA]" style="display:[DISPLAYTAREA];">
-                <span class='entregada' >[ENTREGADA]</span>
+                <span class='entregada' ></span>
             </div>
             <span class="texto" style="display:none;">[TEXTO]</span>
             

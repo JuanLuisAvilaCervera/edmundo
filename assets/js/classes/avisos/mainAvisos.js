@@ -18,6 +18,7 @@ export class MainAvisos{
                             <option id="allAulas">Todas las aulas</option>
                         </select>
                         <label for="verAntiguos">Mostrar antiguos:</label><input type="checkbox" id="verAntiguos"/>
+                        <label for="verAntiguos">Mostrar sólo tareas:</label><input type="checkbox" id="verTareas"/>
                         <div id="nuevoAvisoDiv">
 
                         </div>

@@ -84,8 +84,8 @@ export function enviarRuta(ruta) {
             case "/avisos":
                 var classCode = localStorage.getItem('lastCodAula');
                 if(classCode != "" && classCode != undefined && classCode != null){
-                    if(window.location.href !=  "http://www.edmundo.com/edmundo/avisos.html")
-                    window.location.href = "http://www.edmundo.com/edmundo/avisos.html";
+                    if(window.location.href !=  "http://www.edmundo.com/edmundo/html/avisos.html")
+                    window.location.href = "http://www.edmundo.com/edmundo/html/avisos.html";
                 }else{
                     enviarRuta('/');
                 }
