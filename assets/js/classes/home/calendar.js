@@ -1,13 +1,9 @@
 
 
-
-
-// Array of month names
+import { enviarRuta } from "../../router.js";
 
 
 // Function to generate the calendar
-
-
 export class Calendar {
     date;
     day;
@@ -209,6 +205,7 @@ export class Calendar {
         $(".calendar-dates li").on("click", function(){
             if($(this).attr("id") != "undefined"){
                 localStorage.setItem("fecha", ($(this).attr("id")));
+                enviarRuta("/avisos");
             }
         })
 

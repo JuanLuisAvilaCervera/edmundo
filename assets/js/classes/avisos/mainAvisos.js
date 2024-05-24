@@ -53,7 +53,7 @@ export class MainAvisos{
                         </div>
                         <div id="botonEntrega">
                             <!-- BOTON DE ENTREGA (SOLO MOSTRAR SI ES TAREA) -->
-                            <button id="selFile">Seleccionar Archivo</button>
+                            <input type="file" id="fileTarea" accept="image/*,.pdf"/>
                             <button id="entregar">Entregar</button>
                         </div>
                         <div id="noEntrega"></div>

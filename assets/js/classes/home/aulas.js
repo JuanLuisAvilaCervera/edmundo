@@ -74,20 +74,19 @@ export class Aulas{
                     var aulaList = [];
                         datos.forEach(aula => {
                             //CURRENT AULA
-                            console.log(aula['codAula']);
-                                if(aula['codAula'] == localStorage.getItem("lastCodAula")){
-                                    //TODO: TRAER DATOS DEL PROFESOR CREADOR DE LA CLASE
-                                    var currentAula = currentAulaHTML.replace('[AULA-NAME]',aula['nombre'])
-                                                                .replace('[AULA-PROFESOR]', aula['idCreator'])
-                                                                .replaceAll('[CODAULA]', aula['codAula']);
-                                    aulaSectionHTML += aulaListHTML.replace('[LISTA-AULAS]', currentAula);
-                                }else{
-                                    //OTRAS AULAS
-                                    aulaList.push(aulaHTML.replaceAll('[ID]', aula['codAula'])
-                                                            .replace('[AULA-NAME]', aula['nombre'])
-                                                            .replace('[AULA-PROFESOR]', aula['idCreator']));
-                                }
-                            });
+                            if(aula['codAula'] == localStorage.getItem("lastCodAula")){
+                                //TODO: TRAER DATOS DEL PROFESOR CREADOR DE LA CLASE
+                                var currentAula = currentAulaHTML.replace('[AULA-NAME]',aula['nombre'])
+                                                            .replace('[AULA-PROFESOR]', aula['idCreator'])
+                                                            .replaceAll('[CODAULA]', aula['codAula']);
+                                aulaSectionHTML += aulaListHTML.replace('[LISTA-AULAS]', currentAula);
+                            }else{
+                                //OTRAS AULAS
+                                aulaList.push(aulaHTML.replaceAll('[ID]', aula['codAula'])
+                                                        .replace('[AULA-NAME]', aula['nombre'])
+                                                        .replace('[AULA-PROFESOR]', aula['idCreator']));
+                            }
+                        });
                             
                     
 
@@ -215,6 +214,7 @@ export class Aulas{
                     var datos = JSON.parse(this.responseText);
                     
                     if (datos == "") {
+                        console.log("Fallo");
                     }else{
                         console.log(datos);
                         console.log("Completado");

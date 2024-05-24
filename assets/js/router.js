@@ -7,6 +7,7 @@ import { CreateClass } from "./classes/login/profesor/createClass.js";
 import { ChooseRole } from "./classes/login/chooseRole.js";
 import { WaitSolicitud } from "./classes/login/profesor/waitSolicitud.js";
 import { solicitud } from "./classes/login/profesor/solicitud.js";
+import { HomeAvisos } from "./classes/avisos/homeavisos.js";
 
 var indexHTML = "";
 var body = document.getElementById('body');
@@ -28,8 +29,6 @@ export function enviarRuta(ruta) {
                 switch(rol){
                     //PROFESOR
                     case "1":
-                        
-                        
                         switch(getSolicitud){
                             case "1":
                                 //CREAR CLASE SOLICITUD
@@ -84,10 +83,10 @@ export function enviarRuta(ruta) {
             case "/avisos":
                 var classCode = localStorage.getItem('lastCodAula');
                 if(classCode != "" && classCode != undefined && classCode != null){
-                    if(window.location.href !=  "http://www.edmundo.com/edmundo/html/avisos.html")
-                    window.location.href = "http://www.edmundo.com/edmundo/html/avisos.html";
-                }else{
-                    enviarRuta('/');
+                    if(window.location.href !=  "http://www.edmundo.com/edmundo/html/avisos.html"){
+                        window.location.href = "http://www.edmundo.com/edmundo/html/avisos.html";
+                    }
+                    let avisos = new HomeAvisos();
                 }
                 break;
             default:

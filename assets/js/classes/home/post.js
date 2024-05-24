@@ -122,13 +122,11 @@ export class Post {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange=function() {
             if(this.readyState==4 && this.status==200) {
-                console.log(this.responseText);
                 var datos = JSON.parse(this.responseText);
                 if (datos == "") {
                     console.log("Fallo");
 
                 }else{
-                    console.log(datos);
                     console.log("completado");
                     var postList = document.getElementById('post-list');
                     datos.forEach(post => {

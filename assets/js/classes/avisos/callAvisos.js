@@ -1,12 +1,16 @@
 import { enviarRuta } from "../../router.js";
+import { enviarArchivos } from "../../archivos.js";
 
 export class callAvisos{
     constructor(){
         this.BBDDcallAulas();
         this.callAvisos();
 
+
         //LISTAR SOLO NUEVOS
         var thisClass = this;
+        var fecha = localStorage.getItem("fecha");
+        
         $('#aulaSelect').change(function() {
             thisClass.mostrarAvisos();
         });
@@ -18,8 +22,6 @@ export class callAvisos{
         $("#verTareas").change(function() {
             thisClass.mostrarAvisos();
         });
-        
-
         
     }
 
@@ -39,6 +41,13 @@ export class callAvisos{
         this.checkOld();
         this.checkTareas();
 
+    }
+
+    mostrarFecha(fecha){
+        $('.aviso').hide();
+        var puntofecha = "."+fecha;
+        $('.aviso '+puntofecha).parent().show();
+        localStorage.setItem("fecha", "");
     }
 
     checkOld(){
@@ -112,6 +121,7 @@ export class callAvisos{
             if(this.readyState==4 && this.status==200) {
                 var datos = JSON.parse(this.responseText);
                 if (datos == "") {
+                    //PONER A TODAS LAS TAREAS (SIN ENTREGAR)
                     console.log("Fallo");
                 }else{
                     datos.forEach(tarea => {
@@ -119,7 +129,6 @@ export class callAvisos{
                         var fechaEntrega = tarea['fechaEntrega'];
                         var file = tarea['file'];
                         var aviso = $('.aviso[id*="'+ tareaId +'-"]');
-                        console.log(aviso);
                         if(fechaEntrega.substr(0,10) == "0000-00-00" || file == ""){
                             aviso.find(".entregada").text("Sin Entregar");
                             aviso.find(".entregada").css("color", "red");
@@ -132,6 +141,9 @@ export class callAvisos{
                                 aviso.find(".entregada").css("color", "red");
                             }
                         }
+
+                        //PONER AL RESTO DE TAREAS (SIN ENTREGAR)
+                        //ELIMINAR PRIMER IFELSE
                     });
 
                 }
@@ -149,7 +161,7 @@ export class callAvisos{
         //AÑADIR TIEMPO RESTANTE
         var avisoHTML = 
         `<div class="aviso form-control" id="[ID]-[IDAULA]" style="display:[DISPLAY];">
-            <span class="titulo">[TITULO]</span><span class="fecha"> [FECHA]</span> <span class='[SPANCLASS] '>[SPANTEXTO]</span>
+            <span class="titulo">[TITULO]</span><span class="fecha [DIA]"> [FECHA]</span> <span class='[SPANCLASS] '>[SPANTEXTO]</span>
             <div class="tarea istarea-[ISTAREA] isatrasada-[ISATRASADA]" style="display:[DISPLAYTAREA];">
                 <span class='entregada' ></span>
             </div>
@@ -160,6 +172,7 @@ export class callAvisos{
         var thisClass = this;
 
         var xmlhttp = new XMLHttpRequest();
+        var thisClass = this;
         xmlhttp.onreadystatechange=function() {
             if(this.readyState==4 && this.status==200) {
                 var datos = JSON.parse(this.responseText);
@@ -181,6 +194,7 @@ export class callAvisos{
                         newAviso = newAviso
                                         .replace('[TITULO]' , aviso['titulo'])
                                         .replace('[FECHA]' , fechaDMY)
+                                        .replace('[DIA]' , fechaYMD.substr(0,10))
                                         .replace('[ID]', aviso['idAviso'])
                                         .replace('[IDAULA]' , aviso['idAula'])
                                         .replace('[TEXTO]', aviso['texto']);
@@ -221,6 +235,16 @@ export class callAvisos{
                         }
                         avisoList.innerHTML += newAviso;    
                     });
+                    //MOSTRAR POR FECHA
+                    var fecha = localStorage.getItem("fecha");
+
+                    if(fecha != "" && fecha != null && fecha != undefined){
+                        console.log(fecha);
+                        thisClass.mostrarFecha(fecha);
+                        // localStorage.setItem("fecha", "");
+                    }
+
+
                     //CONFIGURACIÓN DEL MODAL
                     $(".aviso").on("click", function(event){
                         var titulo = $(this).find(".titulo").html();
@@ -228,11 +252,25 @@ export class callAvisos{
                         var fecha = $(this).find(".fecha").html();
                         var fechafinal = fecha.substr(7,4)+"/"+fecha.substr(4,2)+"/"+fecha.substr(1,2)+" "+fecha.substr(11)+":00";
                         if($(this).find(".tarea").hasClass("istarea-true")){
-                            if($(this).find(".tarea").hasClass("isatrasada-true") || (new Date() - new Date(fechafinal)) < 0){
-                                $('#avisoModal').find("#botonEntrega").show();
-                            }else{
+                            if(localStorage.getItem("rol") == "2"){
+                                if($(this).find(".tarea").hasClass("isatrasada-true") || (new Date() - new Date(fechafinal)) < 0){
+                                    $('#avisoModal').find("#botonEntrega").show();
+                                    $('#entregar').on("click", function(){
+                                        console.log($("#fileTarea").val());
+                                        if($("#fileTarea").val() == "" || $("#fileTarea").val() == undefined || $("#fileTarea").val() == null){
+                                            alert("No se ha añadido ningún archivo");
+                                        }else{
+                                            enviarArchivos($("#fileTarea").val());
+                                        }
+                                       
+                                    })
+                                }else{
+                                    $('#avisoModal').find("#botonEntrega").hide();
+                                    $('#avisoModal').find("#noEntrega").text("Fuera de plazo");
+                                }
+                            }else if(localStorage.getItem("rol") == "1"){
                                 $('#avisoModal').find("#botonEntrega").hide();
-                                $('#avisoModal').find("#noEntrega").text("Fuera de plazo");
+                                //BOTÓN PARA REVISAR LAS TAREAS ENVIADAS
                             }
                         }else{
                             $('#avisoModal').find("#botonEntrega").hide();
