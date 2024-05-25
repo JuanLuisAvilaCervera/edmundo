@@ -251,19 +251,24 @@ export class callAvisos{
                         var texto = $(this).find(".texto").html();
                         var fecha = $(this).find(".fecha").html();
                         var fechafinal = fecha.substr(7,4)+"/"+fecha.substr(4,2)+"/"+fecha.substr(1,2)+" "+fecha.substr(11)+":00";
+                        
                         if($(this).find(".tarea").hasClass("istarea-true")){
                             if(localStorage.getItem("rol") == "2"){
                                 if($(this).find(".tarea").hasClass("isatrasada-true") || (new Date() - new Date(fechafinal)) < 0){
+                                    var fullTareaId = $(this).attr("id");
+                                    var tareaArray = fullTareaId.split("-");
+                                    console.log(tareaArray[0]);
                                     $('#avisoModal').find("#botonEntrega").show();
-                                    $('#entregar').on("click", function(){
-                                        console.log($("#fileTarea").val());
-                                        if($("#fileTarea").val() == "" || $("#fileTarea").val() == undefined || $("#fileTarea").val() == null){
+                                    $('#entregar').on("click", function(e){
+                                        e.preventDefault();
+                                        console.log($("#fileToUpload").val());
+                                        if($("#fileToUpload").val() == "" || $("#fileToUpload").val() == undefined || $("#fileToUpload").val() == null){
                                             alert("No se ha añadido ningún archivo");
                                         }else{
-                                            enviarArchivos($("#fileTarea").val());
+                                            enviarArchivos(tareaArray[0]);
                                         }
                                        
-                                    })
+                                    });
                                 }else{
                                     $('#avisoModal').find("#botonEntrega").hide();
                                     $('#avisoModal').find("#noEntrega").text("Fuera de plazo");

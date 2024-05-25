@@ -53,10 +53,14 @@ export class MainAvisos{
                         </div>
                         <div id="botonEntrega">
                             <!-- BOTON DE ENTREGA (SOLO MOSTRAR SI ES TAREA) -->
-                            <input type="file" id="fileTarea" accept="image/*,.pdf"/>
-                            <button id="entregar">Entregar</button>
+                            <form enctype="multipart/form-data" method="post" id="formTarea">
+                                <input class="form-control" type="file" name="fileToUpload" id="fileToUpload" accept="image/*,.pdf,.rar,.zip">
+                                <button id="entregar">Entregar</button>
+                            </form>
                         </div>
-                        <div id="noEntrega"></div>
+                        <div id="noEntrega">
+                            <!-- RELLENAR SI EL EVENTO HA PASADO -->
+                        </div>
                     </div>
                     <div class="modal-footer">
 

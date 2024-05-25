@@ -26,7 +26,7 @@
 </head>
 <body id="body" class="body">
     <!-- CONTENIDO DE LA PÁGINA -->
-    <div id="registroGoogle">
+    <!-- <div id="registroGoogle"> -->
     <?php
 require_once "../vendor/autoload.php";
 require_once "../assets/php/BBDD/m_consultas.php";
@@ -44,12 +44,17 @@ $client->addScope("email");
 $client->addScope("profile");
 
 if (isset($_POST['desconectar'])) {
-	if (isset($_SESSION['token'])) {
-		$client->revokeToken($_SESSION['token']);
-		$client->revokeToken($_SESSION['token2']);
-		session_destroy();
-		header('Location: index.php');
-	}
+    session_start();
+    echo "Desconectado";
+    unset($_REQUEST['code']);
+    unset($_SESSION['token']);
+    unset($_SESSION['userData']);
+    $client->revokeToken($_SESSION['token']);
+    $client->revokeToken($_SESSION['token2']);
+    $client->revokeToken($_SESSION['userData']);
+    session_destroy();
+    header('Location: login.php');
+
 }
 
 if (isset($_REQUEST['code'])) {
@@ -89,6 +94,12 @@ if (isset($_REQUEST['code'])) {
 	// echo "Nombre: " . $nombre . "<br>";
 	// echo "Apellidos: " . $apellidos . "<br>";
 	// echo "<img src='" . $foto . "' alt='Foto'>";
+    echo "<form action='' method='post'><input type='submit' class='desconectar' name='desconectar' id='desconectar'/></form>";
+    echo "<script>
+    localStorage.setItem('prueba','".$email."');
+    localStorage.setItem('prueba','".$email."');
+    localStorage.setItem('prueba','".$email."');
+    </script>";
 
 
     // //Guardar en sesión los datos que nos ha dado la API OAuth 2.0 de Google
@@ -100,7 +111,7 @@ if (isset($_REQUEST['code'])) {
     // header( "Location: $client->createAuthUrl()" );
 }
 
-?></div>
+?>
 <!-- JS -->
 <script src="http://www.edmundo.com/edmundo/assets/js/classes/login/crearLogin.js" type="module"></script>
 </body>
