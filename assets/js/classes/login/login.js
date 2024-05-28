@@ -11,8 +11,7 @@ export class Login {
     <div class="row"><label for="contrasena">Contraseña</label>
     <input id="password" name="password" type="password"></div>
     <div class="row"><button id="enviarLogin">Enviar</button>
-    <button id="registrarse">Registrarse</button></div>
-    <button id="registroGoogle">Iniciar con Google</button>`;
+    <button id="registrarse">Registrarse</button></div>`;
 
     constructor() {
         //COMPROBAR QUE NO ESTÁ REGISTRADO
@@ -34,36 +33,11 @@ export class Login {
         document.getElementById('enviarLogin').addEventListener('click', () => {
             this.enviarLogin();
         });
-        document.getElementById('registroGoogle').addEventListener('click', () =>{
-            // this.registroGoogle();
-        });
         
     }
 
 
-    registroGoogle(){
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange=function() {
-            if(this.readyState==4 && this.status==200) {
-                console.log(this.responseText);
-                var datos = JSON.parse(this.responseText);
-                if (datos == "") {
-                    console.log("Fallo");
-                }else{
-                    console.log(datos);
-                    // localStorage.setItem('email', datos["email"]);
-                    // localStorage.setItem('rol', datos["rol"]);
-                    // localStorage.setItem('lastCodAula', datos["lastCodAula"])
-                    // localStorage.setItem('solicitud', datos['solicitud']);
-                    // console.log("Completado");
-                    // enviarRuta('/');
-                }
-            }
-        }
-        //PAGINA ENVIO PHP
-        xmlhttp.open('POST','../assets/php/login/oauth.php',true);
-        xmlhttp.send();
-    }
+    
 
     crea_query_string() {
         var obj = {"email":this.correo,"password":this.password};

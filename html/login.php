@@ -30,6 +30,7 @@
     <?php
 require_once "../vendor/autoload.php";
 require_once "../assets/php/BBDD/m_consultas.php";
+require_once "../assets/php/archivos/subirPerfiles.php";
 
 //Iniciar conf.
 $clienteID = '57706156024-qjb9jctu619eavgmidvat70i3dkfd736.apps.googleusercontent.com';
@@ -74,14 +75,16 @@ if (isset($_REQUEST['code'])) {
     $consulta = select("usuario where email = '".$email."'");
     if($fi = $consulta->fetch(PDO::FETCH_ASSOC)){
             //Añadir a localStorage
-        
+
+            echo "<script>
+            localStorage.setItem('verified','".$fi['verificado']."');
+            </script>";
     }else{
         $campos = array();
-        array_push( $campos,0, $nombre, $apellidos , $email,  "",0, "",0,"");
-        insert("usuario", $campos);
-        $consulta = selectsql("SELECT * FROM USUARIO WHERE email = '".$email."'");
-        if($fi = $consulta->fetch(PDO::FETCH_ASSOC)){
-              
+        array_push( $campos,0, $nombre, $apellidos , $email,  "",0, "",0,$foto,0);
+        $consulta2 = insert("usuario", $campos);
+        if($consulta2 == 1){
+              subirPerfil($foto);
         }
     
     }
@@ -96,9 +99,7 @@ if (isset($_REQUEST['code'])) {
 	// echo "<img src='" . $foto . "' alt='Foto'>";
     echo "<form action='' method='post'><input type='submit' class='desconectar' name='desconectar' id='desconectar'/></form>";
     echo "<script>
-    localStorage.setItem('prueba','".$email."');
-    localStorage.setItem('prueba','".$email."');
-    localStorage.setItem('prueba','".$email."');
+    localStorage.setItem('email','".$email."');
     </script>";
 
 

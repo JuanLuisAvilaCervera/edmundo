@@ -14,7 +14,8 @@ var body = document.getElementById('body');
 
 export function enviarRuta(ruta) {
     var email = localStorage.getItem('email');
-    if (email != "" && email != null && email != undefined) {
+    var verified = localStorage.getItem('verified');
+    if (email != "" && email != null && email != undefined && verified != "" && verified != null && verified != undefined) {
         switch (ruta) {
             case "/":
                 
@@ -103,6 +104,7 @@ export function enviarRuta(ruta) {
                 break;
             case "/correct_reg":
                 let email = localStorage.getItem('email') || "";
+                console.log(email);
                 if (email != "" && email != undefined && email != null) {
                     let correctReg = new CorrectReg();
                 } else {

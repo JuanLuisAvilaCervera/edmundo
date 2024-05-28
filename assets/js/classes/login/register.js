@@ -53,7 +53,7 @@ export class Register {
             }else{
                 this.BBDDcall();
                 //-------COMPROBAR REGISTRO CORRECTO ANTES
-                enviarRuta('/correct_reg');
+                
             }
             
         }
@@ -87,11 +87,13 @@ export class Register {
                 var datos = JSON.parse(this.responseText);
                 if (datos == "") {
                     //document.getElementById('datos').innerHTML = "La contraseña o el usuario introducidos son incorrectos";
-                    console.log("Fallo");
+                    alert("Usuario con mismo correo ya registrado");
                 }else{
                     
                     console.log(datos);
                     console.log("Completado");
+                    localStorage.setItem('email', datos);
+                    enviarRuta('/correct_reg');
                 }
 
             }
