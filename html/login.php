@@ -31,6 +31,7 @@
 require_once "../vendor/autoload.php";
 require_once "../assets/php/BBDD/m_consultas.php";
 require_once "../assets/php/archivos/subirPerfiles.php";
+require_once "../assets/php/correo/modelo.php";
 
 //Iniciar conf.
 $clienteID = '57706156024-qjb9jctu619eavgmidvat70i3dkfd736.apps.googleusercontent.com';
@@ -79,6 +80,7 @@ if (isset($_REQUEST['code'])) {
             echo "<script>
             localStorage.setItem('verified','".$fi['verificado']."');
             </script>";
+            
     }else{
         $campos = array();
         array_push( $campos,0, $nombre, $apellidos , $email,  "",0, "",0,$foto,0);
@@ -86,8 +88,17 @@ if (isset($_REQUEST['code'])) {
         if($consulta2 == 1){
               subirPerfil($foto);
         }
+        
+
+        $message = "Este correo sirve para que valides tu cuenta de correo electronico 
+                  <br> para validarlo pincha en el siguiente enlace:
+                  <br> <a href='http://www.edmundo.com/edmundo/html/verRegistro.php?c=$email'>http://www.edmundo.com/edmundo/html/verRegistro.php</a>";
+        (mandaCorreo($email, $message));
     
     }
+    echo "<script>
+        localStorage.setItem('email','".$email."');
+        </script>";
 
 
     //Mostrar info. del usuario loggeado
@@ -97,16 +108,15 @@ if (isset($_REQUEST['code'])) {
 	// echo "Nombre: " . $nombre . "<br>";
 	// echo "Apellidos: " . $apellidos . "<br>";
 	// echo "<img src='" . $foto . "' alt='Foto'>";
-    echo "<form action='' method='post'><input type='submit' class='desconectar' name='desconectar' id='desconectar'/></form>";
-    echo "<script>
-    localStorage.setItem('email','".$email."');
-    </script>";
+    // echo "<form action='' method='post'><input type='submit' class='desconectar' name='desconectar' id='desconectar'/></form>";
+    
 
 
     // //Guardar en sesión los datos que nos ha dado la API OAuth 2.0 de Google
 	$_SESSION['usuario'] = $email;
 	$_SESSION['token'] = $token['access_token'];
 	$_SESSION['token2'] = $client->getRefreshToken();
+
 }else{
     echo "<a href='".$client->createAuthUrl()."' id='botonLogin'>LOGIN IN GOOGLE</a> ";
     // header( "Location: $client->createAuthUrl()" );

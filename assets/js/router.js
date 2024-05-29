@@ -1,7 +1,6 @@
 import { Home } from "./classes/home/home.js";
 import { Login } from "./classes/login/login.js";
 import { Register } from "./classes/login/register.js";
-import { CorrectReg } from "./classes/login/correctReg.js";
 import { ChooseClass } from "./classes/login/alumno/chooseClass.js";
 import { CreateClass } from "./classes/login/profesor/createClass.js";
 import { ChooseRole } from "./classes/login/chooseRole.js";
@@ -15,7 +14,7 @@ var body = document.getElementById('body');
 export function enviarRuta(ruta) {
     var email = localStorage.getItem('email');
     var verified = localStorage.getItem('verified');
-    if (email != "" && email != null && email != undefined && verified != "" && verified != null && verified != undefined) {
+    if (email != "" && email != null && email != undefined && verified != "" && verified != null && verified != undefined && verified != "0") {
         switch (ruta) {
             case "/":
                 
@@ -95,21 +94,17 @@ export function enviarRuta(ruta) {
                 break;
         }
     } else {
+
+        
+        if(email != "" && email != null && email != undefined){
+            window.location.href = "http://www.edmundo.com/edmundo/html/notVerified.html";
+        }else
         switch (ruta) {
             case "/":
                 window.location.href = "http://www.edmundo.com/edmundo/html/login.php";
                 break;
             case "/register":
                 let register = new Register();
-                break;
-            case "/correct_reg":
-                let email = localStorage.getItem('email') || "";
-                console.log(email);
-                if (email != "" && email != undefined && email != null) {
-                    let correctReg = new CorrectReg();
-                } else {
-                    enviarRuta('/');
-                }
                 break;
             default:
                 //PAGINA DE ERROR

@@ -93,7 +93,7 @@ export class Register {
                     console.log(datos);
                     console.log("Completado");
                     localStorage.setItem('email', datos);
-                    enviarRuta('/correct_reg');
+                    enviarRuta('/');
                 }
 
             }

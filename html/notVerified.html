@@ -21,30 +21,9 @@
     <link rel="stylesheet" href="../assets/css/datepicker.css">
 
     <!-- JS -->
-    <script src="../assets/js/classes/login/verRegistro.js" type="module"></script>
+    <script src="../assets/js/classes/login/notVerified.js" type="module"></script>
 </head>
 <body id="body" class="body">
-
-<?php
-require_once "../assets/php/BBDD/m_consultas.php";
-if (isset($_GET["c"])){
-    $correo = $_GET["c"];
-    $consulta = select("usuario where email = '$correo'");
-
-    if ($fi = $consulta->fetch(PDO::FETCH_ASSOC)){
-        if ($fi["verificado"]==0){
-            $campos = array('verificado' => 1);
-            update("usuario", "email = '". $correo."'", $campos);
-            echo "Todo correcto";
-        }
-        echo "Ya fue verificado";
-    }else{
-        //DEVOLVER ERROR
-        echo "No existe usuario con este email";
-    }
-}
-
-?>
     <!-- CONTENIDO DE LA PÁGINA -->
 </body>
 </html>
