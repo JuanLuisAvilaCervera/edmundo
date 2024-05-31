@@ -19,14 +19,12 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
     <!-- CSS -->
     <link rel="stylesheet" href="../assets/css/index.css">
-    <link rel="stylesheet" href="../assets/css/datepicker.css">
 
     
     
 </head>
 <body id="body" class="body">
     <!-- CONTENIDO DE LA PÁGINA -->
-    <!-- <div id="registroGoogle"> -->
     <?php
 require_once "../vendor/autoload.php";
 require_once "../assets/php/BBDD/m_consultas.php";
