@@ -133,8 +133,11 @@ export class callAvisos{
                             aviso.find(".entregada").text("Sin Entregar");
                             aviso.find(".entregada").css("color", "red");
                         }else{
-                            if((new Date(aviso.find(".fecha").text()) - new Date(fechaEntrega.substr(0,10))) < 0){
-                                aviso.find(".entregada").html("Entregada");
+                            let fechaTemp = aviso.find(".fecha").text();
+                            fechaTemp = fechaTemp.substr(7,4)+"-"+fechaTemp.substr(4,2)+"-"+fechaTemp.substr(1,2);
+                            console.log(fechaTemp);
+                            if((new Date(fechaTemp) - new Date(fechaEntrega.substr(0,10))) > 0){
+                                aviso.find(".entregada").text("Entregada");
                                 aviso.find(".entregada").css("color", "green");
                             }else{
                                 aviso.find(".entregada").text("Entregada con atraso");
@@ -191,8 +194,7 @@ export class callAvisos{
                         var isTarea = aviso['tarea'];
                         var atrasada = aviso['atrasada'];
 
-                        newAviso = newAviso
-                                        .replace('[TITULO]' , aviso['titulo'])
+                        newAviso = newAviso.replace('[TITULO]' , aviso['titulo'])
                                         .replace('[FECHA]' , fechaDMY)
                                         .replace('[DIA]' , fechaYMD.substr(0,10))
                                         .replace('[ID]', aviso['idAviso'])
@@ -247,43 +249,56 @@ export class callAvisos{
 
                     //CONFIGURACIÓN DEL MODAL
                     $(".aviso").on("click", function(event){
-                        var titulo = $(this).find(".titulo").html();
-                        var texto = $(this).find(".texto").html();
-                        var fecha = $(this).find(".fecha").html();
-                        var fechafinal = fecha.substr(7,4)+"/"+fecha.substr(4,2)+"/"+fecha.substr(1,2)+" "+fecha.substr(11)+":00";
-                        
-                        if($(this).find(".tarea").hasClass("istarea-true")){
-                            if(localStorage.getItem("rol") == "2"){
-                                if($(this).find(".tarea").hasClass("isatrasada-true") || (new Date() - new Date(fechafinal)) < 0){
-                                    var fullTareaId = $(this).attr("id");
-                                    var tareaArray = fullTareaId.split("-");
-                                    console.log(tareaArray[0]);
-                                    $('#avisoModal').find("#botonEntrega").show();
-                                    $('#entregar').on("click", function(e){
-                                        e.preventDefault();
-                                        console.log($("#fileToUpload").val());
-                                        if($("#fileToUpload").val() == "" || $("#fileToUpload").val() == undefined || $("#fileToUpload").val() == null){
-                                            alert("No se ha añadido ningún archivo");
-                                        }else{
-                                            enviarArchivos(tareaArray[0]);
-                                        }
-                                       
-                                    });
-                                }else{
-                                    $('#avisoModal').find("#botonEntrega").hide();
-                                    $('#avisoModal').find("#noEntrega").text("Fuera de plazo");
-                                }
-                            }else if(localStorage.getItem("rol") == "1"){
-                                $('#avisoModal').find("#botonEntrega").hide();
-                                //BOTÓN PARA REVISAR LAS TAREAS ENVIADAS
-                            }
+                        var rol = localStorage.getItem('rol');
+                        var fullTareaId = $(this).attr("id");
+                        var tareaArray = fullTareaId.split("-");
+                        console.log("Aviso");
+                        if(rol == "1"){
+                            localStorage.setItem('tarea',tareaArray[0]);
+                            enviarRuta("/tareas");
+                            
                         }else{
-                            $('#avisoModal').find("#botonEntrega").hide();
+                            var titulo = $(this).find(".titulo").html();
+                            var texto = $(this).find(".texto").html();
+                            var fecha = $(this).find(".fecha").html();
+                            var entregada = $(this).find(".entregada").text();
+                            var fechafinal = fecha.substr(7,4)+"/"+fecha.substr(4,2)+"/"+fecha.substr(1,2)+" "+fecha.substr(11)+":00";
+                            
+                            if($(this).find(".tarea").hasClass("istarea-true")){
+
+                                    if(entregada == "Entregada" || entregada == "Entregada con atraso"){
+                                        //NO MOSTRAR BOTÓN DE ENTREGAR
+                                        
+                                        //ENSEÑAR NOMBRE DEL ARCHIVO ENTREGADO
+                                        //PERMITIR DESCARGARLO O ELIMINARLO
+                                        //AÑADIR VENTANA EMERGENTE
+                                    }else
+                                    if($(this).find(".tarea").hasClass("isatrasada-true") || (new Date() - new Date(fechafinal)) < 0){
+                                        
+                                        $('#avisoModal').find("#botonEntrega").show();
+                                        $('#entregar').on("click", function(e){
+                                            e.preventDefault();
+                                            console.log($("#fileToUpload").val());
+                                            if($("#fileToUpload").val() == "" || $("#fileToUpload").val() == undefined || $("#fileToUpload").val() == null){
+                                                alert("No se ha añadido ningún archivo");
+                                            }else{
+                                                enviarArchivos(tareaArray[0]);
+                                            }
+                                        
+                                        });
+                                    }else{
+                                        $('#avisoModal').find("#botonEntrega").hide();
+                                        $('#avisoModal').find("#noEntrega").text("Fuera de plazo");
+                                    }
+                                
+                            }else{
+                                $('#avisoModal').find("#botonEntrega").hide();
+                            }
+                            $('#avisoModal').find("#avisoModalLabel").text(titulo);
+                            $('#avisoModal').find("#texto").text(texto);
+                            $('#avisoModal').find("#fecha").text(fecha);
+                            $('#avisoModal').modal('show');
                         }
-                        $('#avisoModal').find("#avisoModalLabel").text(titulo);
-                        $('#avisoModal').find("#texto").text(texto);
-                        $('#avisoModal').find("#fecha").text(fecha);
-                        $('#avisoModal').modal('show');
                     })
                 }
 

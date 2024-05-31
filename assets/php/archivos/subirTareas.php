@@ -16,7 +16,7 @@ if(isset($_POST['ajax'])){
         if(isset($_FILES['fileToUpload'])){
             move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);
             $datosEntregadas = array();
-            array_push($datosEntregadas, "", $idTarea, $idUsuario,basename($_FILES["fileToUpload"]["name"]),$fecha);
+            array_push($datosEntregadas, "", $idTarea, $idUsuario,basename($_FILES["fileToUpload"]["name"]),$fecha, "");
             $consulta = insert("tareasentregadas", $datosEntregadas);
             if($consulta == 1){
                 echo json_encode("Completado");

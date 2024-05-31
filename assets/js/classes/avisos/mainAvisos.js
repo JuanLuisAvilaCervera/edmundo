@@ -30,7 +30,7 @@ export class MainAvisos{
                     <!-- LISTA DE AVISOS-->
                 </div>
             </div>
-
+                <!-- CALENDARIO -->
             <div class="calendar-section col-xl-3" id="calendar-section"></div>
         </div>
         

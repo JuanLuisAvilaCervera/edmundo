@@ -28,11 +28,7 @@ export class Aulas{
             if(this.readyState==4 && this.status==200) {
                 var datos = JSON.parse(this.responseText);
                 if (datos == "") {
-                    console.log("Fallo");
                 }else{
-                    console.log(datos);
-                    console.log("Completado");
-
                     var aulaListHTML =
                     `<div class="container aula-list" id="aula-list">
                         [LISTA-AULAS]

@@ -1,5 +1,4 @@
 import { Home } from "./classes/home/home.js";
-import { Login } from "./classes/login/login.js";
 import { Register } from "./classes/login/register.js";
 import { ChooseClass } from "./classes/login/alumno/chooseClass.js";
 import { CreateClass } from "./classes/login/profesor/createClass.js";
@@ -7,6 +6,7 @@ import { ChooseRole } from "./classes/login/chooseRole.js";
 import { WaitSolicitud } from "./classes/login/profesor/waitSolicitud.js";
 import { solicitud } from "./classes/login/profesor/solicitud.js";
 import { HomeAvisos } from "./classes/avisos/homeavisos.js";
+import { HomeTareas } from "./classes/tareas/homeTareas.js";
 
 var indexHTML = "";
 var body = document.getElementById('body');
@@ -61,7 +61,7 @@ export function enviarRuta(ruta) {
                     //ADMIN
                     case "3":
                         //AÑADIR CONTRASEÑA PARA CONTROLAR EL ACCESO
-                        window.location.href = "http://www.edmundo.com/edmundo/avisos.html";
+                        window.location.href = "http://www.edmundo.com/edmundo/html/admin.html";
                        
                         break;
                     //ROL NO ASIGNADO
@@ -87,8 +87,22 @@ export function enviarRuta(ruta) {
                         window.location.href = "http://www.edmundo.com/edmundo/html/avisos.html";
                     }
                     let avisos = new HomeAvisos();
+                }else{
+                    enviarRuta('/');
                 }
                 break;
+            case "/tareas":
+            var classCode = localStorage.getItem('lastCodAula');
+            var tarea = localStorage.getItem('tarea');
+            if(classCode != "" && classCode != undefined && classCode != null && tarea != "" && tarea != undefined && tarea != null){
+                if(window.location.href !=  "http://www.edmundo.com/edmundo/html/tareas.html"){
+                    window.location.href = "http://www.edmundo.com/edmundo/html/tareas.html";
+                }
+                let tareas = new HomeTareas();
+            }else{
+                enviarRuta('/avisos');
+            }
+            break;
             default:
                 //PAGINA DE ERROR
                 break;

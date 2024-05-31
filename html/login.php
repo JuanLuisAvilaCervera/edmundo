@@ -79,6 +79,9 @@ if (isset($_REQUEST['code'])) {
 
             echo "<script>
             localStorage.setItem('verified','".$fi['verificado']."');
+            localStorage.setItem('rol', '".$fi['rol']."');
+            localStorage.setItem('lastCodAula', '".$fi['lastCodAula']."');
+            localStorage.setItem('solicitud', '".$fi['solicitud']."');
             </script>";
             
     }else{
