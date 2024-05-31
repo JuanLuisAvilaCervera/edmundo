@@ -112,7 +112,6 @@ export class callAvisos{
 
     callAvisos(){
         this.BBDDcallAvisos();
-        this.BBDDcallTareas();
     }
 
     BBDDcallTareas(){
@@ -129,19 +128,31 @@ export class callAvisos{
                         var fechaEntrega = tarea['fechaEntrega'];
                         var file = tarea['file'];
                         var aviso = $('.aviso[id*="'+ tareaId +'-"]');
+                        var puntuacion = tarea['puntuacion'];
                         if(fechaEntrega.substr(0,10) == "0000-00-00" || file == ""){
                             aviso.find(".entregada").text("Sin Entregar");
                             aviso.find(".entregada").css("color", "red");
                         }else{
                             let fechaTemp = aviso.find(".fecha").text();
                             fechaTemp = fechaTemp.substr(7,4)+"-"+fechaTemp.substr(4,2)+"-"+fechaTemp.substr(1,2);
-                            console.log(fechaTemp);
+                            
+                            aviso.find(".tareaFile").text(file);
+
+                            if(puntuacion != "" && puntuacion != undefined && puntuacion != null && puntuacion != 0 && puntuacion != "0"){
+                                puntuacion = puntuacion + "/100";
+                            }else{
+                                puntuacion = "Sin calificar";
+                            }
+                            aviso.find(".puntuacion").text(puntuacion);
+
                             if((new Date(fechaTemp) - new Date(fechaEntrega.substr(0,10))) > 0){
                                 aviso.find(".entregada").text("Entregada");
                                 aviso.find(".entregada").css("color", "green");
+                                aviso.find(".entregada").addClass("true");
                             }else{
                                 aviso.find(".entregada").text("Entregada con atraso");
                                 aviso.find(".entregada").css("color", "red");
+                                aviso.find(".entregada").addClass("true");
                             }
                         }
 
@@ -166,9 +177,11 @@ export class callAvisos{
         `<div class="aviso form-control" id="[ID]-[IDAULA]" style="display:[DISPLAY];">
             <span class="titulo">[TITULO]</span><span class="fecha [DIA]"> [FECHA]</span> <span class='[SPANCLASS] '>[SPANTEXTO]</span>
             <div class="tarea istarea-[ISTAREA] isatrasada-[ISATRASADA]" style="display:[DISPLAYTAREA];">
-                <span class='entregada' ></span>
+                <span class='entregada'></span>
             </div>
             <span class="texto" style="display:none;">[TEXTO]</span>
+            <span class="tareaFile" style="display:none;"></span>
+            <span class="puntuacion" style="display:none;"></span>
             
         </div>`;
     
@@ -261,20 +274,27 @@ export class callAvisos{
                             var titulo = $(this).find(".titulo").html();
                             var texto = $(this).find(".texto").html();
                             var fecha = $(this).find(".fecha").html();
-                            var entregada = $(this).find(".entregada").text();
+                            var entregada = $(this).find(".true");
+                            //AVERIGUAR QUE TIPO ES
                             var fechafinal = fecha.substr(7,4)+"/"+fecha.substr(4,2)+"/"+fecha.substr(1,2)+" "+fecha.substr(11)+":00";
                             
                             if($(this).find(".tarea").hasClass("istarea-true")){
+                                    console.log(entregada.length);
+                                    $('#avisoModal').find("#descargarTarea").empty();
+                                    if(entregada.length != 0){
 
-                                    if(entregada == "Entregada" || entregada == "Entregada con atraso"){
+                                        var filename = $(this).find(".tareaFile").text();
+                                        var puntuacion = $(this).find(".puntuacion").text();
+                                        $('#avisoModal').find("#puntuacion").text("Puntuación:" +puntuacion);
                                         //NO MOSTRAR BOTÓN DE ENTREGAR
-                                        
+                                        $('#avisoModal').find("#botonEntrega").hide();
                                         //ENSEÑAR NOMBRE DEL ARCHIVO ENTREGADO
+                                        $('#avisoModal').find("#descargarTarea").append('<a href="http://www.edmundo.com/edmundo/assets/files/tareasEntregadas/'+filename+ '" download>'+filename+'</a>');
+                                        $('#avisoModal').find("#descargarTarea").append('<button id="borrarTarea">X</button>');
                                         //PERMITIR DESCARGARLO O ELIMINARLO
-                                        //AÑADIR VENTANA EMERGENTE
+                                        //AÑADIR VENTANA EMERGENTE AVISANDO AL BORRAR
                                     }else
                                     if($(this).find(".tarea").hasClass("isatrasada-true") || (new Date() - new Date(fechafinal)) < 0){
-                                        
                                         $('#avisoModal').find("#botonEntrega").show();
                                         $('#entregar').on("click", function(e){
                                             e.preventDefault();
@@ -300,6 +320,10 @@ export class callAvisos{
                             $('#avisoModal').modal('show');
                         }
                     })
+
+
+                    //BBDDCALLTAREAS
+                    thisClass.BBDDcallTareas();
                 }
 
             }

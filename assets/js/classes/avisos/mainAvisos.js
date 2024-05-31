@@ -61,6 +61,13 @@ export class MainAvisos{
                         <div id="noEntrega">
                             <!-- RELLENAR SI EL EVENTO HA PASADO -->
                         </div>
+                        <div id="puntuacion">
+                            <!-- PUNTUACION -->
+                        </div>
+                        <div id="descargarTarea">
+                            <!-- PODER VER TAREA ENTREGADA E INCLUSO BORRARLA -->
+                        </div>
+                        
                     </div>
                     <div class="modal-footer">
 
