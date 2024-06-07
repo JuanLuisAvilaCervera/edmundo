@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,11 +18,12 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
     <!-- CSS -->
     <link rel="stylesheet" href="../assets/css/index.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
 
     
     
 </head>
-<body id="body" class="body">
+<body id="body" class="body align-items-center justify-content-center">
     <!-- CONTENIDO DE LA PÁGINA -->
     <?php
 require_once "../vendor/autoload.php";
@@ -93,7 +93,7 @@ if (isset($_REQUEST['code'])) {
 
         $message = "Este correo sirve para que valides tu cuenta de correo electronico 
                   <br> para validarlo pincha en el siguiente enlace:
-                  <br> <a href='http://www.edmundo.com/edmundo/html/verRegistro.php?c=$email'>http://www.edmundo.com/edmundo/html/verRegistro.php</a>";
+                  <br><<a href='http://www.edmundo.com/edmundo/html/verRegistro.php?c=$email'>http://www.edmundo.com/edmundo/html/verRegistro.php</a>";
         (mandaCorreo($email, $message));
     
     }
@@ -119,12 +119,16 @@ if (isset($_REQUEST['code'])) {
 	$_SESSION['token2'] = $client->getRefreshToken();
 
 }else{
-    echo "<a href='".$client->createAuthUrl()."' id='botonLogin'>LOGIN IN GOOGLE</a> ";
-    // header( "Location: $client->createAuthUrl()" );
+    echo "<div class='google-log'><img src='http://www.edmundo.com/edmundo/assets/files/logos/google.webp' style='width:30px'/> <a  class='google-button' href='".$client->createAuthUrl()."' id='botonLogin'>Iniciar sesión con Google</a></div>";
+    // header( "Location: $client->createAuthUrl()");
 }
 
 ?>
+
+<div class="footer-secondary" id="footer"><div class="copyright">Edmundo 2024</div></div>
+
 <!-- JS -->
 <script src="http://www.edmundo.com/edmundo/assets/js/classes/login/crearLogin.js" type="module"></script>
+
 </body>
 </html>

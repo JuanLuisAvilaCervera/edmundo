@@ -5,13 +5,51 @@ export class Login {
     correo = "";
     password = "";
 
-    loginHTML = `<div class="row"><h1> LOGIN </h1></div>
-    <div class="row"><label for="correo">Correo</label>
-    <input id="correo" name="correo" type="email"></div>
-    <div class="row"><label for="contrasena">Contraseña</label>
-    <input id="password" name="password" type="password"></div>
-    <div class="row"><button id="enviarLogin">Enviar</button>
-    <button id="registrarse">Registrarse</button></div>`;
+    // loginHTML = `<div class="row"><h1> LOGIN </h1></div>
+    // <div class="row"><label for="correo">Correo</label>
+    // <input id="correo" name="correo" type="email"></div>
+    // <div class="row"><label for="contrasena">Contraseña</label>
+    // <input id="password" name="password" type="password"></div>
+    // <div class="row"><button id="enviarLogin">Enviar</button>
+    // <button id="registrarse">Registrarse</button></div>`;
+    loginHTML = `<div class="form-signin justify-content-center text-center login box"> 
+        <div class="row">
+            <div class="col-12">
+                <h1> Edmundo </h1>
+                <h3>Inicio de Sesión</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-start">
+                <label for="correo">Correo</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <input id="correo" class="correo form-control" type="email">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12 text-start">
+                <label for="password">Contraseña</label>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12">
+                <input id="password" class="password form-control" type="password">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5 pe-0">
+                <button id="registrarse" class="w-100 rounded-start">Registrarse</button>
+            </div>
+            <div class="col-7 ps-0">
+                <button id="enviarLogin" class="w-100 rounded-end">Iniciar Sesión</button>
+            </div>
+            
+        </div>
+    </div>`;
 
     constructor() {
         //COMPROBAR QUE NO ESTÁ REGISTRADO
@@ -23,7 +61,7 @@ export class Login {
     createLogin() {
         //AÑADIR ELEMENTO AL COMIENZO DEL DIV
         let sp1 = document.createElement("div");
-        sp1.classList.add("container");
+        sp1.classList.add("justify-content-center");
         sp1.innerHTML = this.loginHTML;
         document.getElementById('body').insertBefore(sp1, document.getElementById('body').firstChild);
 
@@ -51,7 +89,7 @@ export class Login {
         this.password = document.getElementById('password').value || "";
 
         if (this.correo == "" || this.password == "") {
-            this.error(1); // ERROR: FALTAN DATOS
+            alert("Faltan datos");
         } else {
             this.BBDDcall();
         }
@@ -64,8 +102,7 @@ export class Login {
                 console.log(this.responseText);
                 var datos = JSON.parse(this.responseText);
                 if (datos == "") {
-                    //document.getElementById('datos').innerHTML = "La contraseña o el usuario introducidos son incorrectos";
-                    console.log("Fallo");
+                    alert("La contraseña es erronea o no hay una cuenta vinculada al correo indicado");
                 }else{
                     console.log(datos);
                     localStorage.setItem('email', datos["email"]);
@@ -84,20 +121,6 @@ export class Login {
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string();
         xmlhttp.send(cadena);
-    }
-
-    //CLASE ERROR (MENSAJES EN ROJO POR PANTALLA ALERT)
-    error(code) {
-        console.log("error: " + code);
-        // switch (code) {
-        //     case 1:
-
-        //         // ERROR: FALTAN DATOS
-        //         break;
-        //     case 2:
-        //         // ERROR: DATOS ERRONEOS
-        //         break;
-        // }
     }
 
 }

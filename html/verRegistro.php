@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
     <!-- CSS -->
     <link rel="stylesheet" href="../assets/css/index.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
     <link rel="stylesheet" href="../assets/css/datepicker.css">
 
     <!-- JS -->
@@ -35,16 +36,27 @@ if (isset($_GET["c"])){
         if ($fi["verificado"]==0){
             $campos = array('verificado' => 1);
             update("usuario", "email = '". $correo."'", $campos);
-            echo "Todo correcto";
+            $mensaje =  "Tu cuenta ha sido verificada con exito";
+        }else{
+            $mensaje =  "Esta cuenta ya fue verificada anteriormente";
         }
-        echo "Ya fue verificado";
+        
     }else{
         //DEVOLVER ERROR
-        echo "No existe usuario con este email";
+        $mensaje =  "No existe un usuario con este email";
     }
+
+    $bodyHTML = "<div class='box text-center rounded'>
+    <div class='row mb-3'><h1>Edmundo</h1><h5>Verificación por correo electrónico</h5></div>
+    <div class='row mb-3'><div class='col-12'>$mensaje</div></div>
+    <div class='row'><a href='http://www.edmundo.com/edmundo' class='btn btn-primary'>Volver a inicio</a></div>
+        
+    </div>";
+    echo $bodyHTML;
 }
 
 ?>
     <!-- CONTENIDO DE LA PÁGINA -->
+    <div class="footer-secondary" id="footer"><div class="copyright">Edmundo 2024</div></div>
 </body>
 </html>

@@ -7,19 +7,60 @@ export class Register {
     nombre = "";
     apellidos = "";
 
-    registerHTML = `<h1> Register </h1>
-    <label for="nombre">Nombre</label>
-    <input id="nombre" name="nombre" type="text">
-    <label for="apellidos">Apellidos</label>
-    <input id="apellidos" name="apellidos" type="text">
-    <label for="correo">Correo</label>
-    <input id="correo" name="correo" type="email">
-    <label for="contrasena">Contraseña</label>
-    <input id="password" name="password" type="password">
-    <label for="contrasena">Repetir Contraseña</label>
-    <input id="repeatPassword" name="repeatPassword" type="password">
-    <p>¿Ya tienes cuenta?<button id="enviarLogin">Log In</button></p>
-    <button id="registrarse">Enviar</button>`;
+    registerHTML = `<div class="form-signin justify-content-center text-center login box">
+        <div class="row">
+            <div class="col-12">
+                <h1> Edmundo </h1>
+                <h3>Registro</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 text-start"><label for="nombre">Nombre</label></div>
+            <div class="col-6 text-start"><label for="apellidos">Apellidos</label></div>
+        </div>
+        <div class="row">
+            <div class="col-6"><input type="text" class="nombre form-control" id="nombre" /></div>
+            <div class="col-6"><input type="text" class="apellidos form-control" id="apellidos" /></div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-start"><label for="correo">Correo</label></div>
+        </div>
+        <div class="row">
+            <div class="col-12"><input type="text" class="correo form-control" id="correo" /></div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-start">
+                <label for="contrasena">Contraseña</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <input type="password" class="contrasena form-control" id="contrasena" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-start">
+                <label for="repeatPassword">Repetir Contraseña</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <input type="password" class="repeatPassword form-control" id="repeatPassword" />
+            </div>
+        </div>
+        <div class="row mb-0">
+            <div class="col-12">
+                <label>¿Ya tienes cuenta?</label><button id="enviarLogin" class="btn btn-secondary">Iniciar Sesión</button>
+            </div>
+        </div>
+    </div>
+    <div><button id="registrarse" class="register-button">Enviar</button></div>
+    
+    <div class="footer-secondary" id="footer"><div class="copyright">Edmundo 2024</div></div>
+    `;
 
     constructor() {
         this.createRegister();
@@ -40,38 +81,31 @@ export class Register {
     //EVENTO BOTÓN REGISTER
     enviarRegistro() {
         this.correo = document.getElementById('correo').value || "";
-        this.password = document.getElementById('password').value || "";
+        this.password = document.getElementById('contrasena').value || "";
         this.repPassword = document.getElementById('repeatPassword').value|| "";
         this.nombre = document.getElementById("nombre").value || "";
         this.apellidos = document.getElementById("apellidos").value || "";
 
         if (this.correo == "" || this.password == "" || this.nombre == "" || this.apellidos == "") {
-            this.error(1); // ERROR (1): FALTAN DATOS
+            alert("Faltan datos");
+            $("input").each(function(e){
+                if($(this).val() == ""){
+                    $(this).addClass("wrong");
+                }else{
+                    $(this).removeClass("wrong");
+                }
+            })
         } else {
             if(this.password != this.repPassword ){
-                this.error(2); // ERROR (2): LAS CONTRASEÑAS NO COINCIDEN
+                alert("Las contraseñas no coinciden");
             }else{
                 this.BBDDcall();
-                //-------COMPROBAR REGISTRO CORRECTO ANTES
                 
             }
             
         }
     }
 
-    //------CLASE ERROR (MENSAJES EN ROJO POR PANTALLA ALERT)
-    error(code) {
-        console.log("error: " + code);
-        // switch (code) {
-        //     case 1:
-
-        //         // ERROR: FALTAN DATOS
-        //         break;
-        //     case 2:
-        //         // ERROR: DATOS ERRONEOS
-        //         break;
-        // }
-    }
     //CREAR STRING DE DATOS
     crea_query_string() {
         var obj = {"email":this.correo,"password":this.password, "nombre":this.nombre, "apellidos":this.apellidos};
