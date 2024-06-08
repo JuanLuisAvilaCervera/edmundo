@@ -1,5 +1,6 @@
 
 import { enviarRuta } from "../../router.js";
+import { Footer } from "../mainstructure/footer.js";
 
 export class Register {
     correo = "";
@@ -59,11 +60,12 @@ export class Register {
     </div>
     <div><button id="registrarse" class="register-button">Enviar</button></div>
     
-    <div class="footer-secondary" id="footer"><div class="copyright">Edmundo 2024</div></div>
+    <div class="footer-secondary" id="footer"></div>
     `;
 
     constructor() {
         this.createRegister();
+        let footer = new Footer();
     }
 
     createRegister() {
@@ -138,5 +140,7 @@ export class Register {
         let cadena = this.crea_query_string();
         xmlhttp.send(cadena);
     }
+
+    
 
 }

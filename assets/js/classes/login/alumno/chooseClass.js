@@ -1,22 +1,35 @@
 //ELEGIR CLASE AL REGISTRARSE COMO ALUMNO
 import { enviarRuta } from "../../../router.js";
+import { Footer } from "../../mainstructure/footer.js";
+import { HeaderSecondary } from "../../mainstructure/header-secondary.js";
 
 export class ChooseClass {
     
     classCode = "";
 
-    chooseClassHTML = `<h1> ELEGIR CLASE </h1>
-    <input type="text" id="classCode" maxlength = 6>
-    <button id="enviarCode">Unirse a Clase</button>`;
+    chooseClassHTML = `
+    
+    
+    
+    <div class="header-secondary" id="header"></div>
+<main id="main" class="main"><div class="comp-register box text-center" id="comp-register"><h1> ELEGIR CLASE </h1>
+<div class="row"><div class="col-4 d-flex align-items-center"><label for="classCode">Código de clase</label></div>
+<div class="col-8"><input type="text" id="classCode" maxlength = 6 class="w-100 form-control"></div></div>
+    <button id="enviarCode" class="btn btn-primary">Unirse a Clase</button></div></main>
+ <div class="footer-secondary" id="footer"></div>`;
 
     constructor() {
+        document.getElementById('body').innerHTML = this.chooseClassHTML;
+        $("#body").addClass("body-login");
+
+        let header = new HeaderSecondary();
+        let footer = new Footer();
         this.crearChooseClass();
     }
 
     crearChooseClass() {
 
-        document.getElementById('body').innerHTML = this.chooseClassHTML;
-
+        
         document.getElementById('classCode').addEventListener('input', () =>{
             this.comprobar();
         })

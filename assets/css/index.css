@@ -9,6 +9,18 @@
     --left-right-margin: 0px 5px 0px 5px;
     
 }
+@font-face{
+    font-family: 'google';
+    src: url(../fonts/Roboto-Regular.ttf);
+}
+@font-face {
+    font-family: 'edmodo';
+    src: url(../fonts/GT-Eesti-Display-Medium-Trial.woff2);
+}
+
+h1{
+    font-family: 'edmodo';
+}
 
 .btn-primary {
     --bs-btn-color: #fff;
@@ -62,8 +74,8 @@
     background-color: var(--main-blue);
     height: 100px;
     right: 0;
-    top: 0;
-    left: 0;
+    top: 0 !important;
+    left: 0 ;
     width: 100%;
 }
 

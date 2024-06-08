@@ -1,23 +1,14 @@
 
-import { enviarRuta } from "../../router.js";
-
-export class Header {
+export class HeaderSecondary {
     headerHTML = `
     <div class="row justify-content-between">
         <!-- LOGO -->
-        <div class="col-4">
+        <div class="col-5">
             <div class="row">
                 <div class="col d-flex flex-row align-items-center">
                     <img src="http://www.edmundo.com/edmundo/assets/files/logos/edmundo.png" alt="Logo Edmundo" style="width: 100px; height: 100px;">
                     <h1>Edmundo</h1>
                 </div>
-            </div>
-        </div>
-        <!--  MENU -->
-        <div class="col-2 d-flex flex-row align-items-center">
-            <div class="row">
-                <div class="col-2"><button id="home">Home</button></div>
-                <div class="col-2"><button id="avisos">Avisos y Tareas</button></div>
             </div>
         </div>
         <div class="col-3">
@@ -51,13 +42,7 @@ export class Header {
             xmlhttp.open('POST','http://www.edmundo.com/edmundo/assets/php/login/destroySession.php');
             xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
             xmlhttp.send();
-        });
+    });
 
-        $("#avisos").on("click", function(){
-            enviarRuta("/avisos");
-        });
-        $("#home").on("click", function(){
-            enviarRuta("/");
-        });
-    }
+    };
 }

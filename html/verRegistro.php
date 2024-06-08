@@ -24,7 +24,7 @@
     <!-- JS -->
     <script src="../assets/js/classes/login/verRegistro.js" type="module"></script>
 </head>
-<body id="body" class="body">
+<body id="body" class="body-login">
 
 <?php
 require_once "../assets/php/BBDD/m_consultas.php";

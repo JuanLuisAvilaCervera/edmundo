@@ -1,5 +1,6 @@
 
 import { enviarRuta } from "../../router.js";
+import { Footer } from "../../classes/mainstructure/footer.js";
 
 export class Login {
     correo = "";
@@ -54,6 +55,7 @@ export class Login {
     constructor() {
         //COMPROBAR QUE NO ESTÁ REGISTRADO
         this.createLogin();
+        let footer = new Footer();
     }
 
    

@@ -5,21 +5,14 @@ import { Aulas } from "./aulas.js";
 
 export class MainHome{
     mainHTML = `<!-- MAIN -->
-        <div class="row">
+        <div class="row w-100">
             <!-- CLASES -->
             <div id="aula-section" class="aula-section col-xl-3">
 
             </div>
             <!-- POSTS -->
-            <div class="post-section col-xl-6">
-                <div class="post-selection">
-                    <div class="post-selection-buttons">
-                        <button class="btn btn-secondary">Más Recientes</button>
-                        <button class="btn btn-secondary">Más Antiguos</button>
-                        <button class="btn btn-secondary">Favoritos</button>
-                    </div>
-                    <div class="post-selection-hr"></div>
-                </div>
+            <div class="post-section col-xl-6 ">
+                <h1>COMENTARIOS</h1>
                 <div id="write-post-section" class="write-post-section">
                     <textarea name="" id="text-post" class="text-post form-control" placeholder="Haz un comentario a tu clase..."></textarea>
                     <div id="the-count">

@@ -17,13 +17,12 @@
     <link rel="stylesheet" href= "https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
     <!-- CSS -->
-    <link rel="stylesheet" href="../assets/css/index.css">
     <link rel="stylesheet" href="../assets/css/login.css">
 
     
     
 </head>
-<body id="body" class="body align-items-center justify-content-center">
+<body id="body" class="body-login align-items-center justify-content-center">
     <!-- CONTENIDO DE LA PÁGINA -->
     <?php
 require_once "../vendor/autoload.php";
@@ -119,13 +118,16 @@ if (isset($_REQUEST['code'])) {
 	$_SESSION['token2'] = $client->getRefreshToken();
 
 }else{
-    echo "<div class='google-log'><img src='http://www.edmundo.com/edmundo/assets/files/logos/google.webp' style='width:30px'/> <a  class='google-button' href='".$client->createAuthUrl()."' id='botonLogin'>Iniciar sesión con Google</a></div>";
+    // echo "<div class='google-log'><img src='http://www.edmundo.com/edmundo/assets/files/logos/google.webp' style='width:30px'/> <a  class='google-button' href='".$client->createAuthUrl()."' id='botonLogin'>Iniciar sesión con Google</a></div>";
     // header( "Location: $client->createAuthUrl()");
+     echo "<a  class='google-button' href='".$client->createAuthUrl()."' id='botonLogin'><img src='http://www.edmundo.com/edmundo/assets/files/logos/google.webp' style='width:30px'/> Iniciar sesión con Google</a>";
+
+
 }
 
 ?>
 
-<div class="footer-secondary" id="footer"><div class="copyright">Edmundo 2024</div></div>
+<div class="footer-secondary" id="footer"></div>
 
 <!-- JS -->
 <script src="http://www.edmundo.com/edmundo/assets/js/classes/login/crearLogin.js" type="module"></script>

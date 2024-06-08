@@ -1,6 +1,6 @@
 import { enviarRuta } from "../../router.js";
 import { Footer } from "../mainstructure/footer.js";
-import { Header } from "../mainstructure/header.js";
+import { HeaderSecondary } from "../mainstructure/header-secondary.js";
 import { MainAdmin } from "./mainAdmin.js";
 
 
@@ -11,7 +11,7 @@ import { MainAdmin } from "./mainAdmin.js";
             <div class="main" id="main"></div>
             <div class="footer" id="footer"></div>`;
 
-            var header = new Header();
+            var header = new HeaderSecondary();
             var footer = new Footer();
             var admin = new MainAdmin();
         }else{
