@@ -11,8 +11,8 @@ export class MainHome{
 
             </div>
             <!-- POSTS -->
-            <div class="post-section col-xl-6 ">
-                <h1>COMENTARIOS</h1>
+            <div class="post-section col-xl-5 ">
+                <h1>Comentarios</h1>
                 <div id="write-post-section" class="write-post-section">
                     <textarea name="" id="text-post" class="text-post form-control" placeholder="Haz un comentario a tu clase..."></textarea>
                     <div id="the-count">
@@ -26,7 +26,7 @@ export class MainHome{
                 </div>
             </div>
             <!-- CALENDARIO -->
-            <div class="calendar-section col-xl-3" id="calendar-section"></div>
+            <div class="calendar-section col-xl-4" id="calendar-section"></div>
         </div>`;
     
     constructor(){

@@ -14,10 +14,10 @@ export class Header {
             </div>
         </div>
         <!--  MENU -->
-        <div class="col-2 d-flex flex-row align-items-center">
-            <div class="row">
-                <div class="col-2"><button id="home">Home</button></div>
-                <div class="col-2"><button id="avisos">Avisos y Tareas</button></div>
+        <div class="col-5 ">
+            <div class="row w-100 h-100 d-flex align-items-center justify-content-end">
+                <div class="col-4 h-100 d-flex align-items-center"><button id="home" class="header-button"><h3>Home</h3></button></div>
+                <div class="col-4 h-100 d-flex align-items-center"><button id="avisos" class="header-button"><h3>Eventos y Tareas</h3></button></div>
             </div>
         </div>
         <div class="col-3">

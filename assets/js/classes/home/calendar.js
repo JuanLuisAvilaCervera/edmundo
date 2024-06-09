@@ -73,7 +73,7 @@ export class Calendar {
     ];
 
     constructor() {
-        document.getElementById('calendar-section').innerHTML += `<h1>CALENDARIO</h1>`;
+        document.getElementById('calendar-section').innerHTML += `<h1>Calendario</h1>`;
         document.getElementById('calendar-section').innerHTML += this.calendarHTML;
         this.currdate = document.querySelector(".calendar-current-date");
         this.date = new Date();

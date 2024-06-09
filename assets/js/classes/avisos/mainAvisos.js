@@ -11,14 +11,16 @@ export class MainAvisos{
 
             </div>
             <!-- AVISOS -->
-            <div class="avisos-section col-xl-6">
+            <div class="avisos-section col-xl-5">
+
+                <h1>Eventos</h1>
                 <div class="aviso-selection">
-                    <div class="aviso-selection-options">
-                        <select id="aulaSelect">
+                    <div class="aviso-selection-options row">
+                        <div class="col-5"><select id="aulaSelect" class="form-select">
                             <option id="allAulas">Todas las aulas</option>
-                        </select>
-                        <label for="verAntiguos">Mostrar antiguos:</label><input type="checkbox" id="verAntiguos"/>
-                        <label for="verAntiguos">Mostrar sólo tareas:</label><input type="checkbox" id="verTareas"/>
+                        </select></div>
+                        <div class="col-4 d-flex align-items-center rounded border"><input type="checkbox" id="verAntiguos" class="form-check-input me-2"/> <label for="verAntiguos">Eventos Pasados</label></div>
+                        <div class="col-3 d-flex align-items-center rounded border"><input type="checkbox" id="verTareas" class="form-check-input me-2"/> <label for="verTareas">Sólo tareas</label></div>
                         <div id="nuevoAvisoDiv">
 
                         </div>
@@ -31,7 +33,7 @@ export class MainAvisos{
                 </div>
             </div>
                 <!-- CALENDARIO -->
-            <div class="calendar-section col-xl-3" id="calendar-section"></div>
+            <div class="calendar-section col-xl-4" id="calendar-section"></div>
         </div>
         
         <!-- Modal -->
@@ -55,7 +57,7 @@ export class MainAvisos{
                             <!-- BOTON DE ENTREGA (SOLO MOSTRAR SI ES TAREA) -->
                             <form enctype="multipart/form-data" method="post" id="formTarea">
                                 <input class="form-control" type="file" name="fileToUpload" id="fileToUpload" accept="image/*,.pdf,.rar,.zip">
-                                <button id="entregar">Entregar</button>
+                                <button id="entregar" class="btn btn-primary">Entregar</button>
                             </form>
                         </div>
                         <div id="noEntrega">

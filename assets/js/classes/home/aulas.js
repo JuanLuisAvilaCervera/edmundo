@@ -31,7 +31,7 @@ export class Aulas{
                 }else{
                     var aulaListHTML =
                     `
-                    <h1>AULAS</h1>
+                    <h1>Aulas</h1>
                     <div class="container aula-list" id="aula-list">
                         [LISTA-AULAS]
                     </div>`;
@@ -49,9 +49,10 @@ export class Aulas{
 
                     var joinAulaHTML =
                     `<div class="join-aula" id="join-aula">
+                        <label for="classCode">Introduce un código de aula para unirse:</label>
                         <div class="d-flex flex-row">
-                            <input type="text" id="classCode" maxlength = 6 class="form-control w-50" placeholder="A1B2C3">
-                            <button id="enviarCode" class="btn btn-primary">Unirse a Clase</button>
+                            <input type="text" id="classCode" maxlength = 6 class="form-control" placeholder="A1B2C3">
+                            <button id="enviarCode" class="btn btn-primary">Unirse</button>
                         </div>
                     </div>`;
 
