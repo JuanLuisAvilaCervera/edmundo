@@ -68,8 +68,8 @@ export class callTareas{
                     var tareaHTML = `<div class="tarea" id="[IDALUMNO]">
                     <span class="nombreAlumno">[NOMBRE] [APELLIDOS]</span>
                     <span class="fechaEntrega">[FECHA]</span>
+                    <span class="puntuacion">Puntuación: [PUNTUACION]</span>
                     <div style="display:none" class="archivoTarea">[fileName]</div>
-                    <div style="display:none" class="puntuacion">[PUNTUACION]</div>
                     </div>`;
                     document.getElementById('lista-entregadas').innerHTML = "";
                     datos.forEach(alumno =>{
@@ -77,7 +77,7 @@ export class callTareas{
                         if(puntuacion != "" && puntuacion != undefined && puntuacion != null){
                             puntuacion = puntuacion + "/100";
                         }else{
-                            puntuacion = "Sin calificar";
+                            puntuacion = "<span style='color:red'>Sin calificar</span>";
                         }
                         var tarea = tareaHTML.replace("[IDALUMNO]", alumno['idUsuario'])
                                             .replace("[NOMBRE]", alumno['name'])
@@ -91,7 +91,7 @@ export class callTareas{
                     for(let i = 0 ; i < tareas.length ; i++){
                         tareas[i].addEventListener('click', (e) =>{
                             //ABRIR MODAL
-                            
+                            $("#descargar").empty();
                             $("#tareaModalLabel").text(tareas[i].querySelector('.nombreAlumno').innerText);
                             var filename = tareas[i].querySelector('.archivoTarea').innerText;
                             $("#descargar").append('<a href="http://www.edmundo.com/edmundo/assets/files/tareasEntregadas/'+filename+ '" download>'+filename+'</a>');

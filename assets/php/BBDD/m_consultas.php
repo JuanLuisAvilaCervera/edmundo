@@ -40,4 +40,9 @@ function insert($tabla,$campos){
     return $conexion->exec($sql);
 }
 
+function deletesql($sql){
+    $conexion = ConexionDB::getConexion(BBDD);
+    return $conexion -> exec($sql);
+}
+
 ?>

@@ -27,7 +27,7 @@ export class Login {
         </div>
         <div class="row">
             <div class="col-12">
-                <input id="correo" class="correo form-control" type="email">
+                <input id="correo" class="correo form-control" type="email" >
             </div>
         </div>
         
