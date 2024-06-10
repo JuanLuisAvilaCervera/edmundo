@@ -304,7 +304,7 @@ export class callAvisos{
                         var fullTareaId = $(this).attr("id");
                         var tareaArray = fullTareaId.split("-");
                         localStorage.setItem('tarea',tareaArray[0]);
-                        if(rol == "1"){
+                        if(rol == "1" && localStorage.getItem("idUsuario") == localStorage.getItem('creator')){
                             enviarRuta("/tareas");
                         }else{
                             var titulo = $(this).find(".titulo").html();

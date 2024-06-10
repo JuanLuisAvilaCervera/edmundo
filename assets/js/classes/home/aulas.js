@@ -43,9 +43,15 @@ export class Aulas{
                         <div class="aula-image"></div>
                         <div class="container">
                             <div class="row">
-                                <div class=col-6><p class="aula-name">[AULA-NAME]</p>
-                                <p class="aula-profesor">[AULA-PROFESOR]</p></div>
-                                <div class=col-6><p class="currentCodAula">[CODAULA]</p></div>
+                                <div class=col-6>
+                                    <p class="aula-name">[AULA-NAME]</p>
+                                    <p class="aula-profesor">[AULA-PROFESOR]</p>
+                                </div>
+                                <div class=col-6>
+                                    <p class="currentCodAula">[CODAULA]</p>
+                                    <p class="rolAula">[ROLAULA]</p>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>`;
@@ -83,6 +89,11 @@ export class Aulas{
                                 var currentAula = currentAulaHTML.replace('[AULA-NAME]',aula['nombre'])
                                                             .replace('[AULA-PROFESOR]', aula['creator'] + " " + aula['surCreator'])
                                                             .replaceAll('[CODAULA]', aula['codAula']);
+                                if(aula['idCreator'] == localStorage.getItem("idUsuario")){
+                                    var currentAula = currentAula.replace('[ROLAULA]', "Docente")
+                                }else{
+                                    var currentAula = currentAula.replace('[ROLAULA]', "Estudiante")
+                                }
                                 aulaSectionHTML += aulaListHTML.replace('[LISTA-AULAS]', currentAula);
                             }else{
                                 //OTRAS AULAS
