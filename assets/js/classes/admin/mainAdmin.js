@@ -106,7 +106,7 @@ export class MainAdmin{
                                                         .replace("[IDUSUARIO]", usuario['idUsuario'])
                                                         .replace("[EMAIL]", usuario['email']);
                             if(usuario['solicitud'] == "1"){
-                                usuarioHTML = usuarioHTML.replace("[SOLICITUD]", '<button class="solicitud">Aceptar Solicitud</button>');
+                                usuarioHTML = usuarioHTML.replace("[SOLICITUD]", '<button class="solicitud" id="'+usuario['email']+'">Aceptar Solicitud</button>');
                             }else{
                                 usuarioHTML = usuarioHTML.replace("[SOLICITUD]", '');
                             }
@@ -129,8 +129,8 @@ export class MainAdmin{
 
                        
                         $(".solicitud").on("click", function(event){
-                            var id = $(this).parent().parent().attr("id");
-                            thisClass.aceptarSolicitud(id);
+                            var email = $(this).attr("id");
+                            thisClass.aceptarSolicitud(email);
                         })
                 }
             }

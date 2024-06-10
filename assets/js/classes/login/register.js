@@ -28,7 +28,7 @@ export class Register {
             <div class="col-12 text-start"><label for="correo">Correo</label></div>
         </div>
         <div class="row">
-            <div class="col-12"><input type="text" class="correo form-control" id="correo" /></div>
+            <div class="col-12"><input type="text" class="correo form-control" id="correo"/></div>
         </div>
 
         <div class="row">
@@ -100,9 +100,14 @@ export class Register {
         } else {
             if(this.password != this.repPassword ){
                 alert("Las contraseñas no coinciden");
+            }else if(this.password.length < 8){
+                alert("La contraseña es muy corta, trate de usar caracteres especiales para acerla más segura");
+            }else if(!this.correo.match(
+                /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            )){
+                alert("Correo no cumple con el formato indicado [correo@ejemplo.ej]");
             }else{
                 this.BBDDcall();
-                
             }
             
         }

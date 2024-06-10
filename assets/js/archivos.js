@@ -10,11 +10,11 @@ export function enviarArchivos(tareaID) {
     
     xmlhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-            alert("Cargando foto");
+            window.location.reload();
             let foto = JSON.parse(this.response);
             console.log(foto);
-
         }
+        
     };
     xmlhttp.open('POST','../assets/php/archivos/subirTareas.php',true);
     xmlhttp.send(archivo);

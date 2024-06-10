@@ -69,6 +69,9 @@ export class MainAvisos{
                         <div id="descargarTarea">
                             <!-- PODER VER TAREA ENTREGADA E INCLUSO BORRARLA -->
                         </div>
+                        <div id="idTareaEntregada" style="display:none">
+                            <!-- PODER VER TAREA ENTREGADA E INCLUSO BORRARLA -->
+                        </div>
                         
                     </div>
                     <div class="modal-footer">
@@ -76,7 +79,22 @@ export class MainAvisos{
                     </div>
                 </div>
             </div>
-        </div>`;
+        </div>
+        <!--ModalBorrar-->
+        <div class="modal fade" id="borrarModal" tabindex="-1" aria-labelledby="borrarModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="borrarModalLabel">
+                            ¿Desea eliminar la tarea entregada? (Puede que no puedas entregarla después de borrarla)
+                        </h1>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-secondary" id="aceptarBorrado">Sí, deseo eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
     
     constructor(){
         document.getElementById('main').innerHTML = this.mainHTML;

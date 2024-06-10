@@ -8,7 +8,7 @@ $codAula = $obj['codAula'];
 $datos = array();
 $idAula = getAulaID($codAula);
 if( $idAula != "" ){
-    $consulta = selectsql("select post.* , usuario.name from post , usuario where idAula =".$idAula." && post.idUsuario = usuario.idUsuario");
+    $consulta = selectsql("select post.* , usuario.name from post , usuario where idAula =".$idAula." && post.idUsuario = usuario.idUsuario ORDER BY fecha DESC");
     if($fi = $consulta->fetchAll(PDO::FETCH_ASSOC)){
         echo json_encode($fi);
     }else{

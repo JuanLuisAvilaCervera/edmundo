@@ -11,7 +11,7 @@ $datos = array();
 $idUsuario = getUserID($email);
 $idAula = getAulaID($codAula);
 $zonaHoraria = new DateTimeZone("Europe/Madrid");
-$fecha = date("Y/m/d h:i:00");
+$fecha = date("Y/m/d H:i:s");
 
 if( $idUsuario != "" && $idAula != "" && $text != ""){
     // //Añadir datos del insert al array $datos
