@@ -100,9 +100,12 @@ export class MainAvisos{
         document.getElementById('main').innerHTML = this.mainHTML;
         let aulas = new Aulas();
         let avisos = new callAvisos();
-        if(localStorage.getItem("rol") == "1"){
-            let newaviso = new newAviso();
-        }
         let calendario = new Calendar();
+        if(localStorage.getItem('idUsuario') == localStorage.getItem('creator')){
+            let aviso = new newAviso();
+        }
     }
+
+    
+
 }

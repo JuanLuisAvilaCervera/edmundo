@@ -36,10 +36,10 @@ export class Calendar {
     <p class="calendar-current-date"></p>
     <div class="calendar-navigation">
         <span id="calendar-prev" class="material-symbols-rounded">
-            chevron_left
+            <ion-icon name="chevron-back-outline"></ion-icon>
         </span>
         <span id="calendar-next" class="material-symbols-rounded">
-            chevron_right
+            <ion-icon name="chevron-forward-outline"></ion-icon>
         </span>
     </div>
 </header>
