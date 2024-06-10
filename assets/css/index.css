@@ -2,12 +2,27 @@
 @import url(post.css);
 @import url(calendar.css);
 @import url(classes.css);
+@import url(header.css);
+@import url(avisos.css);
 
 :root{
     --main-blue: #0064D0;
     --thin-border: solid 1px #ccc;
     --left-right-margin: 0px 5px 0px 5px;
+    --secondary-blue: #0A58CA;
     
+}
+@font-face{
+    font-family: 'google';
+    src: url(../fonts/Roboto-Regular.ttf);
+}
+@font-face {
+    font-family: 'edmodo';
+    src: url(../fonts/GT-Eesti-Display-Medium-Trial.woff2);
+}
+
+*{
+    font-family: 'edmodo';
 }
 
 .btn-primary {
@@ -57,15 +72,6 @@
     overflow-y:hidden;
 }
 
-/* HEADER */
-.header{
-    background-color: var(--main-blue);
-    height: 100px;
-    right: 0;
-    top: 0;
-    left: 0;
-    width: 100%;
-}
 
 /* MAIN */
 /* Ponerle media */
@@ -134,6 +140,13 @@
 /* FOOTER */
 .footer{
     background-color: var(--main-blue);
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.footer-secondary{
+    background-color: #eee;
     position: fixed;
     right: 0;
     bottom: 0;

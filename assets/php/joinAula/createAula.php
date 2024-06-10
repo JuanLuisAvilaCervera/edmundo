@@ -1,6 +1,7 @@
 <?php
 require_once "../BBDD/m_consultas.php";
 require_once "./joinAula.php";
+require_once "../BBDD/getIDs.php";
 $json = file_get_contents('php://input');
 $obj = json_decode($json,true);
 $aulaName = $obj['aulaName'];
@@ -14,20 +15,18 @@ for($i = 0 ; $i < 6 ; $i++){
     $codAula .= $charArray[$n];
 }
 $campos = array();
-$consulta = select("usuario where email = '".$email."'");
-if($fi = $consulta->fetch(PDO::FETCH_ASSOC)){
-    array_push( $campos, 0 , $aulaName , $codAula , $fi["id_user"] );
-    insert("aula", $campos );
-    $consulta = selectsql("SELECT * from aula where codAula = '".$codAula."'");
-    if($fi = $consulta->fetch(PDO::FETCH_ASSOC) && $joined = joinAula($email, $codAula)){
-        //Puede que use $joined más adelante
-        echo json_encode( $fi);
 
-    }else{
-        echo json_encode("fallo joinaula");
-    }
+$idUsuario = getUserID($email);
+
+array_push( $campos, 0 , $aulaName , $codAula , $idUsuario );
+if(insert("aula", $campos )){
+    joinAula($email,$codAula);
+    $consulta = selectsql("select * from aula where codAula = '".$codAula."'");
+    $fi = $consulta -> fetch(PDO::FETCH_ASSOC);
+    echo json_encode( $fi);
+
 }else{
-    json_encode("");
+    echo json_encode("fallo joinaula");
 }
 
 ?>

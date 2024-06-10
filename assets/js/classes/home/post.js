@@ -25,16 +25,7 @@ import { enviarRuta } from "../../router.js";
 
 
 export class Post {
-    postList = document.getElementById('post-list');
 
-    postHTML = `
-<div class="post" id="[ID]">
-    <div class="main-post">
-        <textarea class="form-control text-post" disabled>
-            <div>
-        </textarea>
-    </div>
-</div>`;
     textareaPost = "";
     
     textPost = "";
@@ -42,27 +33,21 @@ export class Post {
 
     constructor() {
 
+
         //INICIO DE LA PÁGINA, LISTAR POSTS
 
-        listarPosts();
+        this.BBDDcallListPosts();
 
         this.textPost = document.getElementById('text-post');
 
         document.getElementById('send-post').addEventListener('click', () => {
             this.textareaPost = this.textPost.value;
-            var newPost = this.postHTML;
             if (this.textareaPost != "") {
-                
 
                 // LLAMADA A BASE DE DATOS, 
                 this.BBDDcallSendPost();
 
 
-                // this.postList.push(newPost);
-                // postListDiv.innerHTML = "";
-                // this.postList.forEach( post =>{
-                //     postListDiv.innerHTML += post;
-                // });
                 this.textareaPost= "";
                 this.textPost.value = "";
             }
@@ -82,7 +67,7 @@ export class Post {
     crea_query_string_send() {
         // var obj = {"codAula": this.classCode , "email": localStorage.getItem("email")};
         var obj = {
-            "text":this.textareaPost.value,
+            "text":this.textareaPost,
             "email": localStorage.getItem("email"),
             "codAula": localStorage.getItem("lastCodAula")
         }
@@ -102,8 +87,8 @@ export class Post {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange=function() {
             if(this.readyState==4 && this.status==200) {
-                console.log(this.responseText);
                 var datos = JSON.parse(this.responseText);
+                
                 if (datos == "") {
                     console.log("Fallo");
                 }else{
@@ -123,20 +108,34 @@ export class Post {
     }
 
     BBDDcallListPosts(){
+        var postHTML = 
+        `<div class="post" id="[ID]">
+        <div class="main-post">
+            <div class="form-control text-post" disabled>
+                <span class="nombre">[NOMBRE]</span>
+                <span class="contenido">[CONTENIDO]</span>
+                <span class="fecha">[FECHA]</span>
+            </div>
+        </div>
+    </div>`;
+
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange=function() {
             if(this.readyState==4 && this.status==200) {
-                console.log(this.responseText);
                 var datos = JSON.parse(this.responseText);
                 if (datos == "") {
                     console.log("Fallo");
 
                 }else{
-                    this.postList.value = "";
+                    console.log("completado");
+                    var postList = document.getElementById('post-list');
                     datos.forEach(post => {
-                        var newPost = this.postHTML;
-                        newPost = newPost.replace('[CONTENIDO]' , this.textareaPost);
-                        this.postList.value += newPsot;
+                        var newPost = postHTML;
+                        newPost = newPost.replace('[CONTENIDO]' , post['texto'])
+                                        .replace('[ID]', post['idPost'])
+                                        .replace('[NOMBRE]', post['name'])
+                                        .replace('[FECHA]', post['fecha'].substr(0,16));
+                        postList.innerHTML += newPost;
                     });
                 }
 

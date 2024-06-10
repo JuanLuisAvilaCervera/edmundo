@@ -11,5 +11,7 @@ if($fi = $consulta->fetch(PDO::FETCH_ASSOC)){
     }else{
         echo json_encode("");
     }
+}else{
+    echo json_encode("");
 }
 ?>

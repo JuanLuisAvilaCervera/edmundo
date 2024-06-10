@@ -16,6 +16,7 @@ body {
     max-width: 450px;
     border-radius: 10px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    border: solid 1px #ccc;
 }
  
 .calendar-container header {
@@ -111,7 +112,14 @@ header .calendar-current-date {
 .calendar-dates li.active::before {
     background: #6332c5;
 }
- 
+
 .calendar-dates li:not(.active):hover::before {
     background: #e4e1e1;
+}
+
+.calendar-dates li.fechaAviso:not(.active):not(.inactive):hover::before {
+    background: #dd0000;
+}
+.calendar-dates li.fechaAviso:not(.active):not(.inactive)::before {
+    background: #ff0000;
 }

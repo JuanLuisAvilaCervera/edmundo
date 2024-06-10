@@ -1,13 +1,9 @@
 
 
-
-
-// Array of month names
+import { enviarRuta } from "../../router.js";
 
 
 // Function to generate the calendar
-
-
 export class Calendar {
     date;
     day;
@@ -17,16 +13,32 @@ export class Calendar {
 
     prenexIcons;
 
+    modalHTML = `<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
     calendarHTML = `<div class="calendar-container">
 <header class="calendar-header">
     <p class="calendar-current-date"></p>
     <div class="calendar-navigation">
-        <span id="calendar-prev"
-              class="material-symbols-rounded">
+        <span id="calendar-prev" class="material-symbols-rounded">
             chevron_left
         </span>
-        <span id="calendar-next"
-              class="material-symbols-rounded">
+        <span id="calendar-next" class="material-symbols-rounded">
             chevron_right
         </span>
     </div>
@@ -61,8 +73,8 @@ export class Calendar {
     ];
 
     constructor() {
-
-        document.getElementById('calendar-section').innerHTML = this.calendarHTML;
+        document.getElementById('calendar-section').innerHTML += `<h1>Calendario</h1>`;
+        document.getElementById('calendar-section').innerHTML += this.calendarHTML;
         this.currdate = document.querySelector(".calendar-current-date");
         this.date = new Date();
         this.year = this.date.getFullYear();
@@ -71,6 +83,7 @@ export class Calendar {
         this.prenexIcons = document.querySelectorAll(".calendar-navigation span");
 
         this.generate();
+        
 
         // Attach a click event listener to each icon
         this.prenexIcons.forEach(icon => {
@@ -110,6 +123,7 @@ export class Calendar {
 
     }
     generate() {
+        
 
         // Get the first day of the month
         let dayone = new Date(this.year, this.month, 1).getDay();
@@ -154,7 +168,23 @@ export class Calendar {
                 && this.year === new Date().getFullYear()
                 ? "active"
                 : "";
-            lit += `<li class="${isToday}">${i}</li>`;
+
+
+            //Comprobamos si los meses y dias son menores a 10 y le ponemos un 0 delante para que coincida el formato
+            var dayComplete;
+            var monthComplete;
+                if(i < 10){
+                    dayComplete = "0"+i;
+                }else{
+                    dayComplete = i;
+                }
+
+                if(this.month < 10){
+                    monthComplete = "0"+(this.month+1);
+                }else{
+                    monthComplete = this.month;
+                }
+            lit += `<li class="${isToday} " id="${this.year}-${monthComplete}-${dayComplete}">${i}</li>`;
         }
 
         // Loop to add the first dates of the next month
@@ -169,8 +199,59 @@ export class Calendar {
         // update the HTML of the dates element 
         // with the generated calendar
         this.day.innerHTML = lit;
+
+        this.markAvisos();
+
+        $(".calendar-dates li").on("click", function(){
+            if($(this).attr("id") != "undefined"){
+                localStorage.setItem("fecha", ($(this).attr("id")));
+                enviarRuta("/avisos");
+            }
+        })
+
+        
     }
 
+    //FUNCION COLOREAR DIAS CON AVISOS
+
+    markAvisos(){
+        this.BBDDcall();
+    }
+
+    BBDDcall(){
+    
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if(this.readyState==4 && this.status==200) {
+                var datos = JSON.parse(this.responseText);
+                if (datos == "") {
+                    console.log("Fallo");
+
+                }else{
+                    // LISTAR DIAS EN LOS QUE HAY AVISOS
+                    datos.forEach( aviso =>{
+                        
+                        var fechaYMD = aviso['fecha'].substr(0,10);
+                        $("#"+fechaYMD).addClass("fechaAviso");
+                    })
+                }
+
+            }
+        };
+        //PAGINA ENVIO PHP
+        xmlhttp.open('POST','/edmundo/assets/php/avisos/callavisos.php');
+        xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
+        let cadena = this.crea_query_string();
+        xmlhttp.send(cadena);
+    }
+
+    crea_query_string(){
+        var obj = {
+            "email": localStorage.getItem("email")
+        }
+        var cadena = JSON.stringify(obj);
+        return cadena;
+    }
 
 }
 

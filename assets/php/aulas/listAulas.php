@@ -7,7 +7,7 @@ $email = $obj['email'];
 $idUsuario = getUserID($email);
 $consulta = selectsql("select * from aula where idAula in (select idAula from aulausuario where idUsuario = ".$idUsuario.")");
 //Sacar aulas por orden alfabético y meterlas en la variable consulta
-if($fi = $consulta->fetch(PDO::FETCH_ASSOC) ){
+if($fi = $consulta->fetchAll(PDO::FETCH_ASSOC) ){
   echo json_encode ($fi);
 }else{
   echo json_encode("");

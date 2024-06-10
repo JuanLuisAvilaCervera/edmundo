@@ -1,29 +1,37 @@
 //ELEGIR CLASE AL REGISTRARSE COMO ALUMNO
 import { enviarRuta } from "../../../router.js";
+import { Footer } from "../../mainstructure/footer.js";
+import { HeaderSecondary } from "../../mainstructure/header-secondary.js";
 
 export class CreateClass {
     
     aulaName = "";
 
     //NOMBRE
-    createClassHTML = `<h1> CREA TU PRIMERA CLASE </h1>
-    <input type="text" id="aulaName">
-    <button id="enviarName">Crear clase</button>`;
+    createClassHTML = `<div class="header" id="header"></div>
+<main id="main" class="main"><div class="comp-register box text-center" id="comp-register"><h1> CREA UNA CLASE </h1>
+<div class="row"><div class="col-2 d-flex align-items-center"><label for="aulaName">Nombre</label></div><div class="col-10"><input type="text" id="aulaName" class="form-control"></div></div>
+    <button id="enviarName" class="btn btn-primary">Crear clase</button></div></main>
+ <div class="footer" id="footer"></div>`;
 
     constructor() {
+        document.getElementById('body').innerHTML = this.createClassHTML;
+        let footer = new Footer();
+        let header = new HeaderSecondary();
         this.crearCreateClass();
     }
 
     crearCreateClass() {
 
-        document.getElementById('body').innerHTML = this.createClassHTML;
+        
         document.getElementById('enviarName').addEventListener('click', () => {
             this.aulaName = document.getElementById('aulaName').value;
             if(this.aulaName != ""){
                 //COMPROBAR EN BASE DE DATOS
                 this.BBDDcall();
             }else{
-                //ERROR
+                alert("Nombre vacio");
+                $("#aulaName").css("border", "solid 1px red");
             }
         });
     }
@@ -46,8 +54,7 @@ export class CreateClass {
                 }else{
                     console.log(datos);
                     console.log("Completado");
-                    console.log(datos["codAula"]);
-                    localStorage.setItem("lastCodAula", datos["codAula"]);
+                    localStorage.setItem("lastCodAula", datos['codAula']);
                     enviarRuta('/');
                 }
 
