@@ -1,4 +1,6 @@
 import { enviarRuta } from "../../router.js";
+import { solicitud } from "../login/profesor/solicitud.js";
+import { Home } from "./home.js";
 
 export class Aulas{
 
@@ -28,6 +30,7 @@ export class Aulas{
             if(this.readyState==4 && this.status==200) {
                 var datos = JSON.parse(this.responseText);
                 if (datos == "") {
+                    let home = new Home();
                 }else{
                     var aulaListHTML =
                     `
@@ -74,9 +77,11 @@ export class Aulas{
                         datos.forEach(aula => {
                             //CURRENT AULA
                             if(aula['codAula'] == localStorage.getItem("lastCodAula")){
+
+                                localStorage.setItem("creator", aula['idCreator']);
                                 //TODO: TRAER DATOS DEL PROFESOR CREADOR DE LA CLASE
                                 var currentAula = currentAulaHTML.replace('[AULA-NAME]',aula['nombre'])
-                                                            .replace('[AULA-PROFESOR]', aula['idCreator'])
+                                                            .replace('[AULA-PROFESOR]', aula['creator'] + " " + aula['surCreator'])
                                                             .replaceAll('[CODAULA]', aula['codAula']);
                                 aulaSectionHTML += aulaListHTML.replace('[LISTA-AULAS]', currentAula);
                             }else{
@@ -90,15 +95,10 @@ export class Aulas{
                     
 
                     var rol = localStorage.getItem("rol");
-                    switch(rol){
-                        case "1":
-                            aulaSectionHTML+= createAulaHTML;
-                            break;
-                        case "2":
-                            aulaSectionHTML+= joinAulaHTML;
-                            break;
-                        default:
-                            break;
+                    var solicitud = localStorage.getItem("solicitud");
+                    aulaSectionHTML+= joinAulaHTML;
+                    if(rol == "1" && solicitud == "2"){
+                        aulaSectionHTML+= createAulaHTML;
                     }
                     
                      //AÑADIR EL RESTO DE AULAS
@@ -121,16 +121,18 @@ export class Aulas{
                             if(thisClass.classCode.length == 6){
                                 //COMPROBAR EN BASE DE DATOS
                                 thisClass.BBDDcall_joinClass();
-                                localStorage.setItem('lastCodAula', thisClass.classCode);
                                 enviarRuta("/");
                                 
                             }else{
-                                console.log("error: classcode empty or length > or < to 6");
+                                alert("Código de aula erroneo");
                                 console.log(thisClass.classCode.length);
                                 //ERROR
                             }
                         });
-                    }else if(document.getElementById('create-aula') != undefined){
+                    }
+                    
+                    if(document.getElementById('create-aula') != undefined){
+                        console.log('Create aula');
                         document.getElementById('create-aula').addEventListener("click", ()=>{
                             enviarRuta("/crearAula");
                         })
@@ -183,15 +185,13 @@ export class Aulas{
         var thisClass = this;
         xmlhttp.onreadystatechange=function() {
             if(this.readyState==4 && this.status==200) {
-                console.log(this.responseText);
                 var datos = JSON.parse(this.responseText);
                 if (datos == "") {
                     //document.getElementById('datos').innerHTML = "La contraseña o el usuario introducidos son incorrectos";
-                    console.log("Fallo");
+                    alert("El código de aula no pertenece a ningún aula existente");
                 }else{
-                    console.log(datos);
-                    console.log("Completado");
                     localStorage.setItem("lastCodAula", thisClass.classCode);
+                    localStorage.setItem("creator", datos['creator']);
                     thisClass.listarAulas();
                 }
 
@@ -209,14 +209,11 @@ export class Aulas{
         if(newCodAula != localStorage.getItem("lastCodAula")){
             xmlhttp.onreadystatechange=function() {
                 if(this.readyState==4 && this.status==200) {
-                    console.log(this.responseText);
                     var datos = JSON.parse(this.responseText);
                     
                     if (datos == "") {
-                        console.log("Fallo");
+                        //ERROR IMPROBABLE
                     }else{
-                        console.log(datos);
-                        console.log("Completado");
     
                         localStorage.setItem('lastCodAula', newCodAula );
                         //REFRESCAR PÁGINA

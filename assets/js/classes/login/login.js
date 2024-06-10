@@ -108,8 +108,9 @@ export class Login {
                 }else{
                     console.log(datos);
                     localStorage.setItem('email', datos["email"]);
+                    localStorage.setItem('idUsuario', datos["idUsuario"]);
                     localStorage.setItem('rol', datos["rol"]);
-                    localStorage.setItem('lastCodAula', datos["lastCodAula"])
+                    localStorage.setItem('lastCodAula', datos["lastCodAula"]);
                     localStorage.setItem('solicitud', datos['solicitud']);
                     localStorage.setItem('verified', datos["verificado"]);
                     console.log("Completado");

@@ -39,7 +39,7 @@ export function enviarRuta(ruta) {
                                 if(classCode != "" && classCode != undefined && classCode != null){
                                     var home = new Home();
                                 }else{
-                                enviarRuta('/crearAula');
+                                    enviarRuta('/crearAula');
                                 }
                                 break;
                             default:
@@ -51,12 +51,7 @@ export function enviarRuta(ruta) {
                         break;
                     //ALUMNO
                     case "2":
-                        //COMPROBAR CLASE
-                        if(classCode != "" && classCode != undefined && classCode != null){
-                            var home = new Home();
-                        }else{
-                            enviarRuta('/chooseClass');
-                        }
+                        var home = new Home();
                         break;
                     //ADMIN
                     case "3":
@@ -71,10 +66,13 @@ export function enviarRuta(ruta) {
                 }
                 
                 break;
-            case "/chooseClass":
-                var chooseClass = new ChooseClass();
-                break;
+            // case "/chooseClass":
+            //     var chooseClass = new ChooseClass();
+            //     break;
             case "/crearAula":
+                if(window.location.href !=  "http://www.edmundo.com/edmundo/html/createAulas.html"){
+                    window.location.href = "http://www.edmundo.com/edmundo/html/createAulas.html";
+                }
                 var createClass = new CreateClass();
                 break;
             case "/chooseRole":
