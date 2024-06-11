@@ -9,7 +9,7 @@ export class Profile{
                                 <img style="height: 100px; width: 100px;" src="http://www.edmundo.com/edmundo/assets/files/perfiles/[PERFIL]">
                             </div>
                             <div class="col">
-                                <h3>[NOMBRE-APELLIDOS]</h3>
+                                <h5>[NOMBRE-APELLIDOS]</h5>
                                 <p>[ROL]</p>
                             </div>
 

@@ -33,26 +33,31 @@ export class Aulas{
                     let home = new Home();
                 }else{
                     var aulaListHTML =
-                    `
-                    <h1>Aulas</h1>
+                    `<h1>Aulas</h1>
                     <div class="container aula-list" id="aula-list">
                         [LISTA-AULAS]
                     </div>`;
                     var currentAulaHTML =
                     `<div class="aula-active" id="[CODAULA]">
-                        <div class="aula-image"></div>
-                        <div class="container">
-                            <div class="row">
-                                <div class=col-6>
-                                    <p class="aula-name">[AULA-NAME]</p>
-                                    <p class="aula-profesor">[AULA-PROFESOR]</p>
+                        <div class="row">
+                            <div class="class-image col-4">[IMGAULA]</div>
+                            <div class="class-info col-8">
+                                <div class="row d-flex justify-content-end" style="height: 30px;">
+                                    <button id="confAula" class="btn btn-secondary p-1 d-flex align-items-center" style="height: 30px; width:30px;">
+                                        <ion-icon name="cog-outline"></ion-icon>
+                                    </button>
                                 </div>
-                                <div class=col-6>
-                                    <p class="currentCodAula">[CODAULA]</p>
-                                    <p class="rolAula">[ROLAULA]</p>
+                                <div class="row">
+                                    <span class="aula-name m-0">[AULA-NAME]</span>
+                                    <span class="aula-profesor m-0">[AULA-PROFESOR]</span>
+                                    <span class="rolAula m-0">[ROLAULA]</span>
                                 </div>
                                 
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12"><p class="currentCodAula">Código de Aula: [CODAULA]</p></div>
+                            
                         </div>
                     </div>`;
 
@@ -90,16 +95,25 @@ export class Aulas{
                                                             .replace('[AULA-PROFESOR]', aula['creator'] + " " + aula['surCreator'])
                                                             .replaceAll('[CODAULA]', aula['codAula']);
                                 if(aula['idCreator'] == localStorage.getItem("idUsuario")){
-                                    var currentAula = currentAula.replace('[ROLAULA]', "Docente")
+                                    currentAula = currentAula.replace('[ROLAULA]', "Docente")
                                 }else{
-                                    var currentAula = currentAula.replace('[ROLAULA]', "Estudiante")
+                                    currentAula = currentAula.replace('[ROLAULA]', "Estudiante")
+                                }
+                                
+
+                                var imgAula = aula ['imagenAula'];
+
+                                if(imgAula == "" || imgAula == null || imgAula == undefined){
+                                    currentAula = currentAula.replace('[IMGAULA]', "<img style='height: 75px; width: 75px; border: solid 1px black;' src='http://www.edmundo.com/edmundo/assets/files/clases/edmundo.png'/>");
+                                }else{
+                                    currentAula = currentAula.replace('[IMGAULA]', "<img style='height: 75px; width: 75px; border: solid 1px black;' src='http://www.edmundo.com/edmundo/assets/files/clases/"+imgAula+"'/>");
                                 }
                                 aulaSectionHTML += aulaListHTML.replace('[LISTA-AULAS]', currentAula);
                             }else{
                                 //OTRAS AULAS
                                 aulaList.push(aulaHTML.replaceAll('[ID]', aula['codAula'])
                                                         .replace('[AULA-NAME]', aula['nombre'])
-                                                        .replace('[AULA-PROFESOR]', aula['idCreator']));
+                                                        .replace('[AULA-PROFESOR]',aula['creator'] + " " + aula['surCreator']));
                             }
                         });
                             
@@ -143,7 +157,6 @@ export class Aulas{
                     }
                     
                     if(document.getElementById('create-aula') != undefined){
-                        console.log('Create aula');
                         document.getElementById('create-aula').addEventListener("click", ()=>{
                             enviarRuta("/crearAula");
                         })
@@ -151,6 +164,12 @@ export class Aulas{
 
                     //PARA CAMBIAR DE CLASE AL CLICAR EN LA LISTA
                     
+
+                    $("#confAula").on('click', (e) =>{
+                        e.preventDefault();
+                        enviarRuta('/avisos');
+                    })
+
                     $(".aula-active").on("click", function(event){
                         thisClass.updateCurrentClass($(this).attr("id"));
                     })
