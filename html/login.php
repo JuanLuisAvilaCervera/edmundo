@@ -86,7 +86,7 @@ if (isset($_REQUEST['code'])) {
             
     }else{
         $campos = array();
-        array_push( $campos,0, $nombre, $apellidos , $email,  "",0, "",0,$foto,0);
+        array_push( $campos,0, $nombre, $apellidos , $email,  "",0, "",0,"",0);
         $consulta2 = insert("usuario", $campos);
         if($consulta2 == 1){
               subirPerfil($foto);

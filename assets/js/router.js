@@ -7,6 +7,7 @@ import { WaitSolicitud } from "./classes/login/profesor/waitSolicitud.js";
 import { solicitud } from "./classes/login/profesor/solicitud.js";
 import { HomeAvisos } from "./classes/avisos/homeavisos.js";
 import { HomeTareas } from "./classes/tareas/homeTareas.js";
+import { newProfile } from "./classes/profile/newProfile.js";
 
 var indexHTML = "";
 var body = document.getElementById('body');
@@ -89,18 +90,24 @@ export function enviarRuta(ruta) {
                     enviarRuta('/');
                 }
                 break;
-            case "/tareas":
-            var classCode = localStorage.getItem('lastCodAula');
-            var tarea = localStorage.getItem('tarea');
-            if(classCode != "" && classCode != undefined && classCode != null && tarea != "" && tarea != undefined && tarea != null){
-                if(window.location.href !=  "http://www.edmundo.com/edmundo/html/tareas.html"){
-                    window.location.href = "http://www.edmundo.com/edmundo/html/tareas.html";
+            case "/profile":
+                if(window.location.href !=  "http://www.edmundo.com/edmundo/html/profile.html"){
+                    window.location.href = "http://www.edmundo.com/edmundo/html/profile.html";
                 }
-                let tareas = new HomeTareas();
-            }else{
-                enviarRuta('/avisos');
-            }
-            break;
+                let profile = new newProfile();
+                break;
+            case "/tareas":
+                var classCode = localStorage.getItem('lastCodAula');
+                var tarea = localStorage.getItem('tarea');
+                if(classCode != "" && classCode != undefined && classCode != null && tarea != "" && tarea != undefined && tarea != null){
+                    if(window.location.href !=  "http://www.edmundo.com/edmundo/html/tareas.html"){
+                        window.location.href = "http://www.edmundo.com/edmundo/html/tareas.html";
+                    }
+                    let tareas = new HomeTareas();
+                }else{
+                    enviarRuta('/avisos');
+                }
+                break;
             default:
                 //PAGINA DE ERROR
                 break;
