@@ -41,8 +41,11 @@ export class Post {
         this.textPost = document.getElementById('text-post');
 
         document.getElementById('send-post').addEventListener('click', () => {
-            this.textareaPost = this.textPost.value;
+
+            this.textareaPost = textPost.value;
+            var newPost = this.postHTML;
             if (this.textareaPost != "") {
+                newPost = newPost.replace('[CONTENIDO]' , this.textareaPost);
 
                 // LLAMADA A BASE DE DATOS, 
                 this.BBDDcallSendPost();
@@ -51,7 +54,7 @@ export class Post {
                 this.textareaPost= "";
                 this.textPost.value = "";
             }
-            
+            this.textareaPost= "";
         })
 
         this.textPost.addEventListener('input' , () =>{
