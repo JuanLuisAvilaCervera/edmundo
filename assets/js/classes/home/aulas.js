@@ -47,10 +47,10 @@ export class Aulas{
                                         <ion-icon name="cog-outline"></ion-icon>
                                     </button>
                                 </div>
-                                <div class="row">
-                                    <span class="aula-name m-0">[AULA-NAME]</span>
-                                    <span class="aula-profesor m-0">[AULA-PROFESOR]</span>
-                                    <span class="rolAula m-0">[ROLAULA]</span>
+                                <div class="row"  style="max-height: 70px;">
+                                    <span class="aula-name m-0" style="height: 20px;">[AULA-NAME]</span>
+                                    <span class="aula-profesor m-0"  style="height: 20px;">[AULA-PROFESOR]</span>
+                                    <span class="rolAula m-0"  style="height: 20px;">[ROLAULA]</span>
                                 </div>
                                 
                             </div>
@@ -104,9 +104,9 @@ export class Aulas{
                                 var imgAula = aula ['imagenAula'];
 
                                 if(imgAula == "" || imgAula == null || imgAula == undefined){
-                                    currentAula = currentAula.replace('[IMGAULA]', "<img style='height: 75px; width: 75px; border: solid 1px black;' src='http://www.edmundo.com/edmundo/assets/files/clases/edmundo.png'/>");
+                                    currentAula = currentAula.replace('[IMGAULA]', "<img style='height: 75px; width: 75px; border: solid 1px black;' src='http://www.edmundo.com/edmundo/assets/files/aulas/edmundo.png'/>");
                                 }else{
-                                    currentAula = currentAula.replace('[IMGAULA]', "<img style='height: 75px; width: 75px; border: solid 1px black;' src='http://www.edmundo.com/edmundo/assets/files/clases/"+imgAula+"'/>");
+                                    currentAula = currentAula.replace('[IMGAULA]', "<img style='height: 75px; width: 75px; border: solid 1px black;' src='http://www.edmundo.com/edmundo/assets/files/aulas/"+imgAula+"'/>");
                                 }
                                 aulaSectionHTML += aulaListHTML.replace('[LISTA-AULAS]', currentAula);
                             }else{
@@ -166,8 +166,8 @@ export class Aulas{
                     
 
                     $("#confAula").on('click', (e) =>{
-                        e.preventDefault();
-                        enviarRuta('/avisos');
+                        if(e && e.stopPropagation) e.stopPropagation();
+                        enviarRuta('/aulas');
                     })
 
                     $(".aula-active").on("click", function(event){

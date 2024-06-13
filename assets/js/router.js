@@ -8,6 +8,7 @@ import { solicitud } from "./classes/login/profesor/solicitud.js";
 import { HomeAvisos } from "./classes/avisos/homeavisos.js";
 import { HomeTareas } from "./classes/tareas/homeTareas.js";
 import { newProfile } from "./classes/profile/newProfile.js";
+import { HomeAula } from "./classes/aulas/homeAula.js";
 
 var indexHTML = "";
 var body = document.getElementById('body');
@@ -95,6 +96,12 @@ export function enviarRuta(ruta) {
                     window.location.href = "http://www.edmundo.com/edmundo/html/profile.html";
                 }
                 let profile = new newProfile();
+                break;
+            case "/aulas":
+                if(window.location.href !=  "http://www.edmundo.com/edmundo/html/confAula.html"){
+                    window.location.href = "http://www.edmundo.com/edmundo/html/confAula.html";
+                }
+                let aulas = new HomeAula();
                 break;
             case "/tareas":
                 var classCode = localStorage.getItem('lastCodAula');

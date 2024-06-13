@@ -18,8 +18,11 @@ export class Tareas{
             <span id="titulo"></span>
             <div id="texto"></div>
             <span id="fecha"></span>
+            <span id="isTarea"></span>
 
             <div class="aviso-selection-hr"> </div>
+
+            <button id="buttonEditar" class="btn btn-secondary p-1 d-flex align-items-center"><ion-icon name="cog-outline"></ion-icon></button>
 
         </div>
 
@@ -61,7 +64,55 @@ export class Tareas{
                 </div>
             </div>
         </div>
-</div>`;
+</div>
+<!-- Editar -->
+
+<div class="modal fade" id="editarAviso" tabindex="-1" aria-labelledby="editarAvisoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="editarAvisoLabel">Modificar evento</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <div> <label for="inputtitulo">Título</label><input type="text" id="inputtitulo"></div>
+        <div><textarea id="inputtexto"></textarea></div>
+        <div><label for="tarea">Marcar como tarea (permitir entrega de archivos)</label><input type="checkbox" id="tarea"></div>
+        <div id="atrasada"style="display:none"><label for="tarea">¿Permitir entrega posterior a la fecha de la tarea?</label><input type="checkbox" id="atrasadaCheck"></div>
+        <div>
+            <div id="datepick">
+                <label for="inputdatepicker">Selecciona fecha: </label>
+                <input type="text" id="inputdatepicker"/>
+            <input type="text" id="inputhourpicker"/>
+            </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="modEvento">Aceptar</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <!-- MODAL MODIFICAR -->
+     <div class="modal fade" id="modificarModal" tabindex="-1" aria-labelledby="modificarModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modificarModalLabel">
+                            Algunos campos vacios quedarán vacios (como marcar como tarea o descripción) en lugar de tomar los datos anteriores
+                            ¿Desea continuar con los cambios?
+                        </h1>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-secondary" id="aceptarModificar">Aceptar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+    
+    `;
 
     constructor(){
         var tarea = localStorage.getItem('tarea');

@@ -43,12 +43,12 @@ export function enviarPerfil(){
 }
 
 export function enviarClase(){
-    let formPerfil = document.querySelector('#formPerfil');
+    let formPerfil = document.querySelector('#formClase');
     let archivo = new FormData(formPerfil);
 
-    let email = localStorage.getItem("email");
+    let codAula = localStorage.getItem("lastCodAula");
     archivo.append('ajax', 1);
-    archivo.append("email", email)
+    archivo.append("codAula", codAula)
     let xmlhttp = new XMLHttpRequest();
     
     xmlhttp.onreadystatechange = function(){
@@ -59,6 +59,6 @@ export function enviarClase(){
         }
         
     };
-    xmlhttp.open('POST','../assets/php/archivos/subirPerfil.php',true);
+    xmlhttp.open('POST','../assets/php/archivos/subirClase.php',true);
     xmlhttp.send(archivo);
 }
