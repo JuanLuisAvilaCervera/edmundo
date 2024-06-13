@@ -33,8 +33,7 @@ export class Aulas{
                     let home = new Home();
                 }else{
                     var aulaListHTML =
-                    `<h1>Aulas</h1>
-                    <div class="container aula-list" id="aula-list">
+                    `<div class="container aula-list" id="aula-list">
                         [LISTA-AULAS]
                     </div>`;
                     var currentAulaHTML =
@@ -65,14 +64,16 @@ export class Aulas{
                     `<div class="join-aula" id="join-aula">
                         <label for="classCode">Introduce un código de aula para unirse:</label>
                         <div class="d-flex flex-row">
-                            <input type="text" id="classCode" maxlength = 6 class="form-control" placeholder="A1B2C3">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                            <input type="text" id="classCode" maxlength = 6 class="rounded-start border border-secondary bg-white me-0" placeholder="A1B2C3">
                             <button id="enviarCode" class="btn btn-primary">Unirse</button>
+                            </div>
                         </div>
                     </div>`;
 
                     var createAulaHTML = 
-                    `<div class="create-aula-div" id="create-aula">
-                            <button id="create-aula">Crear Clase</button>
+                    `<div class="create-aula-div" id="create-aula-div">
+                            <button id="create-aula" class="btn btn-secondary">Crear Clase</button>
                     </div>`;
 
                     var aulaHTML =
@@ -104,9 +105,9 @@ export class Aulas{
                                 var imgAula = aula ['imagenAula'];
 
                                 if(imgAula == "" || imgAula == null || imgAula == undefined){
-                                    currentAula = currentAula.replace('[IMGAULA]', "<img style='height: 75px; width: 75px; border: solid 1px black;' src='http://www.edmundo.com/edmundo/assets/files/aulas/edmundo.png'/>");
+                                    currentAula = currentAula.replace('[IMGAULA]', `<img style="height: 75px; width: 75px;" src='http://www.edmundo.com/edmundo/assets/files/aulas/edmundo.png'/>`);
                                 }else{
-                                    currentAula = currentAula.replace('[IMGAULA]', "<img style='height: 75px; width: 75px; border: solid 1px black;' src='http://www.edmundo.com/edmundo/assets/files/aulas/"+imgAula+"'/>");
+                                    currentAula = currentAula.replace('[IMGAULA]', `<img style="height: 75px; width: 75px;" src='http://www.edmundo.com/edmundo/assets/files/aulas/`+imgAula+`'/>`);
                                 }
                                 aulaSectionHTML += aulaListHTML.replace('[LISTA-AULAS]', currentAula);
                             }else{

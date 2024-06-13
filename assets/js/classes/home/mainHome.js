@@ -11,8 +11,7 @@ export class MainHome{
 
             </div>
             <!-- POSTS -->
-            <div class="post-section col-xl-5 ">
-                <h1>Comentarios</h1>
+            <div class="post-section col-xl-5 "); background-size:cover">
                 <div id="write-post-section" class="write-post-section">
                     <textarea name="" id="text-post" class="text-post form-control" placeholder="Haz un comentario a tu clase..."></textarea>
                     <div id="the-count">

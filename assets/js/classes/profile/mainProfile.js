@@ -6,6 +6,7 @@ export class mainProfile{
     mainHTML = `<div class="comp-register box text-center" id="comp-register">
         <div id="principal">
             <div class="row">
+            <div class="col"><button id="volverHome" class="btn btn-secondary">Volver</button></div>
             <div class="col text-end p-1"><h3>Perfil</h3></div>
             <div class="col p-1"><button id="buttonEditar" class="btn btn-secondary p-1 d-flex align-items-center"><ion-icon name="cog-outline"></ion-icon></button></h3>
 </div>
@@ -129,6 +130,8 @@ export class mainProfile{
 
     constructor(){
         document.getElementById("main").innerHTML = this.mainHTML;
+
+        
         this.BBDDcallUser();
     }
 
@@ -200,6 +203,10 @@ export class mainProfile{
                                 enviarPerfil();
                             }
                         };
+
+                        $("#volverHome").on("click", ()=>{
+                            enviarRuta("/");
+                        })
                         
                     }
                 }

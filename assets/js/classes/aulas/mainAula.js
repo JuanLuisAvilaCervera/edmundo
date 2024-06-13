@@ -6,6 +6,7 @@ export class mainAula{
     mainHTML = `<div class="comp-register box text-center" id="comp-register">
         <div id="principal">
             <div class="row">
+            <div class="col"><button id="volverHome" class="btn btn-secondary">Volver</button></div>
                 <div class="col text-end p-1"><h3>[NOMBRE]</h3></div>
                 <div class="col p-1">
                     <button id="buttonEditar" class="btn btn-secondary p-1">
@@ -107,6 +108,8 @@ export class mainAula{
 
     constructor(){
         document.getElementById("main").innerHTML = this.mainHTML;
+
+        
         this.BBDDcallUser();
     }
 
@@ -157,6 +160,10 @@ export class mainAula{
                             var apellidos = $("#inputApe").val() || $("#inputApe").attr("placeholder");
                             thisClass.BBDDcallModificar(nombre , apellidos);
                         });
+
+                        $("#volverHome").on("click", ()=>{
+                            enviarRuta("/");
+                        })
 
                         document.getElementById("fileToUpload").onchange = function(e) {
                             e.preventDefault();

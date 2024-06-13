@@ -3,10 +3,10 @@ import { enviarRuta } from "../../router.js";
 export class Profile{
 
     profileHTML = `<div class="dropdown">
-                    <button class="btn btn-secondary p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-outline-light p-0 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="row ">
                             <div class="col">
-                                <img style="height: 100px; width: 100px;" src="http://www.edmundo.com/edmundo/assets/files/perfiles/[PERFIL]">
+                                <img style="height: 90px; width: 90px;" src="http://www.edmundo.com/edmundo/assets/files/perfiles/[PERFIL]">
                             </div>
                             <div class="col">
                                 <h5>[NOMBRE-APELLIDOS]</h5>
@@ -15,11 +15,11 @@ export class Profile{
 
                         </div>
                     </button>
-                    <ul class="dropdown-menu">
-                      <li><button id="verPerfil">Ver Perfil</button></li>
-                      <li><button id="solicitarDocente">Solicitar ser Docente</button></li>
-                      <li><button id="cancelarDocente">Cancelar solicitud de Docente</button></li>
-                      <li><button id="logOff">Cerrar Sesión</button></li>
+                    <ul class="dropdown-menu w-100">
+                      <li><button id="verPerfil" class="dropdown-item w-100">Ver Perfil</button></li>
+                      <li><button id="solicitarDocente" class="dropdown-item">Solicitar ser Docente</button></li>
+                      <li><button id="cancelarDocente" class="dropdown-item">Cancelar solicitud de Docente</button></li>
+                      <li><button id="logOff" class="dropdown-item">Cerrar Sesión</button></li>
                     </ul>
                   </div>
                   <!--ModalBorrar-->

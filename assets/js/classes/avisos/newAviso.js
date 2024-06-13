@@ -8,39 +8,62 @@ export class newAviso{
 
     <!-- Modal -->
     <div class="modal fade" id="newAviso" tabindex="-1" aria-labelledby="newAvisoLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-5" id="newAvisoLabel">Añadir nuevo evento</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-        <div> 
-            <label for="elegirAula">Elegir aula</label>
-            <select id="elegirAula">
-                <!-- OPCIONES DE AULA -->
-                <option disabled selected value> -- select an option -- </option>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="newAvisoLabel">Añadir nuevo evento</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-3"><label for="elegirAula">Elegir aula</label></div>
+                            <div class="col-7">
+                                <select id="elegirAula" class="form-select">
+                                    <!-- OPCIONES DE AULA -->
+                                    <option disabled selected value> -- select an option -- </option>
 
-            </select>
-        </div>
-        <div> <label for="titulo">Título</label><input type="text" id="titulo"></div>
-        <div><textarea id="texto"></textarea></div>
-        <div><label for="tarea">Marcar como tarea (permitir entrega de archivos)</label><input type="checkbox" id="tarea"></div>
-        <div id="atrasada"style="display:none"><label for="tarea">¿Permitir entrega posterior a la fecha de la tarea?</label><input type="checkbox" id="atrasadaCheck"></div>
-        <div>
-            <div id="datepick">
-                <label>Selecciona fecha: </label>
-                <input type="text" id="datepicker"/>
-            <input type="text" id="hourpicker"/>
+                                </select>
+                            </div>
+                        </div>
+
+                    <div class="row">
+                        <div class="col-3"><label for="titulo">Título:</label></div>
+                        <div class="col-7">
+                            <input type="text" id="titulo" class="form-control">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="texto">Descripción: </label>
+                        <textarea id="texto" class="form-control"></textarea>
+                    </div>
+                    <div>
+                        <label for="tarea">Marcar como tarea (permitir entrega de archivos)</label>
+                        <input type="checkbox" id="tarea" class="form-check-input">
+                    </div>
+                    <div id="atrasada"style="display:none">
+                        <label for="atrasadaCheck">¿Permitir entrega posterior a la fecha de la tarea?</label>
+                        <input type="checkbox" id="atrasadaCheck"  class="form-check-input"></div>
+                    <div>
+                    <div class="row">
+                        <div class="col-6"><label>Selecciona fecha del evento: </label></div>
+                        <div class="col-6">
+                            <input type="text" id="datepicker" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6"><label>Selecciona hora de finalización: </label></div>
+                        <div class="col-6">
+                            <input type="text" id="hourpicker" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="sendAviso">Crear Aviso</button>
+                </div>
             </div>
         </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" id="sendAviso">Crear Aviso</button>
-        </div>
-        </div>
-    </div>
     </div>
     `;
 

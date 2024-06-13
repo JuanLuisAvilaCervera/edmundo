@@ -5,6 +5,7 @@ export class callTareas{
 
 
     constructor(){
+        var thisClass = this;
 
         $("#volverAvisos").on("click", function(){
             localStorage.removeItem('tarea');
@@ -36,12 +37,17 @@ export class callTareas{
 
             
         })
+
+        $("#eliminarEvento").on("click", () =>{
+            $("#borrarModal").modal("show");
+        });
         
         $("#aceptarModificar").on("click", () =>{
-            var titulo = $("#inputtitulo").val() || $("#inputtitulo").attr("placeholder");
-            var texto = $("#inputtexto").val();
-            var isTarea = $("#tarea").isChecked();
-            thisClass.BBDDcallModificar(nombre , apellidos);
+            thisClass.BBDDcallModificar();
+        })
+
+        $("#aceptarBorrar").on("click", () =>{
+            thisClass.BBDDcallBorrar();
         })
 
         
@@ -90,14 +96,18 @@ export class callTareas{
 
                 }else{
                     //MOSTRAR TEXTO Y FECHA DE LA TAREA
-                    document.getElementById('fecha').innerHTML = datos['fecha'].substr(0,16);
+
+                    var fechaYMD = datos['fecha'].substr(0,10);
+                    var fechaDMY = fechaYMD.substr(8,2)+"-"+fechaYMD.substr(5,2)+"-"+fechaYMD.substr(0,4);
+
+                    document.getElementById('fecha').innerHTML = fechaDMY+ " " + datos['fecha'].substr(11,5);
                     document.getElementById('texto').innerHTML = datos['texto'];
                     document.getElementById('titulo').innerHTML = datos['titulo'];
 
                     $("#inputtitulo").attr("placeholder",  datos['titulo']);
                     $("#inputtexto").attr("placeholder",  datos['texto']);
                     
-                    $("#inputdatepicker").attr("placeholder",  datos['fecha'].substr(0,10));
+                    $("#inputdatepicker").attr("placeholder",  fechaDMY);
                     $("#inputhourpicker").attr("placeholder",  datos['fecha'].substr(11,5));
                     if(datos['tarea']){
                         document.getElementById('isTarea').innerHTML = "Tarea a entregar";
@@ -261,7 +271,7 @@ export class callTareas{
         var tarea = $("#tarea").is(":checked");
         var atrasada = $("#atrasadaCheck").is(":checked");
         var hora = $("#inputhourpicker").val() ||  $("#inputhourpicker").attr("placeholder");
-        var codAula  = localStorage.getItem("lastCodAula");
+        var idAviso  = localStorage.getItem("tarea");
 
         var dia = fecha.substring(0,2);
         var mes = fecha.substring(3,5);
@@ -275,19 +285,18 @@ export class callTareas{
 
         var obj = {
             "text":texto,
-            "codAula": codAula,
+            "idAviso":idAviso,
             "titulo":titulo,
             "tarea":tarea,
             "fecha":fulldate,
-            "hora":hora,
             "atrasada":atrasada
         }
         var cadena = JSON.stringify(obj);
+        console.log(obj);
         return cadena;
     }
 
-    BBDDcallmodificar(){
-
+    BBDDcallModificar(){
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange=function() {
             if(this.readyState==4 && this.status==200) {
@@ -308,6 +317,40 @@ export class callTareas{
         xmlhttp.open('POST','../assets/php/avisos/updateavisos.php');
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string_modificar();
+        xmlhttp.send(cadena);
+    }
+
+    crea_query_string_borrar(){
+        var obj = {
+            "idTarea": localStorage.getItem("tarea"),
+        }
+        var cadena = JSON.stringify(obj);
+        console.log(cadena);
+        return cadena;
+    }
+
+    BBDDcallBorrar(){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if(this.readyState==4 && this.status==200) {
+                var datos = JSON.parse(this.responseText);
+                
+                if (datos == "") {
+                    console.log("Fallo");
+                }else{
+                    console.log(datos);
+                    console.log("Completado");
+                    //REFRESCAR PÁGINA
+                    localStorage.removeItem("tarea");
+                    enviarRuta("/avisos");
+                }
+
+            }
+        };
+        //PAGINA ENVIO PHP
+        xmlhttp.open('POST','../assets/php/avisos/borraravisos.php');
+        xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
+        let cadena = this.crea_query_string_borrar();
         xmlhttp.send(cadena);
     }
 }

@@ -13,17 +13,26 @@ export class Tareas{
     </div>
     <!-- TAREAS -->
     <div class="tarea-section col-xl-6">
-        <div class="tarea-description">
-            <button id="volverAvisos" class="volverAvisos">Volver</button>
-            <span id="titulo"></span>
-            <div id="texto"></div>
-            <span id="fecha"></span>
-            <span id="isTarea"></span>
-
+        <div class="tarea-description rounded border">
+            <div class="row">
+                <div class="col-6 d-flex flex-row align-items-center">
+                    <button id="volverAvisos" class="volverAvisos btn btn-secondary">Volver</button>
+                    <h3 id="titulo"></h3>
+                    <button id="buttonEditar" class="btn btn-secondary p-1 d-flex align-items-center"><ion-icon name="cog-outline"></ion-icon></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div id="texto"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 d-flex flex-row">
+                    <span id="fecha"></span>
+                    <span id="isTarea"></span>
+                </div>
+            </div>
             <div class="aviso-selection-hr"> </div>
-
-            <button id="buttonEditar" class="btn btn-secondary p-1 d-flex align-items-center"><ion-icon name="cog-outline"></ion-icon></button>
-
         </div>
 
 
@@ -75,21 +84,60 @@ export class Tareas{
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-        <div> <label for="inputtitulo">Título</label><input type="text" id="inputtitulo"></div>
-        <div><textarea id="inputtexto"></textarea></div>
-        <div><label for="tarea">Marcar como tarea (permitir entrega de archivos)</label><input type="checkbox" id="tarea"></div>
-        <div id="atrasada"style="display:none"><label for="tarea">¿Permitir entrega posterior a la fecha de la tarea?</label><input type="checkbox" id="atrasadaCheck"></div>
-        <div>
-            <div id="datepick">
-                <label for="inputdatepicker">Selecciona fecha: </label>
-                <input type="text" id="inputdatepicker"/>
-            <input type="text" id="inputhourpicker"/>
+            <div class="row">
+                <div class="col-3"><label for="elegirAula">Elegir aula</label></div>
+                    <div class="col-7">
+                        <select id="elegirAula" class="form-select">
+                            <!-- OPCIONES DE AULA -->
+                            <option disabled selected value> -- select an option -- </option>
+
+                        </select>
+                    </div>
+                </div>
+
+            <div class="row">
+                <div class="col-3"><label for="inputtitulo">Título:</label></div>
+                <div class="col-7">
+                    <input type="text" id="inputtitulo" class="form-control">
+                </div>
+            </div>
+
+            <div>
+                <label for="inputtexto">Descripción: </label>
+                <textarea id="inputtexto" class="form-control"></textarea>
+            </div>
+            <div>
+                <label for="tarea">Marcar como tarea (permitir entrega de archivos)</label>
+                <input type="checkbox" id="tarea" class="form-check-input">
+            </div>
+            <div id="atrasada"style="display:none">
+                <label for="tarea">¿Permitir entrega posterior a la fecha de la tarea?</label>
+                <input type="checkbox" id="atrasadaCheck"  class="form-check-input"></div>
+            <div>
+            <div class="row">
+                <div class="col-6"><label>Selecciona fecha del evento: </label></div>
+                <div class="col-6">
+                    <input type="text" id="inputdatepicker" class="form-control"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6"><label for="inputhourpicker">Selecciona hora de finalización: </label></div>
+                <div class="col-6">
+                    <input type="text" id="inputhourpicker" class="form-control"/>
+                </div>
             </div>
         </div>
-        </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" id="modEvento">Aceptar</button>
+        <div class="row">
+            <div class="col-3">
+                <button type="button" class="btn btn-danger" id="eliminarEvento">Eliminar evento</button>
+            </div>
+            <div class="col-9">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="modEvento">Aceptar</button>
+            </div>
+        </div>
+            
         </div>
         </div>
     </div>
@@ -105,6 +153,20 @@ export class Tareas{
                         </h1>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                         <button type="button" class="btn btn-secondary" id="aceptarModificar">Aceptar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MODAL MODAL -->
+     <div class="modal fade" id="borrarModal" tabindex="-1" aria-labelledby="borrarModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="borrarModalLabel">
+                            ¿Desea eliminar el evento?
+                        </h1>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-secondary" id="aceptarBorrar">Eliminar Evento</button>
                     </div>
                 </div>
             </div>
