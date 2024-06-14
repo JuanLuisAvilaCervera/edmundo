@@ -29,7 +29,6 @@
     <?php
 require_once "../vendor/autoload.php";
 require_once "../assets/php/BBDD/m_consultas.php";
-require_once "../assets/php/archivos/subirPerfiles.php";
 require_once "../assets/php/correo/modelo.php";
 
 //Iniciar conf.
@@ -70,7 +69,7 @@ if (isset($_REQUEST['code'])) {
 	$name = $google_account_info->name;
 	$nombre = $google_account_info->givenName;
 	$apellidos = $google_account_info->familyName;
-	$foto = $google_account_info->picture;
+	// $foto = $google_account_info->picture;
 
     $consulta = select("usuario where email = '".$email."'");
     if($fi = $consulta->fetch(PDO::FETCH_ASSOC)){
@@ -86,13 +85,8 @@ if (isset($_REQUEST['code'])) {
             
     }else{
         $campos = array();
-        array_push( $campos,0, $nombre, $apellidos , $email,  "",0, "",0,$foto,0);
+        array_push( $campos,0, $nombre, $apellidos , $email,  "",0, "",0,"",0);
         $consulta2 = insert("usuario", $campos);
-        if($consulta2 == 1){
-              subirPerfil($foto);
-        }
-        
-
         $message = "Este correo sirve para que valides tu cuenta de correo electronico 
                   <br> para validarlo pincha en el siguiente enlace:
                   <br><<a href='http://www.edmundo.com/edmundo/html/verRegistro.php?c=$email'>http://www.edmundo.com/edmundo/html/verRegistro.php</a>";

@@ -18,7 +18,7 @@ $campos = array();
 
 $idUsuario = getUserID($email);
 
-array_push( $campos, 0 , $aulaName , $codAula , $idUsuario );
+array_push( $campos, 0 , $aulaName , $codAula , $idUsuario , "");
 if(insert("aula", $campos )){
     joinAula($email,$codAula);
     $consulta = selectsql("select * from aula where codAula = '".$codAula."'");

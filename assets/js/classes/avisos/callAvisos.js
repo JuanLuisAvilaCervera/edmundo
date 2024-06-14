@@ -25,7 +25,6 @@ export class callAvisos{
 
         $('#entregar').on("click", function(e){
             e.preventDefault();
-            console.log($("#fileToUpload").val());
             if($("#fileToUpload").val() == "" || $("#fileToUpload").val() == undefined || $("#fileToUpload").val() == null){
                 alert("No se ha añadido ningún archivo");
             }else{
