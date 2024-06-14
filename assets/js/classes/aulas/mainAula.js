@@ -43,8 +43,8 @@ export class mainAula{
                 </div>
                 <hr>
                 <div id="estudiantesList">
-                    <!-- LISTA DE AULAS -->
-                    [LISTA-AULAS]
+                    <!-- LISTA DE USUARIOS -->
+                    [LISTA-USUARIOS]
                 </div>
             </div>
         </div>
@@ -108,8 +108,6 @@ export class mainAula{
 
     constructor(){
         document.getElementById("main").innerHTML = this.mainHTML;
-
-        
         this.BBDDcallUser();
     }
 
@@ -136,43 +134,9 @@ export class mainAula{
                         thisClass.mainHTML = thisClass.mainHTML.replaceAll("[PERFIL]", perfil )
                                                                         .replaceAll("[NOMBRE]", nombre);
 
-                        document.getElementById('main').innerHTML = thisClass.mainHTML;
+                        thisClass.BBDDcallAulaUser();
 
-                        if(localStorage.getItem("creator") == localStorage.getItem("idUsuario")){
-                            $("#buttonEditar").show();
-                        }else{
-                            $("#buttonEditar").hide();
-                        }
-                        $("#buttonEditar").on('click' , () =>{
-                            $('#editar').show();
-                            $('#principal').hide();
-                        })
-                        $("#cancelarEditar").on('click' , () =>{
-                            $('#editar').hide();
-                            $('#principal').show();
-                        })
-
-                        $("#abrirModificar").on('click', () =>{
-                            $('#modificarModal').modal("show");
-                        })
-                        $("#aceptarModificar").on('click', () =>{
-                            var nombre = $("#inputNom").val() || $("#inputNom").attr("placeholder");
-                            var apellidos = $("#inputApe").val() || $("#inputApe").attr("placeholder");
-                            thisClass.BBDDcallModificar(nombre , apellidos);
-                        });
-
-                        $("#volverHome").on("click", ()=>{
-                            enviarRuta("/");
-                        })
-
-                        document.getElementById("fileToUpload").onchange = function(e) {
-                            e.preventDefault();
-                            if($("#fileToUpload").val() == "" || $("#fileToUpload").val() == undefined || $("#fileToUpload").val() == null){
-                                alert("No se ha añadido ningún archivo");
-                            }else{
-                                enviarClase();
-                            }
-                        };
+                        
                         
                     }
                 }
@@ -212,4 +176,88 @@ export class mainAula{
         let cadena = this.crea_query_string_sendmodificar(nombre);
         xmlhttp.send(cadena);
     }
+
+    crea_query_string_callaulauser(){
+        var obj = {
+            "codAula": localStorage.getItem("lastCodAula")
+        }
+        var cadena = JSON.stringify(obj);
+        return cadena;
+    }
+
+    BBDDcallAulaUser(){
+
+        var thisClass =this;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if(this.readyState==4 && this.status==200) {
+                var datos = JSON.parse(this.responseText);
+                if (datos == "") {
+                    console.log("error");
+                }else{
+                    var found = false;
+                    var userListHTML = ``;
+                    var userHTML = 
+                    `<div>
+                        <span id="nombre">[NOMBRE]</span>
+                    </div>`;
+                    datos.forEach(usuario => {
+                        if(!found && usuario['idCreator'] == usuario['idUsuario']){
+                            found = true;
+                            thisClass.mainHTML = thisClass.mainHTML.replace('[DOCENTE]', userHTML.replace('[NOMBRE]'
+                                , usuario['name'] + " " + usuario['surname']));
+                        }else{
+                            userListHTML += userHTML.replace('[NOMBRE]', usuario['name'] + " " + usuario['surname']);
+                        }
+                    });
+
+                    thisClass.mainHTML = thisClass.mainHTML.replace('[LISTA-USUARIOS]', userListHTML);
+                    document.getElementById('main').innerHTML = thisClass.mainHTML;
+
+                    if(localStorage.getItem("creator") == localStorage.getItem("idUsuario")){
+                        $("#buttonEditar").show();
+                    }else{
+                        $("#buttonEditar").hide();
+                    }
+                    $("#buttonEditar").on('click' , () =>{
+                        $('#editar').show();
+                        $('#principal').hide();
+                    })
+                    $("#cancelarEditar").on('click' , () =>{
+                        $('#editar').hide();
+                        $('#principal').show();
+                    })
+
+                    $("#abrirModificar").on('click', () =>{
+                        $('#modificarModal').modal("show");
+                    })
+                    $("#aceptarModificar").on('click', () =>{
+                        var nombre = $("#inputNom").val() || $("#inputNom").attr("placeholder");
+                        var apellidos = $("#inputApe").val() || $("#inputApe").attr("placeholder");
+                        thisClass.BBDDcallModificar(nombre , apellidos);
+                    });
+
+                    $("#volverHome").on("click", ()=>{
+                        enviarRuta("/");
+                    })
+
+                    document.getElementById("fileToUpload").onchange = function(e) {
+                        e.preventDefault();
+                        if($("#fileToUpload").val() == "" || $("#fileToUpload").val() == undefined || $("#fileToUpload").val() == null){
+                            alert("No se ha añadido ningún archivo");
+                        }else{
+                            enviarClase();
+                        }
+                    };
+                }
+            }
+        };
+        //PAGINA ENVIO PHP
+        xmlhttp.open('POST','http://www.edmundo.com/edmundo/assets/php/aulas/callaulauser.php');
+        xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
+        let cadena = this.crea_query_string_callaulauser();
+        xmlhttp.send(cadena);
+
+    }
+
 }

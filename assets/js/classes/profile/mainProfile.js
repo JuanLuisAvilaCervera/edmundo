@@ -54,6 +54,7 @@ export class mainProfile{
                 <h5>Aulas en las que participas</h5>
                 <div id="aulaList">
                     <!-- LISTA DE AULAS -->
+                    [LISTA-AULAS]
                 </div>
             </div>
         </div>
@@ -176,37 +177,7 @@ export class mainProfile{
                                                                         .replaceAll("[APELLIDOS]" , apellidos)
                                                                         .replaceAll("[ROL]", rolName);
 
-                        document.getElementById('main').innerHTML = thisClass.mainHTML;
-
-                        $("#buttonEditar").on('click' , () =>{
-                            $('#editar').show();
-                            $('#principal').hide();
-                        })
-                        $("#cancelarEditar").on('click' , () =>{
-                            $('#editar').hide();
-                            $('#principal').show();
-                        })
-                        $("#abrirModificar").on('click', () =>{
-                            $('#modificarModal').modal("show");
-                        })
-                        $("#aceptarModificar").on('click', () =>{
-                            var nombre = $("#inputNom").val() || $("#inputNom").attr("placeholder");
-                            var apellidos = $("#inputApe").val() || $("#inputApe").attr("placeholder");
-                            thisClass.BBDDcallModificar(nombre , apellidos);
-                        });
-
-                        document.getElementById("fileToUpload").onchange = function(e) {
-                            e.preventDefault();
-                            if($("#fileToUpload").val() == "" || $("#fileToUpload").val() == undefined || $("#fileToUpload").val() == null){
-                                alert("No se ha añadido ningún archivo");
-                            }else{
-                                enviarPerfil();
-                            }
-                        };
-
-                        $("#volverHome").on("click", ()=>{
-                            enviarRuta("/");
-                        })
+                        thisClass.BBDDcallAulas();
                         
                     }
                 }
@@ -245,6 +216,75 @@ export class mainProfile{
         xmlhttp.open('POST','http://www.edmundo.com/edmundo/assets/php/profile/sendModificar.php');
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string_sendmodificar(nombre, apellidos);
+        xmlhttp.send(cadena);
+    }
+
+    crea_query_string_callaulas(){
+        var obj = {
+            "email": localStorage.getItem("email")
+        }
+        var cadena = JSON.stringify(obj);
+        return cadena;
+    }
+
+    BBDDcallAulas(){
+        var thisClass =this;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if(this.readyState==4 && this.status==200) {
+                var datos = JSON.parse(this.responseText);
+                if (datos == "") {
+                    console.log("error");
+                }else{
+                    var aulaListHTML = ``;
+                    var aulaHTML = 
+                    `<div>
+                        <span id="nombre">[NOMBRE]</span>
+                    </div>`;
+                    datos.forEach(aula => {
+                        aulaListHTML += aulaHTML.replace('[NOMBRE]', aula['nombre'] + " Código de aula:" + aula['codAula']);
+                    });
+
+                    thisClass.mainHTML = thisClass.mainHTML.replace('[LISTA-AULAS]', aulaListHTML);
+
+                    document.getElementById('main').innerHTML = thisClass.mainHTML;
+
+                        $("#buttonEditar").on('click' , () =>{
+                            $('#editar').show();
+                            $('#principal').hide();
+                        })
+                        $("#cancelarEditar").on('click' , () =>{
+                            $('#editar').hide();
+                            $('#principal').show();
+                        })
+                        $("#abrirModificar").on('click', () =>{
+                            $('#modificarModal').modal("show");
+                        })
+                        $("#aceptarModificar").on('click', () =>{
+                            var nombre = $("#inputNom").val() || $("#inputNom").attr("placeholder");
+                            var apellidos = $("#inputApe").val() || $("#inputApe").attr("placeholder");
+                            thisClass.BBDDcallModificar(nombre , apellidos);
+                        });
+
+                        document.getElementById("fileToUpload").onchange = function(e) {
+                            e.preventDefault();
+                            if($("#fileToUpload").val() == "" || $("#fileToUpload").val() == undefined || $("#fileToUpload").val() == null){
+                                alert("No se ha añadido ningún archivo");
+                            }else{
+                                enviarPerfil();
+                            }
+                        };
+
+                        $("#volverHome").on("click", ()=>{
+                            enviarRuta("/");
+                        })
+                }
+            }
+        };
+        //PAGINA ENVIO PHP
+        xmlhttp.open('POST','http://www.edmundo.com/edmundo/assets/php/profile/callAulas.php');
+        xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
+        let cadena = this.crea_query_string_callaulas();
         xmlhttp.send(cadena);
     }
 }
