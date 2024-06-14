@@ -10,6 +10,17 @@
     border-right: var(--thin-border);
 }
 
+/* POST SECTION */
+.post-section{
+    overflow:hidden;
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.post-section::-webkit-scrollbar {
+    display: none;
+}
 
 
 .post-selection{
@@ -35,6 +46,16 @@
 
 .post-list{
     margin: var(--left-right-margin);
+}
+
+.post-list{
+    overflow-y:auto;
+    /* Hide scrollbar for IE, Edge and Firefox */
+    scrollbar-width: 5px;  /* Firefox */
+}
+
+.post-list::-webkit-scrollbar {
+    display: block;
 }
 
 .text-post{
