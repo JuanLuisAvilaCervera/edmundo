@@ -129,6 +129,7 @@ export class Post {
                 }else{
                     console.log("completado");
                     var postList = document.getElementById('post-list');
+                    postList.innerHTML = "";
                     datos.forEach(post => {
                         var newPost = postHTML;
                         newPost = newPost.replace('[CONTENIDO]' , post['texto'])

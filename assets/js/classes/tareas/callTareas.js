@@ -15,6 +15,9 @@ export class callTareas{
         $("#buttonEditar").on("click", function(){
             $("#editarAviso").modal("show");
         })
+        $("#verNotas").on("click", function(){
+            thisClass.notasPDF();
+        })
 
         $(function(){
             $('#inputdatepicker').datepicker({dateFormat: "dd-mm-yy"});
@@ -238,6 +241,7 @@ export class callTareas{
 
     BBDDcallPuntuacion(puntuacion){
         var xmlhttp = new XMLHttpRequest();
+        var thisClass = this;
         xmlhttp.onreadystatechange=function() {
             if(this.readyState==4 && this.status==200) {
                 var datos = JSON.parse(this.responseText);
@@ -253,6 +257,10 @@ export class callTareas{
                             points = "Sin calificar";
                         }
                         $("#puntuacion").text(points);
+                    //REFRESCAR POR ATRAS
+                    thisClass.BBDDcallAviso();
+                    thisClass.BBDDcallTareas();
+                    thisClass.BBDDcallSinentregar();
                 }
             }
         }
@@ -352,5 +360,13 @@ export class callTareas{
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string_borrar();
         xmlhttp.send(cadena);
+    }
+
+    notasPDF(){
+        var f = document.createElement("form");
+        f.setAttribute('method',"post");
+        f.setAttribute('action',"http://www.edmundo.com/edmundo/assets/php/tareas/pdf.php");
+        $(document.body).append(f);
+        f.submit();
     }
 }

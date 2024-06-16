@@ -2,8 +2,8 @@ import { enviarRuta } from "../../router.js";
 
 export class Profile{
 
-    profileHTML = `<div class="dropdown">
-                    <button class="btn btn-outline-light p-0 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    profileHTML = `<div class="dropdown h-100">
+                    <button class="btn btn-outline-light p-0 border-0 h-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="row ">
                             <div class="col">
                                 <img style="height: 90px; width: 90px;" src="http://www.edmundo.com/edmundo/assets/files/perfiles/[PERFIL]">
@@ -94,7 +94,10 @@ export class Profile{
                         }else if(rolDatos == 1 && datos['solicitud'] != 2){
                             $("#cancelarDocente").parent().show();
                             $("#solicitarDocente").parent().hide();
-                        }else{
+                        }else{ 
+                            if(rolDatos == 3){
+                                $("#verPerfil").parent().hide();
+                            }
                             $("#cancelarDocente").parent().hide();
                             $("#solicitarDocente").parent().hide();
                         }

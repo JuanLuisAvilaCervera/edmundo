@@ -43,14 +43,14 @@ export class mainProfile{
                     </div>   
                 </div>
             </div>
-            <hr>
-            <div class="row" id="aulasCreadas" style="display:none;">
+            
+            <div class="row" id="aulasCreadas" style="display:none;"><hr>
                 <h5>Aulas en las que creaste</h5>
                 <div id="aulasCreadasList">
                     <!-- LISTA DE AULAS -->
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="aulasParticipa">
                 <h5>Aulas en las que participas</h5>
                 <div id="aulaList">
                     <!-- LISTA DE AULAS -->
@@ -233,8 +233,9 @@ export class mainProfile{
         xmlhttp.onreadystatechange=function() {
             if(this.readyState==4 && this.status==200) {
                 var datos = JSON.parse(this.responseText);
+                var noAulas = false;
                 if (datos == "") {
-                    console.log("error");
+                    noAulas = true;
                 }else{
                     var aulaListHTML = ``;
                     var aulaHTML = 
@@ -245,9 +246,14 @@ export class mainProfile{
                         aulaListHTML += aulaHTML.replace('[NOMBRE]', aula['nombre'] + " Código de aula:" + aula['codAula']);
                     });
 
-                    thisClass.mainHTML = thisClass.mainHTML.replace('[LISTA-AULAS]', aulaListHTML);
+                    thisClass.mainHTML = thisClass.mainHTML.replace('[LISTA-AULAS]', aulaListHTML);   
+                }
 
-                    document.getElementById('main').innerHTML = thisClass.mainHTML;
+                document.getElementById('main').innerHTML = thisClass.mainHTML;
+
+                if(noAulas){
+                    $("#aulasParticipa").hide();
+                }
 
                         $("#buttonEditar").on('click' , () =>{
                             $('#editar').show();
@@ -266,19 +272,18 @@ export class mainProfile{
                             thisClass.BBDDcallModificar(nombre , apellidos);
                         });
 
-                        document.getElementById("fileToUpload").onchange = function(e) {
-                            e.preventDefault();
-                            if($("#fileToUpload").val() == "" || $("#fileToUpload").val() == undefined || $("#fileToUpload").val() == null){
-                                alert("No se ha añadido ningún archivo");
-                            }else{
-                                enviarPerfil();
-                            }
-                        };
+                document.getElementById("fileToUpload").onchange = function(e) {
+                    e.preventDefault();
+                    if($("#fileToUpload").val() == "" || $("#fileToUpload").val() == undefined || $("#fileToUpload").val() == null){
+                        alert("No se ha añadido ningún archivo");
+                    }else{
+                        enviarPerfil();
+                    }
+                };
 
-                        $("#volverHome").on("click", ()=>{
-                            enviarRuta("/");
-                        })
-                }
+                $("#volverHome").on("click", ()=>{
+                    enviarRuta("/");
+                })
             }
         };
         //PAGINA ENVIO PHP

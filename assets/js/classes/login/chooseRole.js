@@ -1,7 +1,6 @@
 //ELEGIR ENTRE ALUMNO Y PROFESOR
 import { enviarRuta } from "../../router.js";
 import { Footer } from "../mainstructure/footer.js";
-import { HeaderSecondary } from "../mainstructure/header-secondary.js";
 
 export class ChooseRole {
     //ROL DEL USUARIO
@@ -12,7 +11,7 @@ export class ChooseRole {
     rol=0;
     email = localStorage.getItem('email');
 
-    chooseRoleHTML = `<div class="header-secondary" id="header"></div>
+    chooseRoleHTML = `
         <main id="main" class="main"><div class="comp-register box text-center" id="comp-register"><h3>¿Cómo quieres iniciar?</h3>
         <div class="row h-100">
             <div id="rolEstudiante" class="col-6 rolbutton">
@@ -36,7 +35,6 @@ export class ChooseRole {
     constructor() {
         document.getElementById('body').innerHTML = this.chooseRoleHTML;
         $("#body").addClass("body-login");
-        let header = new HeaderSecondary();
         let footer = new Footer();
         this.crearChooseRole();
         

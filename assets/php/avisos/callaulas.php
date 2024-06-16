@@ -8,7 +8,7 @@ $email = $obj['email'];
 $datos = array();
 $idUsuario = getUserID($email);
 if( $idUsuario != "" ){
-    $consulta = selectsql("SELECT * FROM aula WHERE idAula IN (SELECT idAula FROM AULAUSUARIO WHERE idUsuario = ".$idUsuario.") AND idCreator = ".$idUsuario);
+    $consulta = selectsql("SELECT * FROM aula WHERE idAula IN (SELECT idAula FROM AULAUSUARIO WHERE idUsuario = ".$idUsuario.")");
     //select * from aviso where idAula IN (select idAula from aulausuario where idUsuario = 10)
     if($fi = $consulta->fetchAll(PDO::FETCH_ASSOC)){
         echo json_encode($fi);

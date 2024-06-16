@@ -53,6 +53,9 @@ export class MainAvisos{
                         <div id="fecha">
                             <!-- FECHA DEL EVENTO / ENTREGA DE LA TAREA -->
                         </div>
+                        <div id="fechaEntrega">
+                            <!-- FECHA A LA QUE FUE ENTREGADA -->
+                        </div>
                         <div id="botonEntrega">
                             <!-- BOTON DE ENTREGA (SOLO MOSTRAR SI ES TAREA) -->
                             <form enctype="multipart/form-data" method="post" id="formTarea">

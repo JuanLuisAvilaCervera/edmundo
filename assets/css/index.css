@@ -6,6 +6,8 @@
 @import url(avisos.css);
 @import url(perfil.css);
 @import url(mainHome.css);
+@import url(footer.css);
+@import url(login.css);
 
 :root{
     --main-blue: #0064D0;
@@ -72,10 +74,10 @@
     flex-direction: column;
     overflow-x:hidden;
     overflow-y:hidden;
+    align-items: center;
+    justify-content: center;
+    background-size:100vw;
 }
-
-
-
 
 @media  (max-width: 1200px) {
     .body{
@@ -85,32 +87,10 @@
     .main{
         overflow-y: auto;
     }
-
-    .post-section{
-        overflow-y: auto;
-    }
-}
-
-/* CALENDAR SECTION */
-
-.calendar-section{
     
-    height: 100%;
 }
 
-/* FOOTER */
-.footer{
-    background-color: var(--main-blue);
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-.footer-secondary{
-    background-color: #eee;
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
+
+
+
 

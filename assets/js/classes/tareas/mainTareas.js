@@ -18,6 +18,7 @@ export class Tareas{
                 <div class="col-6 d-flex flex-row align-items-center">
                     <button id="volverAvisos" class="volverAvisos btn btn-secondary">Volver</button>
                     <h3 id="titulo"></h3>
+                    <button id="verNotas" class="btn btn-danger">Ver Notas</button>
                     <button id="buttonEditar" class="btn btn-secondary p-1 d-flex align-items-center"><ion-icon name="cog-outline"></ion-icon></button>
                 </div>
             </div>
