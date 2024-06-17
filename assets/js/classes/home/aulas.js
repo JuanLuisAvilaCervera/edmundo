@@ -56,7 +56,7 @@ export class Aulas{
                         </div>
                         <div class="row">
                             <div class="col-12"><p class="currentCodAula">Código de Aula: [CODAULA]</p></div>
-                            
+                            <button id="copy">[]]</button>
                         </div>
                     </div>`;
 
@@ -178,6 +178,30 @@ export class Aulas{
                     $(".aula-inactive").on("click", function(event){
                         thisClass.updateCurrentClass($(this).attr("id"));
                     })
+                    $("#copy").on("click", (e) => {
+                        if(e && e.stopPropagation) e.stopPropagation();
+                        // navigator.clipboard.writeText(localStorage.getItem("lastCodAula"));
+
+                        const textArea = document.createElement("textarea");
+                        textArea.value = localStorage.getItem("lastCodAula");
+                            
+                        // Move textarea out of the viewport so it's not visible
+                        textArea.style.position = "absolute";
+                        textArea.style.left = "-999999px";
+                            
+                        document.body.prepend(textArea);
+                        textArea.select();
+
+                        try {
+                            document.execCommand('copy');
+                        } catch (error) {
+                            console.error(error);
+                        } finally {
+                            textArea.remove();
+                        }
+                        
+                        alert("Código de aula copiado a portapapeles");
+                    });
                 }
 
             }

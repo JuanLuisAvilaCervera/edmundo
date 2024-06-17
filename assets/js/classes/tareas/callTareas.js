@@ -27,10 +27,7 @@ export class callTareas{
         })
 
         $("#modEvento").on('click', ()  =>{
-             var titulo = document.getElementById('inputtitulo').value
             var fecha = document.getElementById('inputdatepicker').value;
-            var hora = document.getElementById('inputhourpicker').value;
-            var codAula = localStorage.getItem('lastCodAula');
 
             if( fecha == "" || this.comprobar_fecha(fecha)){
                 $("#modificarModal").modal("show");
@@ -72,7 +69,7 @@ export class callTareas{
         var anno = fecha.substring(6,10);
 
         var chosendate = new Date(mes + "-"+ dia + "-" + anno);
-
+        //ERROR: COMPROBAR QUE ES POSTERIOR
         if(chosendate == "Invalid Date"){
             return false;
         }else{
@@ -116,6 +113,7 @@ export class callTareas{
                         document.getElementById('isTarea').innerHTML = "Tarea a entregar";
                     }else{
                         $("#tarea-list").hide();
+                        $("#verNotas").hide();
                     }
                 }
             }
@@ -366,7 +364,16 @@ export class callTareas{
         var f = document.createElement("form");
         f.setAttribute('method',"post");
         f.setAttribute('action',"http://www.edmundo.com/edmundo/assets/php/tareas/pdf.php");
+
+        var idAviso = document.createElement("input");
+        idAviso.setAttribute('type', 'text');
+        idAviso.setAttribute('value', localStorage.getItem("tarea"));
+        idAviso.setAttribute('name', 'idAviso');
+
+        f.appendChild(idAviso);
         $(document.body).append(f);
         f.submit();
+
+        
     }
 }
