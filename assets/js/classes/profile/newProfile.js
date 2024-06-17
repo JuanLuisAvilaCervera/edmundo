@@ -1,6 +1,6 @@
 import { mainProfile } from "./mainprofile.js";
 import { Footer } from "../mainstructure/footer.js";
-import { Header } from "../mainstructure/header.js";
+import { HeaderSecondary } from "../mainstructure/header-secondary.js";
 
 
 export class newProfile{
@@ -13,7 +13,7 @@ export class newProfile{
 
         $("#body").addClass('body-login');
 
-        var header = new Header();
+        var header = new HeaderSecondary();
         var main = new mainProfile();
         var footer = new Footer();
     }

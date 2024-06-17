@@ -11,7 +11,7 @@ if(isset($_POST['ajax'])){
         $idUsuario = getUserId($email);
 
         $zonaHoraria = new DateTimeZone("Europe/Madrid");
-        $fecha = date("Y/m/d h:i:00");
+        $fecha = date("Y/m/d H:i:00");
 
         if(isset($_FILES['fileToUpload'])){
             move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);

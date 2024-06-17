@@ -1,4 +1,12 @@
 
+
+/* CLASS SECTION */
+
+.class-section{
+    
+    height: 100%;
+}
+
 .aula-list{
     border-radius: 10px;
     -webkit-box-shadow: 10px 10px 36px -1px rgba(0,0,0,0.1);

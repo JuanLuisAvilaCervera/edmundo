@@ -15,6 +15,9 @@ export class callTareas{
         $("#buttonEditar").on("click", function(){
             $("#editarAviso").modal("show");
         })
+        $("#verNotas").on("click", function(){
+            thisClass.notasPDF();
+        })
 
         $(function(){
             $('#inputdatepicker').datepicker({dateFormat: "dd-mm-yy"});
@@ -24,10 +27,7 @@ export class callTareas{
         })
 
         $("#modEvento").on('click', ()  =>{
-             var titulo = document.getElementById('inputtitulo').value
             var fecha = document.getElementById('inputdatepicker').value;
-            var hora = document.getElementById('inputhourpicker').value;
-            var codAula = localStorage.getItem('lastCodAula');
 
             if( fecha == "" || this.comprobar_fecha(fecha)){
                 $("#modificarModal").modal("show");
@@ -69,7 +69,7 @@ export class callTareas{
         var anno = fecha.substring(6,10);
 
         var chosendate = new Date(mes + "-"+ dia + "-" + anno);
-
+        //ERROR: COMPROBAR QUE ES POSTERIOR
         if(chosendate == "Invalid Date"){
             return false;
         }else{
@@ -113,6 +113,7 @@ export class callTareas{
                         document.getElementById('isTarea').innerHTML = "Tarea a entregar";
                     }else{
                         $("#tarea-list").hide();
+                        $("#verNotas").hide();
                     }
                 }
             }
@@ -238,6 +239,7 @@ export class callTareas{
 
     BBDDcallPuntuacion(puntuacion){
         var xmlhttp = new XMLHttpRequest();
+        var thisClass = this;
         xmlhttp.onreadystatechange=function() {
             if(this.readyState==4 && this.status==200) {
                 var datos = JSON.parse(this.responseText);
@@ -253,6 +255,10 @@ export class callTareas{
                             points = "Sin calificar";
                         }
                         $("#puntuacion").text(points);
+                    //REFRESCAR POR ATRAS
+                    thisClass.BBDDcallAviso();
+                    thisClass.BBDDcallTareas();
+                    thisClass.BBDDcallSinentregar();
                 }
             }
         }
@@ -352,5 +358,22 @@ export class callTareas{
         xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
         let cadena = this.crea_query_string_borrar();
         xmlhttp.send(cadena);
+    }
+
+    notasPDF(){
+        var f = document.createElement("form");
+        f.setAttribute('method',"post");
+        f.setAttribute('action',"http://www.edmundo.com/edmundo/assets/php/tareas/pdf.php");
+
+        var idAviso = document.createElement("input");
+        idAviso.setAttribute('type', 'text');
+        idAviso.setAttribute('value', localStorage.getItem("tarea"));
+        idAviso.setAttribute('name', 'idAviso');
+
+        f.appendChild(idAviso);
+        $(document.body).append(f);
+        f.submit();
+
+        
     }
 }

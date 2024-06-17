@@ -1,5 +1,7 @@
 import { enviarRuta } from "../../router.js";
 import { enviarArchivos } from "../../archivos.js";
+import { YMDtoDMY } from "../../fechas.js";
+import { DMYtoYMD } from "../../fechas.js";
 
 export class callAvisos{
     constructor(){
@@ -166,9 +168,11 @@ export class callAvisos{
                         var aviso = $('.aviso[id*="'+ tareaId +'-"]');
                         var puntuacion = tarea['puntuacion'];
                         let fechaTemp = aviso.find(".fecha").text();
-                        fechaTemp = fechaTemp.substr(7,4)+"-"+fechaTemp.substr(4,2)+"-"+fechaTemp.substr(1,2) + " "+ fechaTemp.substr(12,5);
+                        fechaTemp = DMYtoYMD(fechaTemp);
                         aviso.find(".tareaFile").text(file);
                         aviso.find(".idTareaEntregada").text(tareaEntregada);
+
+                        var fechaEntregaDMY = YMDtoDMY(fechaEntrega);
 
                         if(puntuacion != "" && puntuacion != undefined && puntuacion != null && puntuacion != 0 && puntuacion != "0"){
                             puntuacion = puntuacion + "/100";
@@ -176,14 +180,17 @@ export class callAvisos{
                             puntuacion = "Sin calificar";
                         }
                         aviso.find(".puntuacion").text(puntuacion);
-
-                        if((new Date(fechaTemp) - new Date(fechaEntrega.substr(0,10))) > 0){
-                            aviso.find(".entregada").text("Entregada "+ fechaEntrega.substr(0,16));
+                        if((new Date(fechaTemp) - new Date(fechaTemp.substr(0,10))) > 0){
+                            aviso.find(".entregada").text("Entregada ");
+                            aviso.find(".fechaEntrega").text(fechaEntregaDMY.substr(0,16));
                             aviso.find(".entregada").css("color", "green");
+                            aviso.find(".fechaEntrega").css("color", "green");
                             aviso.find(".entregada").addClass("true");
                         }else{
-                            aviso.find(".entregada").text("Entregada con atraso "+ fechaEntrega.substr(0,16));
+                            aviso.find(".entregada").text("Entregada con atraso "+ fechaEntregaDMY.substr(0,16));
+                            aviso.find(".fechaEntrega").text(fechaEntregaDMY.substr(0,16));
                             aviso.find(".entregada").css("color", "red");
+                            aviso.find(".fechaEntrega").css("color", "red");
                             aviso.find(".entregada").addClass("true");
                         }
 
@@ -208,7 +215,7 @@ export class callAvisos{
         `<div class="aviso form-control" id="[ID]-[IDAULA]" style="display:[DISPLAY];">
             <span class="titulo">[TITULO]</span><span class="fecha [DIA]"> [FECHA]</span> <span class='[SPANCLASS] '>[SPANTEXTO]</span>
             <div class="tarea istarea-[ISTAREA] isatrasada-[ISATRASADA]" style="display:[DISPLAYTAREA];">
-                <span class='entregada'>[ENTREGADA]</span>
+                <span class='entregada'>[ENTREGADA]</span><span class='fechaEntrega'>[FECHAENTREGA]</span>
             </div>
             <span class="texto" style="display:none;">[TEXTO]</span>
             <span class="tareaFile" style="display:none;"></span>
@@ -234,7 +241,7 @@ export class callAvisos{
                         var newAviso = avisoHTML;
 
                         var fechaYMD = aviso['fecha'].substr(0,16);
-                        var fechaDMY = fechaYMD.substr(8,2)+"-"+fechaYMD.substr(5,2)+"-"+fechaYMD.substr(0,4)+ " "+fechaYMD.substr(11);
+                        var fechaDMY = YMDtoDMY(fechaYMD);
 
                         var isTarea = aviso['tarea'];
                         var atrasada = aviso['atrasada'];
@@ -277,8 +284,10 @@ export class callAvisos{
                             }
                             if(localStorage.getItem("rol") == "2"){
                                 newAviso = newAviso.replace('[ENTREGADA]', "<span style='color:red'>Sin Entregar</span>");
+                                newAviso = newAviso.replace('[FECHAENTREGA]', "");
                             }else{
                                 newAviso = newAviso.replace('[ENTREGADA]', "");
+                                newAviso = newAviso.replace('[FECHAENTREGA]', "");
                             }
                             
                         }else{
@@ -311,7 +320,7 @@ export class callAvisos{
                             var fecha = $(this).find(".fecha").html();
                             var entregada = $(this).find(".true");
                             //AVERIGUAR QUE TIPO ES
-                            var fechafinal = fecha.substr(7,4)+"/"+fecha.substr(4,2)+"/"+fecha.substr(1,2)+" "+fecha.substr(11)+":00";
+                            var fechafinal = DMYtoYMD(fecha)+":00";
                             $('#avisoModal').find(".puntuacion").text("Sin Calificar");
                             $('#avisoModal').find("#noEntrega").text("");
                             if($(this).find(".tarea").hasClass("istarea-true")){
@@ -320,8 +329,10 @@ export class callAvisos{
 
                                         var filename = $(this).find(".tareaFile").text();
                                         var puntuacion = $(this).find(".puntuacion").text();
+                                        var fechaEntrega = $(this).find(".fechaEntrega").text();
                                         var idTareaEntregada = $(this).find(".idTareaEntregada").text();
                                         $('#avisoModal').find("#puntuacion").text("Puntuación:" +puntuacion);
+                                        $('#avisoModal').find("#fechaEntrega").text("Fecha de entrega: "+fechaEntrega);
                                         //NO MOSTRAR BOTÓN DE ENTREGAR
                                         $('#avisoModal').find("#botonEntrega").hide();
                                         //ENSEÑAR NOMBRE DEL ARCHIVO ENTREGADO
@@ -366,7 +377,8 @@ export class callAvisos{
                             }
                             $('#avisoModal').find("#avisoModalLabel").text(titulo);
                             $('#avisoModal').find("#texto").text(texto);
-                            $('#avisoModal').find("#fecha").text(fecha);
+                            $('#avisoModal').find("#fecha").text("Fecha límite: " +fecha);
+                            
                             $('#avisoModal').modal('show');
                         }
                     })
