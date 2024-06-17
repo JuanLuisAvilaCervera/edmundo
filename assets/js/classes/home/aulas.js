@@ -41,11 +41,15 @@ export class Aulas{
                         <div class="row">
                             <div class="class-image col-4">[IMGAULA]</div>
                             <div class="class-info col-8">
-                                <div class="d-flex flex-row alignt-items-center" style="height: 30px;">
-                                    <h5 class="aula-name m-0" style="height: 20px;">[AULA-NAME]</h5>
-                                    <button id="confAula" class="btn btn-secondary p-1 d-flex align-items-center align-self-end" style="height: 30px; width:30px;">
-                                        <ion-icon name="cog-outline"></ion-icon>
-                                    </button>
+                                <div class="row alignt-items-center" style="height: 30px;">
+                                    <div class="col-10 pl-2"><h5 class="aula-name m-0" style="height: 20px;">[AULA-NAME]</h5></div>
+                                    <div class="col-2 p-0 d-flex justify-content-start">
+                                        <button id="confAula" class="btn btn-secondary p-1 d-flex align-items-center align-self-end" style="height: 30px; width:30px;">
+                                            <ion-icon name="cog-outline"></ion-icon>
+                                        </button>
+                                    </div>
+                                    
+                                    
                                 </div>
                                 <div class="row"  style="max-height: 50px;">
                                     <span class="aula-profesor m-0"  style="height: 20px;">Docente: <br> [AULA-PROFESOR]</span>

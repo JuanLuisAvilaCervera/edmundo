@@ -5,19 +5,22 @@ import { Aulas } from "./aulas.js";
 
 export class MainHome{
     mainHTML = `<!-- MAIN -->
-        <div class="row w-100">
+        <div class="row w-100 main-row">
                 
             <!-- POSTS -->
             <div class="post-section col-xl-8 "); background-size:cover">
                 
                 <h1>Blog</h1>
-                <div id="write-post-section" class="write-post-section">
-                    <textarea name="" id="text-post" class="text-post form-control" placeholder="Haz un comentario a tu clase..."></textarea>
-                    <div id="the-count">
-                        <span id="current">0</span>
-                        <span id="maximum">/ 300</span>
-                    </div>
-                    <button name="send" id="send-post" class="btn btn-primary">Enviar</button>
+                <div id="write-post-section" class="write-post-section d-flex flex-row">
+                    <textarea name="" id="text-post" class="text-post form-control" 
+                    style="border-radius: 5px 0px 0px 5px" placeholder="Haz un comentario a tu clase..."></textarea>
+                    
+                    <button name="send" id="send-post" class="btn btn-secondary d-flex justify-content-center align-items-center" 
+                    style="border-radius: 0px 5px 5px 0px"><ion-icon name="send-outline"></ion-icon></button>
+                </div>
+                <div id="the-count">
+                    <span id="current">0</span>
+                    <span id="maximum">/ 300</span>
                 </div>
                 <div id="post-list" class="post-list container">
                     <!-- LISTA DE POSTS-->

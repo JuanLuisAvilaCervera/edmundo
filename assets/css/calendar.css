@@ -118,11 +118,15 @@ header .calendar-current-date {
 }
  
 .calendar-dates li.active::before {
-    background: #6332c5;
+    background: #f3d705;
 }
 
 .calendar-dates li.fechaAviso.active::before{
     border: solid 3px #ff0000;
+    background: #f3d705;
+}
+.calendar-dates li.fechaAviso.active:hover::before{
+    background: #c4ae09;
 }
 
 .calendar-dates li:not(.active):hover::before {

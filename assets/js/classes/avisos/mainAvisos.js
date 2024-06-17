@@ -5,7 +5,7 @@ import { Calendar } from "../home/calendar.js";
 
 export class MainAvisos{
     mainHTML = `<!-- MAIN -->
-        <div class="row">
+        <div class="row main-row">
             
             <!-- AVISOS -->
             <div class="avisos-section col-xl-8">

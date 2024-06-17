@@ -20,10 +20,15 @@
     display: none;
 } */
 
-.main .row{
+.main-row{
     height: 100%;
-    background-color: #fff;
+    /* background-color: #fff; */
     margin:0px;
+    padding: 15px;
+}
+
+.main-row .div{
+    background-color: #fff;
 }
 
 .main *{

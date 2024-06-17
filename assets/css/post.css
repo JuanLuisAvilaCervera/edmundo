@@ -4,9 +4,6 @@
     padding: 0px;
     margin: 0;
     
-    
-    border-left: var(--thin-border);
-    border-right: var(--thin-border);
 }
 
 .post-selection{
@@ -36,6 +33,7 @@
     margin: var(--left-right-margin);
     margin-right: 0px;
     overflow-y: scroll !important;
+    padding: 0px;
 }
 
 .post-list::-webkit-scrollbar {
@@ -67,7 +65,11 @@
 }
 
 #the-count {
+    position: relative;
+    right: 35px;
+    top: -30px;
     float: right;
+    width: 100px;
     padding: 0.1rem 0 0 0;
     font-size: 0.875rem;
   }

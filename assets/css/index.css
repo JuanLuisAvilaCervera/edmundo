@@ -48,8 +48,8 @@
 
 .btn-secondary{
     --bs-btn-color: #000;
-    --bs-btn-bg: rgba(0,0,0,0);
-    --bs-btn-border-color: rgba(0,0,0,0);
+    --bs-btn-bg: #ddd;
+    --bs-btn-border-color: #ccc;
     --bs-btn-hover-color: #000;
     --bs-btn-hover-bg: #ccc;
     --bs-btn-hover-border-color: #ccc;
