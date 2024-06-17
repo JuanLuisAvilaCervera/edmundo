@@ -1,7 +1,6 @@
 .post-section{
     position: relative;
     height: 100%;
-    overflow-y:scroll;
     padding: 0px;
     margin: 0;
     
@@ -9,19 +8,6 @@
     border-left: var(--thin-border);
     border-right: var(--thin-border);
 }
-
-/* POST SECTION */
-.post-section{
-    overflow:hidden;
-    /* Hide scrollbar for IE, Edge and Firefox */
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-/* Hide scrollbar for Chrome, Safari and Opera */
-.post-section::-webkit-scrollbar {
-    display: none;
-}
-
 
 .post-selection{
     padding:0;
@@ -45,18 +31,34 @@
 }
 
 .post-list{
+    width: 99%;
+    height: 65%;
     margin: var(--left-right-margin);
-}
-
-.post-list{
-    overflow-y:auto;
-    /* Hide scrollbar for IE, Edge and Firefox */
-    scrollbar-width: 5px;  /* Firefox */
+    margin-right: 0px;
+    overflow-y: scroll !important;
 }
 
 .post-list::-webkit-scrollbar {
-    display: block;
-}
+    width: 5px;
+  }
+  
+  /* Track */
+  .post-list::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  .post-list::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  .post-list::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+
+
+
 
 .text-post{
     width: 100%;

@@ -30,7 +30,7 @@ body {
 .calendar-container header {
     display: flex;
     align-items: center;
-    padding: 10px 30px 5px;
+    padding: 0px 30px 0px;
     justify-content: space-between;
 }
  
@@ -48,7 +48,7 @@ header .calendar-navigation span {
     border-radius: 50%;
     user-select: none;
     color: #aeabab;
-    font-size: 1.9rem;
+    font-size: 1.85rem;
 }
  
 .calendar-navigation span:last-child {

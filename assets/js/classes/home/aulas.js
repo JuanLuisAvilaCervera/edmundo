@@ -37,26 +37,24 @@ export class Aulas{
                         [LISTA-AULAS]
                     </div>`;
                     var currentAulaHTML =
-                    `<div class="aula-active" id="[CODAULA]">
+                    `<div class="aula-active container" id="[CODAULA]">
                         <div class="row">
                             <div class="class-image col-4">[IMGAULA]</div>
                             <div class="class-info col-8">
-                                <div class="row d-flex justify-content-end" style="height: 30px;">
-                                    <button id="confAula" class="btn btn-secondary p-1 d-flex align-items-center" style="height: 30px; width:30px;">
+                                <div class="d-flex flex-row alignt-items-center" style="height: 30px;">
+                                    <h5 class="aula-name m-0" style="height: 20px;">[AULA-NAME]</h5>
+                                    <button id="confAula" class="btn btn-secondary p-1 d-flex align-items-center align-self-end" style="height: 30px; width:30px;">
                                         <ion-icon name="cog-outline"></ion-icon>
                                     </button>
                                 </div>
-                                <div class="row"  style="max-height: 70px;">
-                                    <span class="aula-name m-0" style="height: 20px;">[AULA-NAME]</span>
-                                    <span class="aula-profesor m-0"  style="height: 20px;">[AULA-PROFESOR]</span>
-                                    <span class="rolAula m-0"  style="height: 20px;">[ROLAULA]</span>
+                                <div class="row"  style="max-height: 50px;">
+                                    <span class="aula-profesor m-0"  style="height: 20px;">Docente: <br> [AULA-PROFESOR]</span>
                                 </div>
                                 
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12"><p class="currentCodAula">Código de Aula: [CODAULA]</p></div>
-                            <button id="copy">[]]</button>
+                            <div class="col-12 d-flex align-items-center"><span class="currentCodAula">Código de Aula: [CODAULA]</span><button id="copy" class="btn btn-secondary"><ion-icon name="copy-outline"></ion-icon></button></div>
                         </div>
                     </div>`;
 
@@ -95,17 +93,17 @@ export class Aulas{
                                 var currentAula = currentAulaHTML.replace('[AULA-NAME]',aula['nombre'])
                                                             .replace('[AULA-PROFESOR]', aula['creator'] + " " + aula['surCreator'])
                                                             .replaceAll('[CODAULA]', aula['codAula']);
-                                if(aula['idCreator'] == localStorage.getItem("idUsuario")){
-                                    currentAula = currentAula.replace('[ROLAULA]', "Docente")
-                                }else{
-                                    currentAula = currentAula.replace('[ROLAULA]', "Estudiante")
-                                }
+                                // if(aula['idCreator'] == localStorage.getItem("idUsuario")){
+                                //     currentAula = currentAula.replace('[ROLAULA]', "Docente")
+                                // }else{
+                                //     currentAula = currentAula.replace('[ROLAULA]', "Estudiante")
+                                // }
                                 
 
                                 var imgAula = aula ['imagenAula'];
 
                                 if(imgAula == "" || imgAula == null || imgAula == undefined){
-                                    currentAula = currentAula.replace('[IMGAULA]', `<img style="height: 75px; width: 75px;" src='http://www.edmundo.com/edmundo/assets/files/aulas/edmundo.png'/>`);
+                                    currentAula = currentAula.replace('[IMGAULA]', `<img style="height: 75px; width: 75px;" src='http://www.edmundo.com/edmundo/assets/files/aulas/aulapfp.png'/>`);
                                 }else{
                                     currentAula = currentAula.replace('[IMGAULA]', `<img style="height: 75px; width: 75px;" src='http://www.edmundo.com/edmundo/assets/files/aulas/`+imgAula+`'/>`);
                                 }

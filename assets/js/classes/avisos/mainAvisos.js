@@ -10,8 +10,6 @@ export class MainAvisos{
             <!-- AVISOS -->
             <div class="avisos-section col-xl-8">
 
-                
-
                 <h1>Eventos</h1>
                 <div class="aviso-selection">
                     <div class="aviso-selection-options row">
@@ -32,7 +30,13 @@ export class MainAvisos{
                 </div>
             </div>
                 <!-- CALENDARIO -->
-            <div class="calendar-section col-xl-4" id="calendar-section"></div>
+            <div class="col-xl-4">
+                <div id="mainAula-section" class="aula-section w-100">
+
+                </div>
+                <div class="calendar-section " id="calendar-section"></div>
+            
+            </div>
         </div>
         
         <!-- Modal -->
