@@ -14,9 +14,9 @@ export class Home{
             
 
         if(classCode != "" && classCode != undefined && classCode != null){
-            body.innerHTML = `<div class="header" id="header"></div>
-                <div class="main" id="main"></div>
-                <div class="footer" id="footer"></div>`;
+            body.innerHTML = `<div class="header-secondary" id="header"></div>
+                <div class="main body-login" id="main"></div>
+                <div class="footer-secondary" id="footer"></div>`;
             var header = new Header();
             var main = new MainHome();
             var footer = new Footer();

@@ -6,12 +6,11 @@ import { Calendar } from "../home/calendar.js";
 export class MainAvisos{
     mainHTML = `<!-- MAIN -->
         <div class="row">
-            <!-- CLASES -->
-            <div id="aula-section" class="aula-section col-xl-3">
-
-            </div>
+            
             <!-- AVISOS -->
-            <div class="avisos-section col-xl-5">
+            <div class="avisos-section col-xl-8">
+
+                
 
                 <h1>Eventos</h1>
                 <div class="aviso-selection">

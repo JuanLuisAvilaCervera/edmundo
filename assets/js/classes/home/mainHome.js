@@ -6,12 +6,11 @@ import { Aulas } from "./aulas.js";
 export class MainHome{
     mainHTML = `<!-- MAIN -->
         <div class="row w-100">
-            <!-- CLASES -->
-            <div id="aula-section" class="aula-section col-xl-3">
-
-            </div>
+                
             <!-- POSTS -->
-            <div class="post-section col-xl-5 "); background-size:cover">
+            <div class="post-section col-xl-8 "); background-size:cover">
+                
+
                 <div id="write-post-section" class="write-post-section">
                     <textarea name="" id="text-post" class="text-post form-control" placeholder="Haz un comentario a tu clase..."></textarea>
                     <div id="the-count">
@@ -25,7 +24,14 @@ export class MainHome{
                 </div>
             </div>
             <!-- CALENDARIO -->
-            <div class="calendar-section col-xl-4" id="calendar-section"></div>
+            <div class="col-xl-4">
+                <div id="mainAula-section" class="aula-section w-100">
+
+                </div>
+                <div class="calendar-section " id="calendar-section"></div>
+            
+            </div>
+            
         </div>`;
     
     constructor(){

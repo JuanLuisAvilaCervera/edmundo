@@ -109,7 +109,8 @@ export class Aulas{
                                 }else{
                                     currentAula = currentAula.replace('[IMGAULA]', `<img style="height: 75px; width: 75px;" src='http://www.edmundo.com/edmundo/assets/files/aulas/`+imgAula+`'/>`);
                                 }
-                                aulaSectionHTML += aulaListHTML.replace('[LISTA-AULAS]', currentAula);
+                                var mainAula = document.getElementById('mainAula-section')
+                                mainAula.innerHTML = aulaListHTML.replace('[LISTA-AULAS]', currentAula);
                             }else{
                                 //OTRAS AULAS
                                 aulaList.push(aulaHTML.replaceAll('[ID]', aula['codAula'])
