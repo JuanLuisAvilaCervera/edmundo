@@ -8,7 +8,7 @@ export class MainHome{
         <div class="row w-100 main-row">
                 
             <!-- POSTS -->
-            <div class="post-section col-xl-8 "); background-size:cover">
+            <div class="post-section col-xl-8 "style=" background-size:cover">
                 
                 <h1>Blog</h1>
                 <div id="write-post-section" class="write-post-section d-flex flex-row">
@@ -30,7 +30,7 @@ export class MainHome{
             <div class="col-xl-4">
                 <h3>Mi Aula</h3>
                 <div id="mainAula-section" class="aula-section w-100"></div>
-                <h3>Tareas y Eventos</h3>
+                <h3>Calendario de Eventos</h3>
                 <div class="calendar-section " id="calendar-section"></div>
             
             </div>

@@ -243,7 +243,7 @@ export class mainProfile{
                         <span id="nombre">[NOMBRE]</span>
                     </div>`;
                     datos.forEach(aula => {
-                        aulaListHTML += aulaHTML.replace('[NOMBRE]', aula['nombre'] + " Código de aula:" + aula['codAula']);
+                        aulaListHTML += aulaHTML.replace('[NOMBRE]', aula['nombre'] + " Código: " + aula['codAula']);
                     });
 
                     thisClass.mainHTML = thisClass.mainHTML.replace('[LISTA-AULAS]', aulaListHTML);   

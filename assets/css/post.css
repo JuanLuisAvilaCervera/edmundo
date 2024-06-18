@@ -29,11 +29,12 @@
 
 .post-list{
     width: 99%;
-    height: 65%;
+    height: 69%;
     margin: var(--left-right-margin);
     margin-right: 0px;
     overflow-y: scroll !important;
     padding: 0px;
+    border-radius: 5px;
 }
 
 .post-list::-webkit-scrollbar {
@@ -66,7 +67,7 @@
 
 #the-count {
     position: relative;
-    right: 35px;
+    right: 5px;
     top: -30px;
     float: right;
     width: 100px;

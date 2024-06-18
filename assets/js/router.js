@@ -9,6 +9,7 @@ import { HomeAvisos } from "./classes/avisos/homeavisos.js";
 import { HomeTareas } from "./classes/tareas/homeTareas.js";
 import { newProfile } from "./classes/profile/newProfile.js";
 import { HomeAula } from "./classes/aulas/homeAula.js";
+import { HomeMisAulas } from "./classes/misAulas/homeMisAulas.js";
 
 var indexHTML = "";
 var body = document.getElementById('body');
@@ -115,6 +116,11 @@ export function enviarRuta(ruta) {
                     enviarRuta('/avisos');
                 }
                 break;
+            case "/misAulas":
+                if(window.location.href !=  "http://www.edmundo.com/edmundo/html/aulas.html"){
+                    window.location.href = "http://www.edmundo.com/edmundo/html/aulas.html";
+                }
+                let misAulas = new HomeMisAulas();
             default:
                 //PAGINA DE ERROR
                 break;

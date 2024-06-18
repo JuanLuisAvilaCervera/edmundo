@@ -112,9 +112,10 @@ export class Post {
         `<div class="post" id="[ID]">
         <div class="main-post">
             <div class="form-control text-post" disabled>
-                <span class="nombre">[NOMBRE]</span>
-                <span class="contenido">[CONTENIDO]</span>
-                <span class="fecha">[FECHA]</span>
+                <div><blockquote class="contenido">&emsp;[CONTENIDO]</blockquote></div>
+                
+                <small class="nombre">[NOMBRE]</small>
+                <small class="fecha">[FECHA]</small>
             </div>
         </div>
     </div>`;

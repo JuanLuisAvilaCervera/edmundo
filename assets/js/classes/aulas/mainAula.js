@@ -6,22 +6,24 @@ export class mainAula{
     mainHTML = `<div class="comp-register box text-center" id="comp-register">
         <div id="principal">
             <div class="row">
-            <div class="col"><button id="volverHome" class="btn btn-secondary">Volver</button></div>
+                <div class="col"><button id="volverHome" class="btn btn-secondary">Volver</button></div>
+                <div class="container-perfil col" style="height: 100px; width:100px; border: solid 1px black">
+                        <img class="image" id="chooseImg"  src="http://www.edmundo.com/edmundo/assets/files/aulas/[PERFIL]">
+                        <div class="overlay  p-0 m-0">
+                            <div class="text"><a class="d-flex align-items-center" style="color:black;text-decoration:none" href="http://www.edmundo.com/edmundo/assets/files/aulas/[PERFIL]" download><ion-icon name="arrow-down-outline" style="height:75px;width:75px"></ion-icon></a></div>
+                        </div>
+                    </div>
                 <div class="col text-end p-1"><h3>[NOMBRE]</h3></div>
                 <div class="col p-1">
                     <button id="buttonEditar" class="btn btn-secondary p-1">
                         <ion-icon name="cog-outline"></ion-icon>
                     </button>
                 </div>
+                
             </div>
             <div class="row">
                 <div class="col-4">
-                    <div class="container-perfil" style="height: 100px; width:100px; border: solid 1px black">
-                        <img class="image" id="chooseImg"  src="http://www.edmundo.com/edmundo/assets/files/aulas/[PERFIL]">
-                        <div class="overlay  p-0 m-0">
-                            <div class="text"><a class="d-flex align-items-center" style="color:black;text-decoration:none" href="http://www.edmundo.com/edmundo/assets/files/aulas/[PERFIL]" download><ion-icon name="arrow-down-outline" style="height:75px;width:75px"></ion-icon></a></div>
-                        </div>
-                    </div>
+                    
                 </div>
                 <div class="col-8">
                     <div class="container">
